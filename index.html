@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valerii | Cinematic AI Solutions & Systems Architect</title>
+    <meta name="description" content="Immersive Scrollytelling Portfolio of Valerii - AI Solutions Engineer & Systems Architect.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Outfit:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkSpace: '#06030E',
+                        darkCard: 'rgba(15, 8, 30, 0.85)',
+                        brandPrimary: '#818cf8',
+                        brandAccent: '#34d399',
+                        brandPurple: '#a855f7',
+                        glassBorder: 'rgba(255, 255, 255, 0.12)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-darkSpace text-slate-200 font-sans antialiased selection:bg-brandPurple selection:text-white relative overflow-x-hidden cursor-none">
+
+    <!-- RICARDO CHANCE STYLE NOISE OVERLAY -->
+    <div class="fixed inset-0 z-[150] pointer-events-none opacity-20 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); background-repeat: repeat;"></div>
+
+    <!-- PRELOADER ENTRANCE OVERLAY (Split Curtains & Pulsing Text Assembly Sequence) -->
+    <div id="intro-loader" class="fixed inset-0 z-[200] pointer-events-none flex items-center justify-center overflow-hidden">
+        <!-- Left Split Curtain -->
+        <div id="curtain-left" class="absolute top-0 left-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
+        <!-- Right Split Curtain -->
+        <div id="curtain-right" class="absolute top-0 right-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
+
+        <!-- Centered Intro Glowing Text -->
+        <div id="intro-text-box" class="relative z-10 text-center px-4 transition-all duration-700">
+            <p class="font-serif italic text-2xl sm:text-4xl text-purple-200 tracking-wide animate-pulse" data-i18n="intro.text">
+                Where intelligence meets code.
+            </p>
+        </div>
+    </div>
+
+    <!-- Custom 3-State Crosshair Target Reticle Cursor -->
+    <div id="crosshair-cursor" class="fixed pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 hidden md:block">
+        <div id="cursor-cross" class="relative w-8 h-8 flex items-center justify-center transition-transform duration-150">
+            <div id="tick-top" class="cursor-tick absolute w-[2px] h-[8px] bg-slate-100 rounded-sm transform -translate-y-[6px] transition-all duration-150"></div>
+            <div id="tick-bottom" class="cursor-tick absolute w-[2px] h-[8px] bg-slate-100 rounded-sm transform translate-y-[6px] transition-all duration-150"></div>
+            <div id="tick-left" class="cursor-tick absolute w-[8px] h-[2px] bg-slate-100 rounded-sm transform -translate-x-[6px] transition-all duration-150"></div>
+            <div id="tick-right" class="cursor-tick absolute w-[8px] h-[2px] bg-slate-100 rounded-sm transform translate-x-[6px] transition-all duration-150"></div>
+        </div>
+    </div>
+
+    <!-- BEAMS BACKGROUND CANVAS -->
+    <canvas id="beams-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-70" style="filter: blur(25px);"></canvas>
+
+    <!-- Background 3D Micro-Dust Canvas -->
+    <canvas id="starfield" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+
+    <!-- FLOATING MACOS STYLE NAVIGATION DOCK -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+        <div id="macos-dock" class="backdrop-blur-2xl bg-[#090518]/85 border border-white/15 rounded-3xl px-3.5 sm:px-4 py-2.5 flex items-center gap-2.5 sm:gap-4 shadow-2xl shadow-black/90">
+            
+            <!-- DOCK ITEM 1: ГЛАВНАЯ (CUBE) -->
+            <a href="#hero-sky" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPurple transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-cube text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
+                <span class="dock-tooltip">Главная</span>
+            </a>
+
+            <!-- DOCK ITEM 2: МОИ ПРОЕКТЫ -->
+            <a href="#orbit-showcase" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPrimary transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-planet text-2xl text-indigo-300 group-hover:text-white transition-colors"></i>
+                <span class="dock-tooltip">Мои проекты</span>
+            </a>
+
+            <!-- DOCK ITEM 3: AI BOT DEMO -->
+            <a href="#bot-simulation" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandPurple hover:bg-brandPurple hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-robot text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
+                <span class="dock-tooltip" data-i18n="dock.bot">AI Bot Demo</span>
+            </a>
+
+            <!-- DOCK ITEM 4: CLI TERMINAL -->
+            <a href="#terminal-section" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandAccent hover:bg-brandAccent hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-terminal-window text-2xl text-emerald-400 group-hover:text-white transition-colors"></i>
+                <span class="dock-tooltip" data-i18n="dock.terminal">CLI Terminal</span>
+            </a>
+
+            <div class="w-px h-6 bg-white/20"></div>
+
+            <!-- DOCK ITEM 5: CV DOWNLOAD -->
+            <a href="resume_printable.html" target="_blank" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-slate-900 text-brandAccent hover:bg-slate-800 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-file-pdf text-2xl text-amber-400 group-hover:text-white transition-colors"></i>
+                <span class="dock-tooltip" data-i18n="dock.cv">Download CV</span>
+            </a>
+
+            <!-- DOCK ITEM 6: TELEGRAM CONTACT -->
+            <a href="https://t.me/Easyvaleriy" target="_blank" class="dock-item group relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-brandPurple to-brandPrimary text-white shadow-lg shadow-brandPurple/40 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <svg class="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
+                </svg>
+                <span class="dock-tooltip" data-i18n="dock.contact">Telegram @Easyvaleriy</span>
+            </a>
+
+            <div class="w-px h-6 bg-white/20"></div>
+
+            <!-- RU / EN LANGUAGE SWITCHER BUTTON -->
+            <button id="lang-toggle-btn" onclick="toggleLanguage()" class="dock-item group relative px-3 py-1.5 rounded-xl bg-purple-950/80 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white font-mono text-xs font-bold transition-all duration-200 transform hover:scale-110 hover:-translate-y-1">
+                <span id="lang-btn-text">RU / <span class="text-slate-400">EN</span></span>
+                <span class="dock-tooltip">Switch Language</span>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- HERO STORYLINE SECTION -->
+    <section id="hero-sky" class="relative min-h-[175vh] z-10">
+        
+        <!-- Pinned Sticky 3D Particle Canvas Frame -->
+        <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pointer-events-none">
+            <canvas id="particle-star-canvas" class="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
+        </div>
+
+        <!-- Scrolling Hero Text Elements -->
+        <div id="hero-content-wrapper" class="relative -mt-[100vh] z-20 pointer-events-auto">
+            
+            <!-- Reference Layout: Left Column (Headline shifted left & lower down) & Right Column (Subparagraph shifted further right) -->
+            <div class="w-full px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-screen py-8">
+                
+                <!-- Left Column (Role + Letter-by-letter Headline shifted lower down and further left) -->
+                <div class="lg:col-span-6 flex flex-col justify-between h-[84vh] pl-0">
+                    <div class="space-y-6 pt-16 lg:pt-28">
+                        <div id="hero-role" class="seq-hidden inline-flex items-center gap-2 text-purple-300 text-xs font-mono">
+                            <span class="w-2 h-2 rounded-full bg-brandPurple animate-pulse"></span>
+                            <span data-i18n="hero.role">AI Solutions Engineer & Architect</span>
+                        </div>
+
+                        <!-- Headline for Letter-by-letter animation -->
+                        <h1 id="hero-title" class="font-heading text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
+                            <span id="title-line-1" class="block">Engineering</span>
+                            <span id="title-line-2" class="font-serif italic font-normal text-slate-300 block">intelligent</span>
+                            <span id="title-line-3" class="bg-gradient-to-r from-brandPurple via-purple-400 to-indigo-300 bg-clip-text text-transparent block">systems</span>
+                        </h1>
+                    </div>
+
+                    <!-- Bottom Left Dynamic Glowing Buttons -->
+                    <div id="hero-buttons" class="seq-hidden flex flex-wrap items-center gap-4 pt-8 pb-4">
+                        <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta">
+                            <span data-i18n="hero.cta" class="flex items-center gap-2">
+                                <img src="https://cdn.simpleicons.org/telegram/ffffff" class="w-4 h-4 object-contain" alt="Telegram">
+                                Связаться в Telegram
+                            </span>
+                        </a>
+                        <a href="https://github.com/Valerador" target="_blank" class="shiny-cta">
+                            <span data-i18n="hero.github" class="flex items-center gap-2">
+                                <img src="https://cdn.simpleicons.org/github/ffffff" class="w-4 h-4 object-contain" alt="GitHub">
+                                GitHub @Valerador
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column (Bottom-Right Subparagraph shifted further right) -->
+                <div class="lg:col-span-6 flex flex-col justify-end h-[84vh] text-left pr-0 items-end">
+                    <p id="hero-desc" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-xs sm:max-w-sm mr-0 ml-auto pb-6 text-left" data-i18n="hero.desc">
+                        Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру в 3x быстрее.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- SCENE 2: ACETERNETY UI 3D CONTAINER SCROLL SHOWCASE -->
+    <section id="orbit-showcase" class="relative min-h-[460vh] -mt-[30vh] z-20">
+        
+        <!-- Pinned Sticky Container Scroll Frame with Top Title Clearance & Dock Clearance -->
+        <div class="sticky top-0 h-screen flex flex-col justify-start overflow-hidden pt-8 sm:pt-12 pb-16">
+            
+            <div class="w-full space-y-3 sm:space-y-4">
+                <!-- Section Header (Container Scroll Title Component) -->
+                <div id="container-scroll-header" class="text-center space-y-2 sm:space-y-3 transition-transform duration-200 px-4">
+                    <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight" data-i18n="orbit.title">
+                        Unleash the Power of <br>
+                        <span class="text-2xl sm:text-4xl lg:text-5xl bg-gradient-to-r from-brandPurple via-purple-300 to-emerald-300 bg-clip-text text-transparent font-extrabold">
+                            AI Systems & Architecture
+                        </span>
+                    </h2>
+                </div>
+
+                <!-- Horizontal Track of 3D Tablet Cards -->
+                <div id="orbit-track-wrapper" class="w-full overflow-hidden py-16 -my-16">
+                    <div id="orbit-track" class="flex gap-8 sm:gap-12 lg:gap-16 transition-all duration-300 ease-out items-center pt-4 pb-14 sm:pt-6 sm:pb-20 px-[calc(50vw-min(475px,44vw))]">
+                    
+                    <!-- ACETERNETY 3D TABLET CARD 1: Atlas CRM -->
+                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[56vh] sm:h-[60vh] max-h-[560px] shrink-0 rounded-[32px] border-4 border-slate-700/80 bg-[#120826]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#080314] p-5 sm:p-8 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            
+                            <!-- Header Info -->
+                            <div class="space-y-3 sm:space-y-4 relative z-10">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-4 py-1.5 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-bold" data-i18n="card1.tag">
+                                        Коммерческий MVP CRM
+                                    </span>
+                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
+                                        <i class="ph ph-lock text-brandAccent text-sm"></i> Private Client Repo
+                                    </span>
+                                </div>
+
+                                <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-white" data-i18n="card1.title">Atlas CRM — Платформа автоматизации ниш</h3>
+
+                                <p class="text-slate-300 text-xs sm:text-base leading-relaxed max-w-2xl" data-i18n="card1.desc">
+                                    Полнофункциональная CRM-система на React + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.
+                                </p>
+
+                                <!-- Feature Grid -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs sm:text-sm">
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-brandPrimary font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-5 h-5 object-contain" alt="Supabase"> 
+                                            <span>Supabase RLS</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card1.f1">Строгое разграничение доступов в СУБД.</div>
+                                    </div>
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-brandAccent font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.simpleicons.org/githubactions/2088FF" class="w-5 h-5 object-contain" alt="GitHub Actions">
+                                            <span>CI/CD Pipeline</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card1.f2">GitHub Actions -> Linux Ubuntu.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Tech Badges -->
+                            <div class="pt-3 border-t border-glassBorder mt-2 flex items-center justify-between text-xs sm:text-sm font-mono relative z-10">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400 hidden sm:inline">Стек:</span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-4 h-4 object-contain" title="React">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-4 h-4 object-contain" title="Supabase">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 object-contain" title="Playwright">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 object-contain" title="Vitest">
+                                    <span class="text-slate-300 ml-1">React, Supabase, Playwright, Vitest</span>
+                                </div>
+                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-lg"></i> Ready MVP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACETERNETY 3D TABLET CARD 2: AI Telepilot Assistant -->
+                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[56vh] sm:h-[60vh] max-h-[560px] shrink-0 rounded-[32px] border-4 border-purple-800/80 bg-[#14082c]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#080314] p-5 sm:p-8 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            
+                            <div class="space-y-3 sm:space-y-4 relative z-10">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-4 py-1.5 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-bold" data-i18n="card2.tag">
+                                        AI Agent & Automation
+                                    </span>
+                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
+                                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 object-contain" alt="Telegram"> Telepilot + n8n
+                                    </span>
+                                </div>
+
+                                <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-white" data-i18n="card2.title">ИИ-Бот Онлайн-Записи & RAG Context</h3>
+
+                                <p class="text-slate-300 text-xs sm:text-base leading-relaxed max-w-2xl" data-i18n="card2.desc">
+                                    Умный бот, ведающий диалог от лица Telegram-аккаунта (Telepilot API). Сам извлекает правила и свободные слоты из БД, согласует время с клиентом и отправляет уведомления в мессенджеры.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs sm:text-sm">
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-brandPurple font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" class="w-5 h-5 object-contain" alt="PostgreSQL">
+                                            <span>RAG DB Context</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card2.f1">Запрос правил и слотов из базы данных.</div>
+                                    </div>
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-brandAccent font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.simpleicons.org/google/4285F4" class="w-5 h-5 object-contain" alt="Google">
+                                            <span>Google Sync</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card2.f2">Интеграция с Google Календарем.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-glassBorder mt-2 flex items-center justify-between text-xs sm:text-sm font-mono relative z-10">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400 hidden sm:inline">Стек:</span>
+                                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 object-contain" title="n8n">
+                                    <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 object-contain" title="Telegram">
+                                    <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 object-contain" title="Google Gemini API">
+                                    <span class="text-slate-300 ml-1">n8n, Telepilot, Gemini API</span>
+                                </div>
+                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-lg"></i> Active Agent</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACETERNETY 3D TABLET CARD 3: DevOps & SysAdmin -->
+                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[56vh] sm:h-[60vh] max-h-[560px] shrink-0 rounded-[32px] border-4 border-emerald-800/80 bg-[#081816]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#03120e] p-5 sm:p-8 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            
+                            <div class="space-y-3 sm:space-y-4 relative z-10">
+                                <div class="flex items-center justify-between">
+                                    <span class="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono text-xs font-bold" data-i18n="card3.tag">
+                                        DevOps & SysAdmin
+                                    </span>
+                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
+                                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 object-contain" alt="Ubuntu"> Infrastructure
+                                    </span>
+                                </div>
+
+                                <h3 class="font-heading text-2xl sm:text-4xl font-extrabold text-white" data-i18n="card3.title">Серверная Инфраструктура & Защита</h3>
+
+                                <p class="text-slate-300 text-xs sm:text-base leading-relaxed max-w-2xl" data-i18n="card3.desc">
+                                    Развертывание и обслуживание Linux Ubuntu серверов. Конфигурация Nginx Reverse Proxy, установка SSL (Certbot), проксирование Cloudflare WAF, Docker контейнеризация и VPN.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs sm:text-sm">
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-emerald-400 font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-5 h-5 object-contain" alt="Cloudflare">
+                                            <span>Cloudflare WAF</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card3.f1">Защита от атак и управление DNS.</div>
+                                    </div>
+                                    <div class="p-3 sm:p-4 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                        <div class="text-brandPrimary font-bold text-sm sm:text-base flex items-center gap-2.5">
+                                            <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-5 h-5 object-contain" alt="Docker">
+                                            <span>PM2 & Docker</span>
+                                        </div>
+                                        <div class="text-slate-400 text-xs mt-1" data-i18n="card3.f2">Управление процессами и сборкой.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-glassBorder mt-2 flex items-center justify-between text-xs sm:text-sm font-mono relative z-10">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-400 hidden sm:inline">ОС:</span>
+                                    <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 object-contain" title="Ubuntu">
+                                    <img src="https://cdn.simpleicons.org/nginx/009639" class="w-4 h-4 object-contain" title="Nginx">
+                                    <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 object-contain" title="Docker">
+                                    <span class="text-slate-300 ml-1">Linux Ubuntu, Nginx, Certbot SSL</span>
+                                </div>
+                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-lg"></i> Hardened</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- INFINITE SKILLS TICKER MARQUEE RIBBON -->
+    <section id="skills-marquee" class="relative z-20 py-3 sm:py-3.5 overflow-hidden bg-spaceDark/80 backdrop-blur-2xl">
+        <!-- Left & Right Gradient Fade Masks for Premium Look -->
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-spaceDark to-transparent z-10"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-spaceDark to-transparent z-10"></div>
+
+        <div class="marquee-container overflow-hidden w-full">
+            <div class="animate-marquee-infinite gap-6 sm:gap-10 items-center">
+                
+                <!-- LOOP SET 1 -->
+                <div class="flex gap-6 sm:gap-10 items-center shrink-0">
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/react/61DAFB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="React"> React 19 & Vite
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/supabase/3ECF8E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Supabase"> Supabase RLS & Auth
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/typescript/3178C6" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="TypeScript"> TypeScript
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Tailwind CSS"> Tailwind CSS
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/nodedotjs/5FA04E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Node.js"> Node.js & Fastify
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/python/3776AB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Python"> Python & FastAPI
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="n8n"> n8n Workflows
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Telegram"> Telepilot API
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Google Gemini"> Gemini API
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Docker"> Docker & Containers
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Ubuntu"> Linux Ubuntu & Nginx
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Cloudflare"> Cloudflare WAF
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Playwright">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Vitest">
+                        Playwright & Vitest
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+                </div>
+
+                <!-- LOOP SET 2 (DUPLICATED FOR 100% SEAMLESS LOOP) -->
+                <div class="flex gap-6 sm:gap-10 items-center shrink-0" aria-hidden="true">
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/react/61DAFB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="React"> React 19 & Vite
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/supabase/3ECF8E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Supabase"> Supabase RLS & Auth
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/typescript/3178C6" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="TypeScript"> TypeScript
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Tailwind CSS"> Tailwind CSS
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/nodedotjs/5FA04E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Node.js"> Node.js & Fastify
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/python/3776AB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Python"> Python & FastAPI
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="n8n"> n8n Workflows
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Telegram"> Telepilot API
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Google Gemini"> Gemini API
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Docker"> Docker & Containers
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Ubuntu"> Linux Ubuntu & Nginx
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Cloudflare"> Cloudflare WAF
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+
+                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Playwright">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Vitest">
+                        Playwright & Vitest
+                    </div>
+                    <span class="text-purple-500/50 font-mono select-none">•</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SCENE 3: LIVE INTERACTIVE AI BOT DEMO SIMULATOR -->
+    <section id="bot-simulation" class="py-20 px-4 max-w-4xl mx-auto relative z-20">
+        <div class="text-center max-w-2xl mx-auto space-y-3 mb-10">
+
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white" data-i18n="bot.title">Демо ИИ-Бота</h2>
+            <p class="text-slate-400 text-sm" data-i18n="bot.sub">Проверь работу агента — нажми на одну из кнопок ниже.</p>
+        </div>
+
+        <div class="rounded-3xl bg-darkCard border border-glassBorder p-6 shadow-2xl backdrop-blur-xl">
+            <div class="flex items-center justify-between pb-4 border-b border-glassBorder">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brandPurple to-brandPrimary flex items-center justify-center text-white font-bold">
+                        <i class="ph ph-robot text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-sm">AI Agent</div>
+                        <div class="text-emerald-400 text-xs flex items-center gap-1 font-mono">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online • RAG Context Active
+                        </div>
+                    </div>
+                </div>
+                <button onclick="resetBotDemo()" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-mono hover:text-white transition-colors flex items-center gap-1">
+                    <i class="ph ph-arrow-counter-clockwise"></i> <span data-i18n="bot.reset">Сбросить</span>
+                </button>
+            </div>
+
+            <div id="bot-chat-body" class="py-6 space-y-4 h-72 overflow-y-auto font-sans text-xs sm:text-sm">
+                <div class="flex gap-3 items-start">
+                    <div class="w-7 h-7 rounded-full bg-brandPurple/30 text-brandPurple flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">AI</div>
+                    <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-glassBorder text-slate-200 max-w-md" data-i18n="bot.welcome">
+                        Здравствуйте! Я ИИ-ассистент записи. Я подключен к СУБД и Google Календарям. Чем могу помочь?
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-glassBorder flex flex-wrap gap-2">
+                <button onclick="triggerBotDemo(1)" class="px-4 py-2 rounded-xl bg-brandPrimary/20 border border-brandPrimary/40 text-brandPrimary hover:bg-brandPrimary hover:text-white transition-all text-xs font-medium" data-i18n="bot.b1">
+                    💬 "Хочу записаться на завтра"
+                </button>
+                <button onclick="triggerBotDemo(2)" class="px-4 py-2 rounded-xl bg-brandPurple/20 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white transition-all text-xs font-medium" data-i18n="bot.b2">
+                    📅 "Свободные слоты на вечер?"
+                </button>
+                <button onclick="triggerBotDemo(3)" class="px-4 py-2 rounded-xl bg-brandAccent/20 border border-brandAccent/40 text-brandAccent hover:bg-brandAccent hover:text-white transition-all text-xs font-medium" data-i18n="bot.b3">
+                    ⚡ "Подтвердить запись на 18:00"
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SCENE 4: INTERACTIVE CLI TERMINAL -->
+    <section id="terminal-section" class="py-20 px-4 max-w-5xl mx-auto relative z-20 mb-20">
+        <div class="text-center max-w-2xl mx-auto space-y-3 mb-10">
+            <h2 class="font-heading text-3xl font-bold text-white flex items-center justify-center gap-2">
+                <i class="ph ph-terminal-window text-brandAccent"></i> <span data-i18n="term.title">Консоль Навыков</span>
+            </h2>
+            <p class="text-slate-400 text-sm" data-i18n="term.sub">Проверь стековые команды или введи <span class="text-brandAccent font-mono">skills</span>, <span class="text-brandPurple font-mono">devops</span>, <span class="text-brandPrimary font-mono">education</span>.</p>
+        </div>
+
+        <div class="rounded-2xl bg-[#090C16] border border-glassBorder shadow-2xl overflow-hidden font-mono text-xs sm:text-sm">
+            <div class="bg-black/60 px-4 py-3 border-b border-glassBorder flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                    <span class="ml-2 text-slate-400 text-xs">valerii@deep-space: ~</span>
+                </div>
+                <div class="text-slate-500 text-xs">Antigravity CLI v3.0</div>
+            </div>
+
+            <div id="terminal-body" class="p-6 space-y-3 h-80 overflow-y-auto text-slate-300 leading-relaxed">
+                <div>Welcome to Valerii's Deep Space CLI Portal.</div>
+                <div>Type <span class="text-brandAccent">help</span> or click quick action buttons below.</div>
+                <div class="text-slate-500">----------------------------------------------------</div>
+            </div>
+
+            <div class="bg-black/40 p-3 border-t border-glassBorder flex flex-wrap gap-2">
+                <button onclick="runCmd('skills')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandPrimary hover:text-white transition-colors text-xs font-mono">skills</button>
+                <button onclick="runCmd('devops')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandPurple hover:text-white transition-colors text-xs font-mono">devops</button>
+                <button onclick="runCmd('education')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandAccent hover:text-white transition-colors text-xs font-mono">education</button>
+                <button onclick="runCmd('clear')" class="px-3 py-1 rounded bg-slate-800 text-slate-400 hover:text-white transition-colors text-xs font-mono">clear</button>
+            </div>
+
+            <form id="terminal-form" onsubmit="handleCmdSubmit(event)" class="bg-black/80 px-4 py-3 border-t border-glassBorder flex items-center gap-2">
+                <span class="text-brandAccent font-bold">$</span>
+                <input id="terminal-input" type="text" placeholder="Введите команду (skills, devops, education, clear)..." class="bg-transparent border-none outline-none text-white w-full font-mono text-xs sm:text-sm">
+            </form>
+        </div>
+    </section>
+
+
+    <!-- SCENE 5: CONTACT & GET IN TOUCH SECTION -->
+    <section id="contact-section" class="py-20 px-4 max-w-5xl mx-auto relative z-20 mb-32">
+        <div class="rounded-3xl bg-gradient-to-br from-[#12072b]/90 via-[#0a041a]/95 to-[#05020f]/90 border border-purple-500/30 p-8 sm:p-12 shadow-2xl backdrop-blur-2xl text-center space-y-8 relative overflow-hidden group">
+            
+            <!-- Glow background ambient -->
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-brandPurple/30 rounded-full blur-3xl pointer-events-none group-hover:bg-brandPurple/50 transition-all duration-700"></div>
+            <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-brandPrimary/30 rounded-full blur-3xl pointer-events-none group-hover:bg-brandPrimary/50 transition-all duration-700"></div>
+
+            <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span data-i18n="contact.badge">Open for New Projects & Contracts</span>
+                </div>
+
+                <h2 class="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight" data-i18n="contact.title">
+                    Давайте создадим ваш ИИ-проект
+                </h2>
+
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="contact.sub">
+                    Нужен умный Telegram-бот с RAG, автоматизация n8n, CRM на React/Supabase или защищённая серверная инфраструктура? Напишите мне прямо сейчас.
+                </p>
+            </div>
+
+            <!-- Contact Options Grid -->
+            <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto pt-4">
+                
+                <!-- Telegram Card -->
+                <a href="https://t.me/Easyvaleriy" target="_blank" class="p-6 rounded-2xl bg-gradient-to-br from-brandPurple/20 to-purple-950/40 border border-brandPurple/40 hover:border-brandPurple hover:scale-105 transition-all duration-300 text-left flex flex-col justify-between group/card shadow-lg">
+                    <div class="flex items-center justify-between pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brandPurple to-brandPrimary flex items-center justify-center text-white shadow-md">
+                            <img src="https://cdn.simpleicons.org/telegram/ffffff" class="w-6 h-6 object-contain" alt="Telegram">
+                        </div>
+                        <i class="ph ph-arrow-up-right text-slate-400 group-hover/card:text-white transition-colors text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-lg">Telegram</div>
+                        <div class="text-purple-300 font-mono text-xs mt-0.5">@Easyvaleriy</div>
+                        <div class="text-slate-400 text-xs mt-2" data-i18n="contact.tgdesc">Быстрый ответ в течение 15 минут.</div>
+                    </div>
+                </a>
+
+                <!-- GitHub Card -->
+                <a href="https://github.com/Valerador" target="_blank" class="p-6 rounded-2xl bg-gradient-to-br from-slate-900/80 to-slate-950/90 border border-slate-700/60 hover:border-slate-400 hover:scale-105 transition-all duration-300 text-left flex flex-col justify-between group/card shadow-lg">
+                    <div class="flex items-center justify-between pb-4">
+                        <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-white shadow-md">
+                            <img src="https://cdn.simpleicons.org/github/ffffff" class="w-6 h-6 object-contain" alt="GitHub">
+                        </div>
+                        <i class="ph ph-arrow-up-right text-slate-400 group-hover/card:text-white transition-colors text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-lg">GitHub Profile</div>
+                        <div class="text-slate-300 font-mono text-xs mt-0.5">github.com/Valerador</div>
+                        <div class="text-slate-400 text-xs mt-2" data-i18n="contact.ghdesc">Исходный код, коммиты и коммерческие MVP.</div>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Footer Copyright Notice -->
+            <div class="relative z-10 pt-6 border-t border-white/10 text-slate-500 font-mono text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>© 2026 Valerii. Designed with Antigravity 2.0 & Liquid Smooth Motion.</div>
+                <div class="flex items-center gap-4 text-slate-400">
+                    <a href="https://t.me/Easyvaleriy" target="_blank" class="hover:text-brandPurple transition-colors">Telegram</a>
+                    <span>•</span>
+                    <a href="https://github.com/Valerador" target="_blank" class="hover:text-brandPrimary transition-colors">GitHub</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

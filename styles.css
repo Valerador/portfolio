@@ -1,0 +1,278 @@
+/* Modern Dark Mode Aesthetics & Global Smooth Scroll */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
+
+.shiny-cta {
+  --shiny-cta-bg: #090416;
+  --shiny-cta-bg-subtle: rgba(255, 255, 255, 0.12);
+  --shiny-cta-fg: #ffffff;
+  --shiny-cta-highlight: #a855f7;
+  --shiny-cta-highlight-subtle: #c084fc;
+  --animation: gradient-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  outline-offset: 4px;
+  padding: 0.75rem 1.4rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  color: var(--shiny-cta-fg);
+  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+    conic-gradient(
+      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+      transparent,
+      var(--shiny-cta-highlight) var(--gradient-percent),
+      var(--gradient-shine) calc(var(--gradient-percent) * 2),
+      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 8px 30px rgba(168, 85, 247, 0.25);
+  transition: var(--transition);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine, transform, box-shadow;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shiny-cta::before,
+.shiny-cta::after,
+.shiny-cta span::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+
+.shiny-cta:active {
+  translate: 0 1px;
+}
+
+/* Dots pattern */
+.shiny-cta::before {
+  --size: calc(100% - var(--shadow-size) * 3);
+  --position: 2px;
+  --space: calc(var(--position) * 2);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle at var(--position) var(--position),
+    white calc(var(--position) / 4),
+    transparent 0
+  ) padding-box;
+  background-size: var(--space) var(--space);
+  background-repeat: space;
+  mask-image: conic-gradient(
+    from calc(var(--gradient-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  border-radius: inherit;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Inner shimmer */
+.shiny-cta::after {
+  --animation: shimmer linear infinite;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(
+    -50deg,
+    transparent,
+    var(--shiny-cta-highlight),
+    transparent
+  );
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.6;
+}
+
+.shiny-cta span {
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shiny-cta span::before {
+  --size: calc(100% + 1rem);
+  width: var(--size);
+  height: var(--size);
+  box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+  opacity: 0;
+  transition: opacity var(--transition);
+  animation: calc(var(--duration) * 1.5) breathe linear infinite;
+}
+
+/* Animate */
+.shiny-cta,
+.shiny-cta::before,
+.shiny-cta::after {
+  animation: var(--animation) var(--duration),
+    var(--animation) calc(var(--duration) / 0.4) reverse paused;
+  animation-composition: add;
+}
+
+.shiny-cta:is(:hover, :focus-visible) {
+  --gradient-percent: 20%;
+  --gradient-angle-offset: 95deg;
+  --gradient-shine: var(--shiny-cta-highlight-subtle);
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 12px 40px rgba(168, 85, 247, 0.5);
+}
+
+.shiny-cta:is(:hover, :focus-visible),
+.shiny-cta:is(:hover, :focus-visible)::before,
+.shiny-cta:is(:hover, :focus-visible)::after {
+  animation-play-state: running;
+}
+
+.shiny-cta:is(:hover, :focus-visible) span::before {
+  opacity: 1;
+}
+
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes breathe {
+  from, to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
+
+/* Custom Reticle Tick Ticks */
+.cursor-tick {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* macOS Dock Tooltips */
+.dock-tooltip {
+    position: absolute;
+    top: -42px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    padding: 4px 10px;
+    background: rgba(9, 5, 24, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #f1f5f9;
+    font-size: 11px;
+    font-family: monospace;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.dock-item:hover .dock-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* Tilt 2.5D Cards Glow */
+.tilt-2d-card {
+    transition: transform 0.3s cubic-bezier(0.1, 1, 0.1, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.tilt-2d-card:hover {
+    box-shadow: 0 25px 60px -15px rgba(168, 85, 247, 0.35);
+}
+
+/* LETTER-BY-LETTER CHARACTER ANIMATION CLASS */
+.char-span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+    transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+}
+
+.char-span.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* SEQUENTIAL ELEMENT FADE-IN */
+.seq-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.seq-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* INFINITE MARQUEE TICKER ANIMATION */
+@keyframes marquee-scroll {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-infinite {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-container:hover .animate-marquee-infinite {
+    animation-play-state: paused;
+}
