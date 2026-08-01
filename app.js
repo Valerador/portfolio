@@ -1569,7 +1569,57 @@ function initBorderBeamEngine() {
     requestAnimationFrame(loop);
 }
 
+// ==========================================================================
+// 17. 3D CURVATURE ARC HORIZONTAL SCROLL ENGINE
+// ==========================================================================
+function initMetrics3DCurvatureEngine() {
+    const track = document.getElementById('metrics-track');
+    if (!track) return;
+
+    const cards = track.querySelectorAll('.metric-card');
+    if (cards.length === 0) return;
+
+    function updateCurvature() {
+        const trackRect = track.getBoundingClientRect();
+        const trackCenterX = trackRect.left + trackRect.width / 2;
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            
+            // Offset relative to center (-1.5 to +1.5 range)
+            const offset = (cardCenterX - trackCenterX) / (trackRect.width / 2);
+            const clampedOffset = Math.max(-2, Math.min(2, offset));
+
+            // 3D Curvature Math:
+            // 1. Rotate Y angle: left cards rotate right, right cards rotate left
+            const rotateY = -clampedOffset * 22; // -22deg to +22deg arc
+            
+            // 2. Depth Z: center card pops forward, edge cards sink backward
+            const translateZ = (1 - Math.abs(clampedOffset) * 0.4) * 25 - 15;
+
+            // 3. Scale: center card 100%, edge cards 88%
+            const scale = Math.max(0.88, 1 - Math.abs(clampedOffset) * 0.12);
+
+            // 4. Opacity: center card 100%, edge cards 75%
+            const opacity = Math.max(0.75, 1 - Math.abs(clampedOffset) * 0.2);
+
+            card.style.transform = `perspective(1000px) rotateY(${rotateY.toFixed(2)}deg) translateZ(${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+            card.style.opacity = opacity.toFixed(2);
+        });
+    }
+
+    track.addEventListener('scroll', updateCurvature, { passive: true });
+    window.addEventListener('resize', updateCurvature, { passive: true });
+    window.addEventListener('scroll', updateCurvature, { passive: true });
+
+    // Initial calculation
+    updateCurvature();
+    setTimeout(updateCurvature, 200);
+}
+
 // Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
 initScrollLetterAnimationEngine();
 initBorderBeamEngine();
+initMetrics3DCurvatureEngine();
