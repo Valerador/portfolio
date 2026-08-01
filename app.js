@@ -1361,7 +1361,7 @@ function handleCmdSubmit(event) {
 // ==========================================================================
 function initScrollRevealEngine() {
     const revealTargets = document.querySelectorAll(
-        '.scroll-reveal, #metrics-section, #bot-simulation, #terminal-section, #contact-section, .container-scroll-card'
+        '.scroll-reveal, #metrics-section, #bot-simulation, #terminal-section, #contact-section'
     );
 
     revealTargets.forEach(el => {
