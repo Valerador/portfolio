@@ -1256,15 +1256,20 @@ function toggleLanguage() {
 function toggleMobileMenu() {
     const overlay = document.getElementById('mobile-menu-overlay');
     const drawer = document.getElementById('mobile-menu-drawer');
+    const triggerPill = document.getElementById('mobile-trigger-pill');
     if (!overlay || !drawer) return;
 
     const isOpen = !overlay.classList.contains('opacity-0');
     if (isOpen) {
         overlay.classList.add('opacity-0', 'pointer-events-none');
-        drawer.classList.add('translate-y-full');
+        drawer.classList.add('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-4');
+        drawer.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
+        if (triggerPill) triggerPill.classList.remove('scale-90', 'opacity-40');
     } else {
         overlay.classList.remove('opacity-0', 'pointer-events-none');
-        drawer.classList.remove('translate-y-full');
+        drawer.classList.remove('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-4');
+        drawer.classList.add('scale-100', 'opacity-100', 'translate-y-0');
+        if (triggerPill) triggerPill.classList.add('scale-90', 'opacity-40');
     }
 }
 

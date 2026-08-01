@@ -179,16 +179,16 @@
 
     <!-- MOBILE COMPACT MENU TRIGGER BUTTON (Visible on Mobile md:hidden) -->
     <div class="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-        <button onclick="toggleMobileMenu()" aria-label="Открыть меню навигации" class="backdrop-blur-2xl bg-[#090518]/95 border border-brandPurple/50 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-2xl shadow-purple-950/90 text-white font-medium text-xs active:scale-95 transition-all whitespace-nowrap">
+        <button id="mobile-trigger-pill" onclick="toggleMobileMenu()" aria-label="Открыть меню навигации" class="backdrop-blur-2xl bg-[#090518]/95 border border-brandPurple/50 rounded-full px-3.5 py-2 flex items-center gap-2.5 shadow-2xl shadow-purple-950/90 text-white font-medium text-xs active:scale-95 transition-all whitespace-nowrap">
             <i class="ph-bold ph-compass text-lg text-brandPurple animate-pulse shrink-0"></i>
             <span class="w-px h-3.5 bg-white/20 mx-0.5 shrink-0"></span>
             <span onclick="event.stopPropagation(); toggleLanguage();" id="mobile-menu-lang-badge" class="text-[11px] font-mono font-bold text-brandAccent px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 whitespace-nowrap inline-flex items-center shrink-0">RU / <span class="text-slate-400">EN</span></span>
         </button>
     </div>
 
-    <!-- MOBILE BOTTOM SHEET DRAWER MENU (Pop-up Slide Up) -->
-    <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="md:hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
-        <div onclick="event.stopPropagation()" id="mobile-menu-drawer" class="absolute bottom-0 left-0 right-0 bg-[#0C0721] border-t border-brandPurple/40 rounded-t-3xl p-6 shadow-2xl transform translate-y-full transition-transform duration-300 ease-out space-y-4">
+    <!-- MOBILE NATIVE POP-UP MENU DRAWER (Expands from Trigger Pill) -->
+    <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="md:hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[100] opacity-0 pointer-events-none transition-opacity duration-300 flex items-end justify-center pb-3 px-3">
+        <div onclick="event.stopPropagation()" id="mobile-menu-drawer" class="w-full max-w-md bg-[#0C0721]/95 border border-brandPurple/50 rounded-3xl p-5 shadow-2xl backdrop-blur-2xl origin-bottom transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform scale-90 opacity-0 pointer-events-none translate-y-4 space-y-4">
             
             <!-- Drawer Header -->
             <div class="flex items-center justify-between pb-3 border-b border-glassBorder">
@@ -223,9 +223,9 @@
                     <i class="ph-bold ph-file-pdf text-xl text-amber-400"></i>
                     <span data-i18n="dock.cv">Открыть Резюме (PDF)</span>
                 </a>
-                <a href="https://t.me/Easyvaleriy" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-r from-brandPurple to-brandPrimary text-white shadow-lg">
-                    <svg class="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
+                <a href="https://t.me/Easyvaleriy" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-sky-500/20 text-white transition-colors">
+                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="#38BDF8"/>
                     </svg>
                     <span>Telegram @Easyvaleriy</span>
                 </a>
@@ -277,7 +277,7 @@
                     </div>
 
                     <!-- Dynamic Glowing Buttons -->
-                    <div id="hero-buttons" class="seq-hidden flex flex-wrap items-center gap-2.5 sm:gap-4 pt-2 lg:pt-8 pb-4">
+                    <div id="hero-buttons" class="seq-hidden flex flex-wrap items-center gap-2.5 sm:gap-4 pt-2 lg:pt-8 pb-20 lg:pb-4">
                         <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta">
                             <span data-i18n="hero.cta" class="flex items-center gap-2 text-xs sm:text-sm">
                                 <svg class="w-4 h-4" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
