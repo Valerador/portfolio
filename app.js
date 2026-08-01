@@ -1178,13 +1178,8 @@ function toggleLanguage() {
         }
     });
 
-    // Re-split headline spans
-    const line1 = document.getElementById('title-line-1');
-    const line2 = document.getElementById('title-line-2');
-    if (line1 && line2) {
-        splitTextToSpans(line1).forEach(s => s.classList.add('visible'));
-        splitTextToSpans(line2).forEach(s => s.classList.add('visible'));
-    }
+    // Re-split all section headings for letter-by-letter animation
+    initScrollLetterAnimationEngine();
 
     // Reset bot demo message in new language
     resetBotDemo();
@@ -1387,7 +1382,41 @@ function initScrollRevealEngine() {
     revealTargets.forEach(el => {
         revealObserver.observe(el);
     });
+// ==========================================================================
+// 15. SCROLL-DRIVEN LETTER-BY-LETTER HEADING REVEAL ENGINE
+// ==========================================================================
+function initScrollLetterAnimationEngine() {
+    const headings = document.querySelectorAll('h2[data-i18n], h2.font-heading');
+
+    headings.forEach(h2 => {
+        if (h2.id === 'hero-title' || h2.closest('#hero-sky')) return;
+
+        splitTextToSpans(h2);
+
+        const headingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const chars = entry.target.querySelectorAll('.char-span');
+                if (entry.isIntersecting) {
+                    chars.forEach((span, index) => {
+                        setTimeout(() => {
+                            span.classList.add('visible');
+                        }, index * 25);
+                    });
+                } else {
+                    chars.forEach(span => {
+                        span.classList.remove('visible');
+                    });
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -20px 0px'
+        });
+
+        headingObserver.observe(h2);
+    });
 }
 
-// Initialize Scroll Reveal after DOM loaded
+// Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
+initScrollLetterAnimationEngine();
