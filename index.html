@@ -280,25 +280,30 @@
                     </div>
 
                     <!-- Dynamic Glowing Buttons -->
-                    <div id="hero-buttons" class="seq-hidden grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-3 w-full sm:w-auto pt-2 lg:pt-8 pb-14 lg:pb-4">
+                    <div id="hero-buttons" class="seq-hidden flex flex-col sm:flex-row sm:flex-wrap items-center gap-2.5 sm:gap-4 w-full sm:w-auto pt-2 lg:pt-8 pb-4 lg:pb-4">
+                        <!-- Top Row on Mobile: Telegram full width -->
                         <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
                             <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm">
                                 <i class="pixelarticons-message-text text-lg text-white"></i>
                                 Telegram
                             </span>
                         </a>
-                        <a href="https://github.com/Valerador" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
-                            <span data-i18n="hero.github" class="flex items-center justify-center gap-2 text-xs sm:text-sm">
-                                <i class="pixelarticons-code text-lg text-white"></i>
-                                GitHub
-                            </span>
-                        </a>
-                        <a href="resume_printable.html" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
-                            <span data-i18n="hero.cv" class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm">
-                                <i class="pixelarticons-file-text text-lg text-amber-300"></i>
-                                Резюме
-                            </span>
-                        </a>
+
+                        <!-- Bottom Row on Mobile: GitHub & Resume side-by-side on 1 level -->
+                        <div class="grid grid-cols-2 gap-2.5 w-full sm:w-auto sm:flex sm:items-center sm:gap-4">
+                            <a href="https://github.com/Valerador" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
+                                <span data-i18n="hero.github" class="flex items-center justify-center gap-1.5 text-xs">
+                                    <i class="pixelarticons-code text-base text-white"></i>
+                                    GitHub
+                                </span>
+                            </a>
+                            <a href="resume_printable.html" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
+                                <span data-i18n="hero.cv" class="flex items-center justify-center gap-1.5 text-amber-300 text-xs">
+                                    <i class="pixelarticons-file-text text-base text-amber-300"></i>
+                                    Резюме
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

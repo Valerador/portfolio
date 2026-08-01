@@ -220,12 +220,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Smooth scroll fade-out and slide-up for ALL Hero content elements on scroll down
         if (heroContentWrapper) {
-            const fadeDistance = window.innerWidth < 768 ? 220 : 380;
-            const heroOpacity = Math.max(0, 1 - (currentScrollY / fadeDistance));
-            const translateY = Math.min(45, (currentScrollY / fadeDistance) * 28);
-            heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
-            heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
-            heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
+            if (currentScrollY > 5) {
+                const fadeDistance = window.innerWidth < 768 ? 240 : 380;
+                const heroOpacity = Math.max(0, 1 - (currentScrollY / fadeDistance));
+                const translateY = Math.min(45, (currentScrollY / fadeDistance) * 28);
+                heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
+                heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
+                heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
+            } else {
+                heroContentWrapper.style.opacity = '1';
+                heroContentWrapper.style.transform = 'translateY(0px)';
+                heroContentWrapper.style.pointerEvents = 'auto';
+            }
         }
     });
 
@@ -907,12 +913,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     let rz = -px * sinY + z1 * cosY;
                     let ry = y1;
 
-                    const fov = 450;
-                    const perspectiveScale = fov / (fov + rz + cubeSize * 1.8);
-                    const finalScale = explodeDist > 0 ? 0.75 : perspectiveScale;
+                    const isMobileScreen = cWidth < 768;
+                    const cubeRadius = isMobileScreen ? Math.min(cWidth * 0.36, 135) : Math.min(cWidth * 0.28, cHeight * 0.28, 240);
+                    const baseScale = cubeRadius / 160;
 
-                    const screenX = cx + (explodeDist > 0 ? rx * 0.75 : rx * perspectiveScale);
-                    const screenY = cy + (explodeDist > 0 ? ry * 0.75 : ry * perspectiveScale);
+                    const fov = 600;
+                    const perspectiveScale = fov / (fov + rz * baseScale * 0.75);
+                    const renderScale = baseScale * (explodeDist > 0 ? 0.75 : perspectiveScale);
+
+                    const screenX = cx + rx * renderScale;
+                    const screenY = cy + ry * renderScale;
 
                     if (mouseX > -9000) {
                         const dx = screenX - mouseX;
