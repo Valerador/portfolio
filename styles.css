@@ -524,5 +524,40 @@ input:focus-visible {
 
 .scroll-fade-item.scroll-out-top {
   opacity: 0 !important;
-  transform: translateY(-30px) scale(0.97) !important;
+  transform: translateY(-30px) scale(0.98) !important;
+}
+
+/* RICARDO CHANCE STYLE SCROLLYTELLING TEXT REVEAL ANIMATIONS */
+.reveal-text-line {
+  opacity: 0 !important;
+  transform: translateY(36px) rotateX(-12deg) !important;
+  filter: blur(8px) !important;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform, filter;
+}
+
+.reveal-text-line.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0px) rotateX(0deg) !important;
+  filter: blur(0px) !important;
+}
+
+/* Hero description & buttons reveal on first scroll */
+#hero-desc, #hero-buttons {
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+#hero-desc.hero-scroll-hidden, #hero-buttons.hero-scroll-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(28px) !important;
+}
+
+#hero-desc.hero-scroll-visible, #hero-buttons.hero-scroll-visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0px) !important;
 }

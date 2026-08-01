@@ -196,14 +196,36 @@ document.addEventListener('DOMContentLoaded', () => {
         rawScrollVelocity = currentScrollY - lastScrollY;
         lastScrollY = currentScrollY;
 
-        updateDockVisibility();
+        const heroDesc = document.getElementById('hero-desc');
+        const heroButtons = document.getElementById('hero-buttons');
 
-        // Smooth scroll fade-out and slide-up for ALL Hero content elements on scroll down
+        // Reveal description text & CTA buttons after first scroll down
+        if (currentScrollY > 15) {
+            if (heroDesc) {
+                heroDesc.classList.remove('hero-scroll-hidden');
+                heroDesc.classList.add('hero-scroll-visible');
+            }
+            if (heroButtons) {
+                heroButtons.classList.remove('hero-scroll-hidden');
+                heroButtons.classList.add('hero-scroll-visible');
+            }
+        } else {
+            if (heroDesc) {
+                heroDesc.classList.remove('hero-scroll-visible');
+                heroDesc.classList.add('hero-scroll-hidden');
+            }
+            if (heroButtons) {
+                heroButtons.classList.remove('hero-scroll-visible');
+                heroButtons.classList.add('hero-scroll-hidden');
+            }
+        }
+
+        // Smooth scroll fade-out and slide-up for ALL Hero content elements on deep scroll down
         if (heroContentWrapper) {
-            if (currentScrollY > 5) {
+            if (currentScrollY > 120) {
                 const fadeDistance = window.innerWidth < 768 ? 580 : 750;
-                const heroOpacity = Math.max(0, 1 - (currentScrollY / fadeDistance));
-                const translateY = Math.min(45, (currentScrollY / fadeDistance) * 28);
+                const heroOpacity = Math.max(0, 1 - ((currentScrollY - 120) / fadeDistance));
+                const translateY = Math.min(45, ((currentScrollY - 120) / fadeDistance) * 28);
                 heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
                 heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
                 heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
@@ -1779,7 +1801,7 @@ function initUniversalScrollFadeEngine() {
     const scrollItems = Array.from(document.querySelectorAll(selectors.join(', ')));
 
     scrollItems.forEach(item => {
-        item.classList.add('scroll-fade-item', 'scroll-out-bottom');
+        item.classList.add('scroll-fade-item', 'scroll-out-bottom', 'reveal-text-line');
     });
 
     function updateScrollFades() {
@@ -1795,14 +1817,14 @@ function initUniversalScrollFadeEngine() {
             const isTooHigh = rect.bottom < 60;
 
             if (isTooLow) {
-                item.classList.remove('scroll-in-view', 'scroll-out-top');
+                item.classList.remove('scroll-in-view', 'scroll-out-top', 'is-revealed');
                 item.classList.add('scroll-out-bottom');
             } else if (isTooHigh) {
-                item.classList.remove('scroll-in-view', 'scroll-out-bottom');
+                item.classList.remove('scroll-in-view', 'scroll-out-bottom', 'is-revealed');
                 item.classList.add('scroll-out-top');
             } else {
                 item.classList.remove('scroll-out-bottom', 'scroll-out-top');
-                item.classList.add('scroll-in-view');
+                item.classList.add('scroll-in-view', 'is-revealed');
             }
         });
     }
