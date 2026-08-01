@@ -949,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         detachFade = Math.pow(Math.max(0, 1 - explodeDist / (p.detachSpeed * 2.5)), 1.4);
                     }
 
-                    const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, finalScale) * Math.min(1, currentAssembly * 2.0);
+                    const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, renderScale) * Math.min(1, currentAssembly * 2.0);
 
                     if (particleAlpha > 0.02 && screenY >= -50 && screenY <= cHeight + 50 && screenX >= -50 && screenX <= cWidth + 50) {
                         const blobR = p.size * twinkleScale * (p.isEdge ? 2.9 : (p.isCore ? 2.6 : 2.2));
