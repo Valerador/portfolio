@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Outfit:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Tailwind CSS CDN -->
@@ -27,9 +27,8 @@
                         glassBorder: 'rgba(255, 255, 255, 0.12)',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Outfit', 'sans-serif'],
                         heading: ['Outfit', 'sans-serif'],
-                        serif: ['Newsreader', 'serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
@@ -144,18 +143,18 @@
             <div class="w-full px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-screen py-8">
                 
                 <!-- Left Column (Role + Letter-by-letter Headline shifted lower down and further left) -->
-                <div class="lg:col-span-6 flex flex-col justify-between h-[84vh] pl-0">
-                    <div class="space-y-6 pt-16 lg:pt-28">
+                <div class="lg:col-span-6 flex flex-col justify-between h-[82vh] pl-0">
+                    <div class="space-y-3 sm:space-y-4 pt-6 lg:pt-10">
                         <div id="hero-role" class="seq-hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-semibold">
                             <span class="w-2 h-2 rounded-full bg-brandPurple animate-pulse"></span>
                             <span data-i18n="hero.role">Fullstack AI Developer & Architect</span>
                         </div>
 
                         <!-- Headline for Letter-by-letter animation -->
-                        <h1 id="hero-title" class="font-heading text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none">
+                        <h1 id="hero-title" class="font-heading text-4xl sm:text-6xl lg:text-6xl font-black text-white tracking-tight leading-[1.05]">
                             <span id="title-line-1" class="block">Валерий</span>
-                            <span id="title-line-2" class="font-serif italic font-normal text-slate-300 block">Фуллстэк</span>
-                            <span id="title-line-3" class="bg-gradient-to-r from-brandPurple via-purple-300 to-emerald-300 bg-clip-text text-transparent block">Разработчик.</span>
+                            <span id="title-line-2" class="font-heading font-extrabold text-purple-300 block">Фуллстэк</span>
+                            <span id="title-line-3" class="bg-gradient-to-r from-brandPurple via-purple-300 to-emerald-300 bg-clip-text text-transparent inline-block pb-1">Разработчик.</span>
                         </h1>
                     </div>
 
@@ -650,15 +649,15 @@
         <div class="max-w-2xl mx-auto space-y-4">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-semibold">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span data-i18n="contact.badge">Open for New Projects & Contracts</span>
+                <span data-i18n="contact.badge">Открыт к предложениям & Вакансиям</span>
             </div>
 
             <h2 class="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight" data-i18n="contact.title">
-                Давайте создадим ваш ИИ-проект
+                Давайте обсудим ваш проект
             </h2>
 
             <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="contact.sub">
-                Нужен умный Telegram-бот с RAG, автоматизация n8n, CRM на React/Supabase или защищённая серверная инфраструктура? Напишите мне прямо сейчас.
+                Я открыт к новым предложениям, фуллтайм-разработке и проектным задачам. Напишите мне в Telegram или посмотрите исходный код на GitHub — отвечу в течение 15 минут.
             </p>
         </div>
 
@@ -697,16 +696,6 @@
                 </div>
             </a>
 
-        </div>
-
-        <!-- Footer Copyright Notice -->
-        <div class="pt-8 border-t border-white/10 text-slate-500 font-mono text-xs flex flex-col sm:flex-row items-center justify-between gap-2 max-w-4xl mx-auto">
-            <div>© 2026 Valerii. Designed with Antigravity 2.0 & Liquid Smooth Motion.</div>
-            <div class="flex items-center gap-4 text-slate-400">
-                <a href="https://t.me/Easyvaleriy" target="_blank" class="hover:text-brandPurple transition-colors">Telegram</a>
-                <span>•</span>
-                <a href="https://github.com/Valerador" target="_blank" class="hover:text-brandPrimary transition-colors">GitHub</a>
-            </div>
         </div>
 
     </section>
