@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valerii - AI Solutions & Automation Engineer CV</title>
+    <title>Valerii - AI Solutions & Full-Stack Engineer CV</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -191,37 +191,42 @@
 </head>
 <body>
 
-    <!-- Printable Instructions Bar (hidden when printing) -->
-    <div class="no-print" style="background: #0F172A; color: #FFFFFF; padding: 12px; text-align: center; font-size: 14px; font-weight: 500;">
-        💡 <strong>Instruction:</strong> Press <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (or <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> on Mac) → Choose <strong>"Save as PDF"</strong> → Turn off headers/footers in print settings.
+    <!-- Printable Instructions & Language Bar (hidden when printing) -->
+    <div class="no-print" style="background: #0F172A; color: #FFFFFF; padding: 12px 20px; display: flex; align-items: center; justify-between: space-between; gap: 15px; font-size: 14px; font-weight: 500;">
+        <div id="print-instruction">
+            💡 <strong>Instruction:</strong> Press <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (or <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> on Mac) → Choose <strong>"Save as PDF"</strong> → Turn off headers/footers in print settings.
+        </div>
+        <button onclick="toggleCvLanguage()" style="background: #38BDF8; color: #0F172A; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: opacity 0.2s;">
+            🌐 <span id="cv-lang-btn-text">Language: EN (Switch to RU)</span>
+        </button>
     </div>
 
     <div class="page">
         <!-- HEADER -->
         <header class="header">
-            <h1 class="name">VALERII</h1>
-            <div class="role">AI Solutions Engineer & Full-Stack Developer</div>
+            <h1 class="name" id="cv-name">VALERII</h1>
+            <div class="role" id="cv-role">AI Solutions Engineer & Full-Stack Developer</div>
             <div class="contact-bar">
-                <span class="contact-item">📍 Remote (UTC+3)</span>
+                <span class="contact-item" id="cv-location">📍 Remote (UTC+3)</span>
                 <span class="contact-item">✉️ <a href="mailto:valeador555@gmail.com">valeador555@gmail.com</a></span>
                 <span class="contact-item">💬 Telegram: <a href="https://t.me/Easyvaleriy" target="_blank">@Easyvaleriy</a></span>
                 <span class="contact-item">🐙 GitHub: <a href="https://github.com/Valerador" target="_blank">github.com/Valerador</a></span>
-                <span class="contact-item">🗣️ English: B1-B2 Working Proficiency</span>
+                <span class="contact-item" id="cv-lang-prof">🗣️ English: B1-B2 Working Proficiency</span>
             </div>
         </header>
 
         <!-- SUMMARY -->
         <section class="section">
-            <h2 class="section-title">Professional Summary</h2>
-            <p class="summary-text">
+            <h2 class="section-title" id="cv-stitle-summary">Professional Summary</h2>
+            <p class="summary-text" id="cv-summary-text">
                 AI-Native Full-Stack & Automation Engineer with a B.S. in Software Engineering (MIREA University). Specialized in rapid MVP development (React + Vite + Supabase), architecting autonomous AI agents, n8n workflow automations, Telepilot Telegram user-bots, and cloud server infrastructure (Linux, Docker, Nginx, GitHub Actions CI/CD). Leverages modern AI-assisted workflows (Claude, Gemini, Antigravity IDE, Supabase MCP) to build scalable, secure, and fully tested business applications 3-5x faster than traditional dev cycles.
             </p>
         </section>
 
         <!-- COMPETENCIES -->
         <section class="section">
-            <h2 class="section-title">Core Competencies</h2>
-            <ul class="skills-list">
+            <h2 class="section-title" id="cv-stitle-comp">Core Competencies</h2>
+            <ul class="skills-list" id="cv-skills-list">
                 <li><strong>AI & Workflow Automation:</strong> LLM APIs (OpenAI / Gemini / Claude), RAG Systems, Model Context Protocol (MCP), n8n Workflows, Telepilot User-Bots, Webhooks, Advanced Prompt Engineering.</li>
                 <li><strong>Full-Stack & Databases:</strong> React, Vite, SPA Architecture, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.</li>
                 <li><strong>DevOps & Infrastructure:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Custom VPN Server Management.</li>
@@ -231,14 +236,14 @@
 
         <!-- PROJECTS & EXPERIENCE -->
         <section class="section">
-            <h2 class="section-title">Featured Projects & Engineering Experience</h2>
+            <h2 class="section-title" id="cv-stitle-projects">Featured Projects & Engineering Experience</h2>
 
             <div class="project-item">
                 <div class="project-header">
-                    <div class="project-title">Atlas CRM (MVP) — Lead Architect & Full-Stack Developer</div>
+                    <div class="project-title" id="cv-p1-title">Atlas CRM (MVP) — Lead Architect & Full-Stack Developer</div>
                 </div>
-                <div class="project-tech">Tech Stack: React, Vite, Supabase (PostgreSQL, RLS Security), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest</div>
-                <ul class="project-bullets">
+                <div class="project-tech" id="cv-p1-tech">Tech Stack: React, Vite, Supabase (PostgreSQL, RLS Security), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest</div>
+                <ul class="project-bullets" id="cv-p1-bullets">
                     <li>Architected and developed a commercial CRM platform designed to automate operations for niche service providers.</li>
                     <li>Enforced multi-tenant data privacy and granular access controls using Supabase Row Level Security (RLS) policies at the database layer.</li>
                     <li>Implemented automated E2E regression testing with Playwright and unit testing with Vitest to verify slot booking logic.</li>
@@ -248,10 +253,10 @@
 
             <div class="project-item">
                 <div class="project-header">
-                    <div class="project-title">AI Booking & Customer Support Assistant (Telepilot + n8n + LLM)</div>
+                    <div class="project-title" id="cv-p2-title">AI Booking & Customer Support Assistant (Telepilot + n8n + LLM)</div>
                 </div>
-                <div class="project-tech">Tech Stack: Telepilot API (User-Bot), n8n Engine, Gemini/OpenAI API, Webhooks, Google Calendar API</div>
-                <ul class="project-bullets">
+                <div class="project-tech" id="cv-p2-tech">Tech Stack: Telepilot API (User-Bot), n8n Engine, Gemini/OpenAI API, Webhooks, Google Calendar API</div>
+                <ul class="project-bullets" id="cv-p2-bullets">
                     <li>Engineered a human-like AI agent operating directly via Telegram user account (Telepilot API).</li>
                     <li>Implemented RAG-based context retrieval: fetches company rules, services, and live slot availability from DB in real-time.</li>
                     <li>Enables autonomous appointment scheduling, slot negotiation, and instantly dispatches lead notifications to business managers.</li>
@@ -260,10 +265,10 @@
 
             <div class="project-item">
                 <div class="project-header">
-                    <div class="project-title">DevOps & Server Infrastructure Automation</div>
+                    <div class="project-title" id="cv-p3-title">DevOps & Server Infrastructure Automation</div>
                 </div>
-                <div class="project-tech">Tech Stack: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN</div>
-                <ul class="project-bullets">
+                <div class="project-tech" id="cv-p3-tech">Tech Stack: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN</div>
+                <ul class="project-bullets" id="cv-p3-bullets">
                     <li>Deployment, hardening, and administration of production Linux Ubuntu servers.</li>
                     <li>Configured Nginx Reverse Proxy, SSL encryption, Cloudflare WAF protection, and private VPN network setups.</li>
                 </ul>
@@ -272,17 +277,169 @@
 
         <!-- EDUCATION -->
         <section class="section">
-            <h2 class="section-title">Education</h2>
-            <div class="edu-item">
-                <div class="edu-title">Bachelor of Science (B.S.) in Software Engineering</div>
-                <div class="edu-sub">MIREA – Russian Technological University</div>
-            </div>
-            <div class="edu-item">
-                <div class="edu-title">Master of Science (M.S.) in Document & Archival Science</div>
-                <div class="edu-sub">Kalmyk State University</div>
+            <h2 class="section-title" id="cv-stitle-edu">Education</h2>
+            <div id="cv-edu-content">
+                <div class="edu-item">
+                    <div class="edu-title">Bachelor of Science (B.S.) in Software Engineering</div>
+                    <div class="edu-sub">MIREA – Russian Technological University</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-title">Master of Science (M.S.) in Document & Archival Science</div>
+                    <div class="edu-sub">Kalmyk State University</div>
+                </div>
             </div>
         </section>
     </div>
 
+    <script>
+        const cvData = {
+            EN: {
+                title: "Valerii - AI Solutions & Full-Stack Engineer CV",
+                printInst: '💡 <strong>Instruction:</strong> Press <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (or <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> on Mac) → Choose <strong>"Save as PDF"</strong> → Turn off headers/footers in print settings.',
+                btnText: '🌐 Switch to RU (Русская версия)',
+                name: 'VALERII',
+                role: 'AI Solutions Engineer & Full-Stack Developer',
+                location: '📍 Remote (UTC+3)',
+                langProf: '🗣️ English: B1-B2 Working Proficiency',
+                stitleSummary: 'Professional Summary',
+                summaryText: 'AI-Native Full-Stack & Automation Engineer with a B.S. in Software Engineering (MIREA University). Specialized in rapid MVP development (React + Vite + Supabase), architecting autonomous AI agents, n8n workflow automations, Telepilot Telegram user-bots, and cloud server infrastructure (Linux, Docker, Nginx, GitHub Actions CI/CD). Leverages modern AI-assisted workflows (Claude, Gemini, Antigravity IDE, Supabase MCP) to build scalable, secure, and fully tested business applications 3-5x faster than traditional dev cycles.',
+                stitleComp: 'Core Competencies',
+                skills: [
+                    '<strong>AI & Workflow Automation:</strong> LLM APIs (OpenAI / Gemini / Claude), RAG Systems, Model Context Protocol (MCP), n8n Workflows, Telepilot User-Bots, Webhooks, Advanced Prompt Engineering.',
+                    '<strong>Full-Stack & Databases:</strong> React, Vite, SPA Architecture, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.',
+                    '<strong>DevOps & Infrastructure:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Custom VPN Server Management.',
+                    '<strong>Testing & CI/CD:</strong> Git, GitHub Actions (Automated Deployment), Playwright E2E Testing, Vitest.'
+                ],
+                stitleProjects: 'Featured Projects & Engineering Experience',
+                p1Title: 'Atlas CRM (MVP) — Lead Architect & Full-Stack Developer',
+                p1Tech: 'Tech Stack: React, Vite, Supabase (PostgreSQL, RLS Security), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest',
+                p1Bullets: [
+                    'Architected and developed a commercial CRM platform designed to automate operations for niche service providers.',
+                    'Enforced multi-tenant data privacy and granular access controls using Supabase Row Level Security (RLS) policies at the database layer.',
+                    'Implemented automated E2E regression testing with Playwright and unit testing with Vitest to verify slot booking logic.',
+                    'Configured automated CI/CD deployment pipelines using GitHub Actions, shipping code to an Nginx Linux server behind Cloudflare DNS/SSL.'
+                ],
+                p2Title: 'AI Booking & Customer Support Assistant (Telepilot + n8n + LLM)',
+                p2Tech: 'Tech Stack: Telepilot API (User-Bot), n8n Engine, Gemini/OpenAI API, Webhooks, Google Calendar API',
+                p2Bullets: [
+                    'Engineered a human-like AI agent operating directly via Telegram user account (Telepilot API).',
+                    'Implemented RAG-based context retrieval: fetches company rules, services, and live slot availability from DB in real-time.',
+                    'Enables autonomous appointment scheduling, slot negotiation, and instantly dispatches lead notifications to business managers.'
+                ],
+                p3Title: 'DevOps & Server Infrastructure Automation',
+                p3Tech: 'Tech Stack: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN',
+                p3Bullets: [
+                    'Deployment, hardening, and administration of production Linux Ubuntu servers.',
+                    'Configured Nginx Reverse Proxy, SSL encryption, Cloudflare WAF protection, and private VPN network setups.'
+                ],
+                stitleEdu: 'Education',
+                edu: [
+                    { title: 'Bachelor of Science (B.S.) in Software Engineering', sub: 'MIREA – Russian Technological University' },
+                    { title: 'Master of Science (M.S.) in Document & Archival Science', sub: 'Kalmyk State University' }
+                ]
+            },
+            RU: {
+                title: "Валерий - AI & Full-Stack Разработчик Резюме CV",
+                printInst: '💡 <strong>Инструкция:</strong> Нажмите <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (или <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> на Mac) → Выберите <strong>"Сохранить как PDF"</strong> → Отключите верхние/нижние колонтитулы.',
+                btnText: '🌐 Switch to EN (English version)',
+                name: 'ВАЛЕРИЙ',
+                role: 'AI Solutions Engineer & Full-Stack Разработчик',
+                location: '📍 Удаленно (UTC+3)',
+                langProf: '🗣️ Английский язык: B1-B2 Working Proficiency',
+                stitleSummary: 'О себе и квалификации',
+                summaryText: 'Full-stack & AI-разработчик с высшим профильным образованием (МИРЭА, Программная инженерия). Специализируется на быстрой разработке MVP-систем (React + Vite + Supabase), проектировании автономных ИИ-агентов, n8n-пайплайнов автоматизации, Telepilot Telegram-юзерботов и серверной инфраструктуры (Linux, Docker, Nginx, GitHub Actions CI/CD). Активно использует современные ИИ-ассистенты (Claude, Gemini, Antigravity IDE, Supabase MCP) для создания масштабируемых, защищенных и покрытых тестами бизнес-приложений в 3-5 раз быстрее традиционной разработки.',
+                stitleComp: 'Ключевые компетенции',
+                skills: [
+                    '<strong>ИИ и Автоматизация:</strong> LLM APIs (OpenAI / Gemini / Claude), RAG-системы, Model Context Protocol (MCP), n8n Workflows, Telepilot User-Bots, Webhooks, Промпт-инжиниринг.',
+                    '<strong>Full-Stack и СУБД:</strong> React, Vite, SPA Архитектура, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.',
+                    '<strong>DevOps и Инфраструктура:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Настройка VPN-серверов.',
+                    '<strong>Тестирование и CI/CD:</strong> Git, GitHub Actions (Автоматический деплой), Playwright E2E Тестирование, Vitest.'
+                ],
+                stitleProjects: 'Коммерческие проекты и опыт разработки',
+                p1Title: 'Atlas CRM (MVP) — Ведущий архитектор & Full-Stack разработчик',
+                p1Tech: 'Стек: React, Vite, Supabase (PostgreSQL, RLS), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest',
+                p1Bullets: [
+                    'Спроектировал и разработал коммерческую CRM-платформу для автоматизации процессов в нишевых сервисных компаниях.',
+                    'Реализовал строгое разграничение прав доступа к данным с помощью полисов Supabase Row Level Security (RLS) на уровне СУБД.',
+                    'Настроил автоматические сквозные тесты (E2E) с Playwright и юнит-тесты Vitest для проверки логики онлайн-записи.',
+                    'Автоматизировал CI/CD деплой через GitHub Actions на Linux-сервер Nginx под защитой Cloudflare DNS/SSL.'
+                ],
+                p2Title: 'ИИ-Бот Онлайн-Записи и Консультации (Telepilot + n8n + LLM)',
+                p2Tech: 'Стек: Telepilot API (User-Bot), n8n Engine, Gemini/OpenAI API, Webhooks, Google Calendar API',
+                p2Bullets: [
+                    'Создал умного ИИ-агента, ведущего диалоги от лица Telegram-аккаунта (Telepilot API).',
+                    'Внедрил извлечение контекста RAG: бот извлекает правила компании, прайс-лист и свободные слоты из СУБД в режиме реального времени.',
+                    'Реализовал автономное согласование времени записи и автоматическую отправку уведомлений менеджерам.'
+                ],
+                p3Title: 'DevOps & Автоматизация Серверной Инфраструктуры',
+                p3Tech: 'Стек: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN',
+                p3Bullets: [
+                    'Развертывание, защита и администрирование Linux Ubuntu серверов.',
+                    'Конфигурация Nginx Reverse Proxy, SSL-шифрования, проксирования Cloudflare WAF и защищенных VPN-сетей.'
+                ],
+                stitleEdu: 'Образование',
+                edu: [
+                    { title: 'Бакалавр техники и технологий (09.03.04 Программная инженерия)', sub: 'МИРЭА – Российский технологический университет' },
+                    { title: 'Магистр (Документоведение и архивоведение)', sub: 'Калмыцкий государственный университет' }
+                ]
+            }
+        };
+
+        let activeCvLang = 'EN';
+
+        function renderCvLanguage(lang) {
+            activeCvLang = lang;
+            const data = cvData[lang];
+            document.title = data.title;
+            document.getElementById('print-instruction').innerHTML = data.printInst;
+            document.getElementById('cv-lang-btn-text').textContent = data.btnText;
+            document.getElementById('cv-name').textContent = data.name;
+            document.getElementById('cv-role').textContent = data.role;
+            document.getElementById('cv-location').textContent = data.location;
+            document.getElementById('cv-lang-prof').textContent = data.langProf;
+
+            document.getElementById('cv-stitle-summary').textContent = data.stitleSummary;
+            document.getElementById('cv-summary-text').textContent = data.summaryText;
+
+            document.getElementById('cv-stitle-comp').textContent = data.stitleComp;
+            const skillsUl = document.getElementById('cv-skills-list');
+            skillsUl.innerHTML = data.skills.map(s => `<li>${s}</li>`).join('');
+
+            document.getElementById('cv-stitle-projects').textContent = data.stitleProjects;
+            document.getElementById('cv-p1-title').textContent = data.p1Title;
+            document.getElementById('cv-p1-tech').textContent = data.p1Tech;
+            document.getElementById('cv-p1-bullets').innerHTML = data.p1Bullets.map(b => `<li>${b}</li>`).join('');
+
+            document.getElementById('cv-p2-title').textContent = data.p2Title;
+            document.getElementById('cv-p2-tech').textContent = data.p2Tech;
+            document.getElementById('cv-p2-bullets').innerHTML = data.p2Bullets.map(b => `<li>${b}</li>`).join('');
+
+            document.getElementById('cv-p3-title').textContent = data.p3Title;
+            document.getElementById('cv-p3-tech').textContent = data.p3Tech;
+            document.getElementById('cv-p3-bullets').innerHTML = data.p3Bullets.map(b => `<li>${b}</li>`).join('');
+
+            document.getElementById('cv-stitle-edu').textContent = data.stitleEdu;
+            document.getElementById('cv-edu-content').innerHTML = data.edu.map(e => `
+                <div class="edu-item">
+                    <div class="edu-title">${e.title}</div>
+                    <div class="edu-sub">${e.sub}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCvLanguage() {
+            const next = activeCvLang === 'EN' ? 'RU' : 'EN';
+            renderCvLanguage(next);
+        }
+
+        // Detect lang from URL parameter ?lang=RU or ?lang=EN
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        if (urlLang === 'RU' || urlLang === 'EN') {
+            renderCvLanguage(urlLang);
+        } else {
+            renderCvLanguage('EN');
+        }
+    </script>
 </body>
 </html>

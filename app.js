@@ -1192,6 +1192,12 @@ function applyLanguage(lang) {
         }
     });
 
+    // Update all PDF resume links to pass active language parameter (?lang=RU or ?lang=EN)
+    const cvLinks = document.querySelectorAll('a[href*="resume_printable.html"]');
+    cvLinks.forEach(link => {
+        link.href = `resume_printable.html?lang=${currentLang}`;
+    });
+
     // Re-split all section headings for letter-by-letter animation
     initScrollLetterAnimationEngine();
 
