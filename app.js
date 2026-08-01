@@ -1146,6 +1146,10 @@ const translations = {
         'metrics.autotests': 'RLS & CI/CD Автотесты',
         'metrics.v4': '3x',
         'metrics.speed': 'Скорость с AI-стеком',
+        'metrics.v5': '24/7',
+        'metrics.v5desc': 'ИИ-Агенты & Автоматизация',
+        'metrics.v6': '<100ms',
+        'metrics.v6desc': 'Оптимизация & Скорость',
         'bot.title': 'Демо ИИ-Бота',
         'bot.sub': 'Проверь работу агента — нажми на одну из кнопок ниже.',
         'bot.reset': 'Сбросить',
@@ -1200,6 +1204,10 @@ const translations = {
         'metrics.autotests': 'RLS & CI/CD Auto-tests',
         'metrics.v4': '3x',
         'metrics.speed': 'Speed with AI Stack',
+        'metrics.v5': '24/7',
+        'metrics.v5desc': 'AI Agents & Workflows',
+        'metrics.v6': '<100ms',
+        'metrics.v6desc': 'Optimized Performance',
         'bot.title': 'AI Agent Demo',
         'bot.sub': 'Test live agent responses — click any scenario button below.',
         'bot.reset': 'Reset',
@@ -1570,7 +1578,7 @@ function initBorderBeamEngine() {
 }
 
 // ==========================================================================
-// 17. 3D CURVATURE ARC HORIZONTAL SCROLL ENGINE
+// 17. 3D CURVATURE ARC HORIZONTAL SCROLL ENGINE (ACTIVE ONLY ON SCROLL)
 // ==========================================================================
 function initMetrics3DCurvatureEngine() {
     const track = document.getElementById('metrics-track');
@@ -1578,6 +1586,16 @@ function initMetrics3DCurvatureEngine() {
 
     const cards = track.querySelectorAll('.metric-card');
     if (cards.length === 0) return;
+
+    let isScrolling = false;
+    let scrollTimeout = null;
+
+    function resetToFlat() {
+        cards.forEach(card => {
+            card.style.transform = `perspective(1000px) rotateY(0deg) translateZ(0px) scale(1)`;
+            card.style.opacity = '1';
+        });
+    }
 
     function updateCurvature() {
         const trackRect = track.getBoundingClientRect();
@@ -1591,12 +1609,12 @@ function initMetrics3DCurvatureEngine() {
             const offset = (cardCenterX - trackCenterX) / (trackRect.width / 2);
             const clampedOffset = Math.max(-2, Math.min(2, offset));
 
-            // 3D Curvature Math:
+            // 3D Curvature Math (active during scroll):
             // 1. Rotate Y angle: left cards rotate right, right cards rotate left
-            const rotateY = -clampedOffset * 22; // -22deg to +22deg arc
+            const rotateY = -clampedOffset * 26; // -26deg to +26deg arc
             
             // 2. Depth Z: center card pops forward, edge cards sink backward
-            const translateZ = (1 - Math.abs(clampedOffset) * 0.4) * 25 - 15;
+            const translateZ = (1 - Math.abs(clampedOffset) * 0.4) * 35 - 20;
 
             // 3. Scale: center card 100%, edge cards 88%
             const scale = Math.max(0.88, 1 - Math.abs(clampedOffset) * 0.12);
@@ -1609,13 +1627,22 @@ function initMetrics3DCurvatureEngine() {
         });
     }
 
-    track.addEventListener('scroll', updateCurvature, { passive: true });
-    window.addEventListener('resize', updateCurvature, { passive: true });
-    window.addEventListener('scroll', updateCurvature, { passive: true });
+    function onScroll() {
+        isScrolling = true;
+        updateCurvature();
 
-    // Initial calculation
-    updateCurvature();
-    setTimeout(updateCurvature, 200);
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+            resetToFlat();
+        }, 320); // 320ms after scroll stops, smoothly flatten cards back out
+    }
+
+    track.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', resetToFlat, { passive: true });
+
+    // Initial state: perfectly flat
+    resetToFlat();
 }
 
 // Initialize Scroll Animations after DOM loaded
