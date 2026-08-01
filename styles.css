@@ -6,25 +6,46 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global 8-Bit Arcade Retro Typography (Press Start 2P) */
-body, button, input, textarea, select {
-  font-family: 'Press Start 2P', cursive, monospace !important;
-  font-size: 0.825rem;
+/* Universal Anonymous Pro Typography across the entire website */
+body, p, span, div, a, h1, h2, h3, h4, h5, h6, button, input, textarea, select, .shiny-cta {
+  font-family: 'Anonymous Pro', monospace !important;
+  letter-spacing: 0.03em;
+}
+
+body {
+  font-size: 1rem;
   line-height: 1.6;
-  letter-spacing: 0.02em;
   overflow-x: hidden;
   cursor: none !important;
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: 'Press Start 2P', cursive, monospace !important;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
+  font-weight: 700 !important;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+}
+
+.shiny-cta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* Hide native cursor everywhere so custom reticle takes over */
 *, *::before, *::after {
   cursor: none !important;
+}
+
+/* Re-apply Font Families for Phosphor & PixelArt Icon Glyphs */
+i.ph, i.ph-bold, i.ph-fill, i.ph-regular, 
+[class^="ph-"], [class*=" ph-"],
+[class^="ph-"]::before, [class*=" ph-"]::before {
+  font-family: "Phosphor-Bold", "Phosphor", sans-serif !important;
+}
+
+i.pixelarticons, [class^="pixelarticons-"], [class*=" pixelarticons-"],
+[class^="pixelarticons-"]::before, [class*=" pixelarticons-"]::before {
+  font-family: "pixelarticons" !important;
 }
 
 /* 8-Bit Retro Pixel Icon Styling */
@@ -34,9 +55,7 @@ i.ph, i.ph-bold, i.ph-fill, i.ph-regular, i.pixelarticons, [class^="pixelarticon
   shape-rendering: crispEdges !important;
 }
 
-/* 8-Bit Pixel Drop-Shadow & Highlight for Buttons & Dock Icons */
 .shiny-cta i, .shiny-cta svg, .dock-item i, .dock-item svg, .border-beam-panel i {
-  filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.9)) drop-shadow(-1px -1px 0px rgba(255, 255, 255, 0.25));
   stroke-linecap: square !important;
   stroke-linejoin: miter !important;
 }
@@ -81,10 +100,10 @@ i.ph, i.ph-bold, i.ph-fill, i.ph-regular, i.pixelarticons, [class^="pixelarticon
   overflow: hidden;
   outline-offset: 4px;
   padding: 0.75rem 1.4rem;
-  font-family: 'Press Start 2P', cursive, monospace !important;
-  font-size: 0.725rem;
-  line-height: 1.4;
-  font-weight: 600;
+  font-family: 'Anonymous Pro', monospace !important;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  font-weight: 700;
   border: 1px solid transparent;
   border-radius: 9999px;
   color: var(--shiny-cta-fg);
