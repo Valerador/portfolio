@@ -335,3 +335,66 @@ input:focus-visible {
         touch-action: manipulation;
     }
 }
+
+/* MOTIQ BORDER BEAM PANEL EFFECT FOR CONTACT CARDS */
+.border-beam-panel {
+    position: relative;
+    isolation: isolate;
+    --beam-angle: 0deg;
+}
+
+.border-beam-ring,
+.border-beam-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.border-beam-ring {
+    padding: 2px;
+    background: conic-gradient(
+        from var(--beam-angle, 0deg),
+        transparent 0deg,
+        color-mix(in srgb, var(--beam-color-1, #a855f7) 4%, transparent) 18deg,
+        color-mix(in srgb, var(--beam-color-1, #a855f7) 55%, transparent) 46deg,
+        var(--beam-color-2, #34d399) 56deg,
+        #ffffff 60deg,
+        transparent 63deg,
+        transparent 198deg,
+        color-mix(in srgb, var(--beam-color-3, #ff6b5e) 4%, transparent) 216deg,
+        color-mix(in srgb, var(--beam-color-3, #ff6b5e) 50%, transparent) 244deg,
+        var(--beam-color-3, #ff6b5e) 254deg,
+        #ffffff 258deg,
+        transparent 261deg,
+        transparent 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: 10;
+}
+
+.border-beam-glow {
+    background: conic-gradient(
+        from var(--beam-angle, 0deg),
+        transparent 0deg,
+        var(--beam-color-1, #a855f7) 45deg,
+        var(--beam-color-2, #34d399) 60deg,
+        transparent 70deg,
+        transparent 198deg,
+        var(--beam-color-3, #ff6b5e) 250deg,
+        transparent 265deg,
+        transparent 360deg
+    );
+    filter: blur(14px);
+    opacity: 0.35;
+    z-index: -1;
+}
+
+.border-beam-panel:hover .border-beam-glow {
+    opacity: 0.75;
+    filter: blur(18px);
+}

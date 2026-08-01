@@ -1522,6 +1522,54 @@ function initScrollLetterAnimationEngine() {
     });
 }
 
+// ==========================================================================
+// 16. MOTIQ BORDER BEAM PHYSICS & ORBIT ENGINE
+// ==========================================================================
+function initBorderBeamEngine() {
+    const panels = document.querySelectorAll('.border-beam-panel');
+    if (panels.length === 0) return;
+
+    let lastTime = performance.now();
+
+    panels.forEach((panel, idx) => {
+        let angle = (idx * 137.5) % 360;
+        let speed = 42;       // idle deg/s
+        let targetSpeed = 42; // target deg/s
+        let velocity = 0;     // spring velocity
+
+        panel.addEventListener('pointerenter', () => { targetSpeed = 240; });
+        panel.addEventListener('pointerleave', () => { targetSpeed = 42; });
+        panel.addEventListener('focus', () => { targetSpeed = 240; });
+        panel.addEventListener('blur', () => { targetSpeed = 42; });
+
+        panel._updateBeam = (dt) => {
+            // Spring physics step (k=30, d=11)
+            const k = 30;
+            const d = 11;
+            const accel = k * (targetSpeed - speed) - d * velocity;
+            velocity += accel * dt;
+            speed += velocity * dt;
+
+            angle = (angle + speed * dt) % 360;
+            panel.style.setProperty('--beam-angle', `${angle.toFixed(2)}deg`);
+        };
+    });
+
+    function loop(now) {
+        const dt = Math.min(0.05, (now - lastTime) / 1000);
+        lastTime = now;
+
+        if (document.visibilityState !== 'hidden') {
+            panels.forEach(panel => {
+                if (panel._updateBeam) panel._updateBeam(dt);
+            });
+        }
+        requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+}
+
 // Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
 initScrollLetterAnimationEngine();
+initBorderBeamEngine();
