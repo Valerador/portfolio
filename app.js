@@ -686,8 +686,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);   // Crisp Pearl Core + Electric Violet Rim
 
         const isMobileDevice = window.innerWidth < 768;
-        const cubeSize = isMobileDevice ? 95 : Math.min(cWidth, cHeight) * 0.32; // Compact 3D scale on mobile
-        const numCubeParticles = isMobileDevice ? 1200 : 4800; // 1,200 on mobile, 4,800 on desktop for 60-120 FPS performance!
+        const cubeSize = isMobileDevice ? 90 : 135; // Sleek, compact 3D scale on desktop & mobile
+        const numCubeParticles = isMobileDevice ? 1200 : 3600; // 1,200 on mobile, 3,600 on desktop for silky smooth performance!
         const cubeParticles = [];
 
         function isCubeEdgePoint(x, y, z, s) {
@@ -816,8 +816,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             cCtx.clearRect(0, 0, cWidth, cHeight);
-            const cx = cWidth / 2;
-            const cy = cHeight / 2;
+            const isDesktopScreen = cWidth >= 1024;
+            const cx = isDesktopScreen ? cWidth * 0.52 : cWidth / 2;
+            const cy = isDesktopScreen ? cHeight * 0.44 : cHeight / 2;
 
             animTime += 1;
             autoRotateAngle += 0.008;

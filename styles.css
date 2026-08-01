@@ -544,20 +544,22 @@ input:focus-visible {
   filter: blur(0px) !important;
 }
 
-/* Hero sub-block (description & buttons) reveals LOWER down on screen after scroll */
-#hero-sub-block {
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: opacity, transform;
+/* Desktop overrides: macOS dock container & Hero sub-block ALWAYS visible immediately on Desktop */
+@media (min-width: 768px) {
+  #macos-dock-container {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, 0px) !important;
+  }
+  #hero-sub-block {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0px) !important;
+  }
 }
 
-#hero-sub-block.hero-scroll-hidden {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transform: translateY(45px) !important;
-}
-
-#hero-sub-block.hero-scroll-visible {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: translateY(0px) !important;
+/* RICARDO CHANCE STYLE SCROLL WORD SCRUB REVEAL */
+.scroll-scrub-text .scrub-word {
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, color, text-shadow;
 }
