@@ -1,4 +1,4 @@
-// Global helper for letter-by-letter splitting
+// Global helper for letter-by-letter splitting (with word-wrapper boundary protection)
 function splitTextToSpans(el) {
     if (!el) return [];
 
@@ -23,14 +23,31 @@ function splitTextToSpans(el) {
         el.appendChild(document.createTextNode(' '));
     }
 
+    const words = cleanText.split(' ');
     const spans = [];
-    for (let i = 0; i < cleanText.length; i++) {
-        const span = document.createElement('span');
-        span.className = 'char-span';
-        span.textContent = cleanText[i] === ' ' ? '\u00A0' : cleanText[i];
-        el.appendChild(span);
-        spans.push(span);
-    }
+
+    words.forEach((wordText, wIndex) => {
+        const wordWrapper = document.createElement('span');
+        wordWrapper.className = 'inline-block whitespace-nowrap';
+
+        for (let i = 0; i < wordText.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'char-span';
+            span.textContent = wordText[i];
+            wordWrapper.appendChild(span);
+            spans.push(span);
+        }
+
+        el.appendChild(wordWrapper);
+
+        if (wIndex < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.className = 'inline-block';
+            spaceSpan.innerHTML = '&nbsp;';
+            el.appendChild(spaceSpan);
+        }
+    });
+
     return spans;
 }
 
