@@ -649,49 +649,73 @@
         </div>
     </section>
 
-    <!-- SCENE 2.5: KEY METRICS - INFINITE 3D CURVED RIBBON SCREEN -->
+    <!-- SCENE 2.5: KEY METRICS - 3D CURVED SCREEN SHOWCASE -->
     <section id="metrics-section" class="py-12 sm:py-16 max-w-full overflow-hidden relative z-20">
-        <!-- 3D Curved Screen Drum Track -->
-        <div id="metrics-track" class="metrics-3d-track flex items-stretch gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-16 sm:py-24 px-[calc(50vw-140px)] sm:px-[calc(50vw-160px)] select-none">
-            
-            <!-- 6 UNIQUE METRIC CARDS -->
-            <!-- CARD 1: FAST LEARNER -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-purple-500/40 backdrop-blur-2xl shadow-2xl hover:border-purple-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-3xl sm:text-4xl font-black font-heading text-brandPurple whitespace-nowrap group-hover:scale-105 transition-transform" data-i18n="metrics.v1">Fast Learner</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.experience">Adaptability to New Stack</div>
-            </div>
-
-            <!-- CARD 2: 15+ PROJECTS -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-indigo-500/40 backdrop-blur-2xl shadow-2xl hover:border-indigo-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-4xl sm:text-5xl font-black font-heading text-brandPrimary group-hover:scale-105 transition-transform" data-i18n="metrics.v2">15+</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.projects">Projects & AI Bots</div>
-            </div>
-
-            <!-- CARD 3: 100% AUTOTESTS -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-emerald-500/40 backdrop-blur-2xl shadow-2xl hover:border-emerald-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-4xl sm:text-5xl font-black font-heading text-emerald-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v3">100%</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.autotests">RLS & CI/CD Auto-tests</div>
-            </div>
-
-            <!-- CARD 4: 3X SPEED -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-amber-500/40 backdrop-blur-2xl shadow-2xl hover:border-amber-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-4xl sm:text-5xl font-black font-heading text-amber-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v4">3x</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.speed">Speed with AI Stack</div>
-            </div>
-
-            <!-- CARD 5: 24/7 AI AGENTS -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl hover:border-cyan-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-4xl sm:text-5xl font-black font-heading text-cyan-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v5">24/7</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v5desc">AI Agents & Workflows</div>
-            </div>
-
-            <!-- CARD 6: OPTIMIZED PERFORMANCE -->
-            <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-rose-500/40 backdrop-blur-2xl shadow-2xl hover:border-rose-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
-                <div class="text-4xl sm:text-5xl font-black font-heading text-rose-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v6">&lt;100ms</div>
-                <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v6desc">Optimized Performance</div>
-            </div>
-
+        
+        <!-- Swipe Hint Badge -->
+        <div class="text-center mb-1">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono text-xs font-medium backdrop-blur-md shadow-sm">
+                <i class="ph-bold ph-hand-swipe text-brandPurple animate-pulse text-base"></i>
+                <span data-i18n="metrics.swipe">Свайпайте карточки ⟵ ⟶</span>
+            </span>
         </div>
+
+        <div class="relative">
+            <!-- Navigation Left Arrow Button -->
+            <button id="metrics-prev-btn" aria-label="Предыдущая карточка" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-lg active:scale-95">
+                <i class="ph-bold ph-caret-left text-xl"></i>
+            </button>
+
+            <!-- Navigation Right Arrow Button -->
+            <button id="metrics-next-btn" aria-label="Следующая карточка" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-lg active:scale-95">
+                <i class="ph-bold ph-caret-right text-xl"></i>
+            </button>
+
+            <!-- 3D Curved Screen Drum Track -->
+            <div id="metrics-track" class="metrics-3d-track flex items-stretch gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-12 sm:py-20 px-[calc(50vw-140px)] sm:px-[calc(50vw-160px)] select-none">
+                
+                <!-- 6 UNIQUE METRIC CARDS -->
+                <!-- CARD 1: FAST LEARNER -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-purple-500/40 backdrop-blur-2xl shadow-2xl hover:border-purple-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-3xl sm:text-4xl font-black font-heading text-brandPurple whitespace-nowrap group-hover:scale-105 transition-transform" data-i18n="metrics.v1">Fast Learner</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.experience">Adaptability to New Stack</div>
+                </div>
+
+                <!-- CARD 2: 15+ PROJECTS -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-indigo-500/40 backdrop-blur-2xl shadow-2xl hover:border-indigo-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-brandPrimary group-hover:scale-105 transition-transform" data-i18n="metrics.v2">15+</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.projects">Projects & AI Bots</div>
+                </div>
+
+                <!-- CARD 3: 100% AUTOTESTS -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-emerald-500/40 backdrop-blur-2xl shadow-2xl hover:border-emerald-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-emerald-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v3">100%</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.autotests">RLS & CI/CD Auto-tests</div>
+                </div>
+
+                <!-- CARD 4: 3X SPEED -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-amber-500/40 backdrop-blur-2xl shadow-2xl hover:border-amber-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-amber-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v4">3x</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.speed">Speed with AI Stack</div>
+                </div>
+
+                <!-- CARD 5: 24/7 AI AGENTS -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl hover:border-cyan-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-cyan-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v5">24/7</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v5desc">AI Agents & Workflows</div>
+                </div>
+
+                <!-- CARD 6: OPTIMIZED PERFORMANCE -->
+                <div class="metric-card shrink-0 w-[280px] sm:w-[320px] min-h-[160px] p-7 rounded-3xl bg-[#0d061f]/95 border border-rose-500/40 backdrop-blur-2xl shadow-2xl hover:border-rose-500/80 transition-all duration-300 flex flex-col justify-center items-center text-center space-y-2 group">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-rose-400 group-hover:scale-105 transition-transform" data-i18n="metrics.v6">&lt;100ms</div>
+                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v6desc">Optimized Performance</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dot Indicators Container -->
+        <div id="metrics-dots" class="flex items-center justify-center gap-2.5 pt-2 pb-2 relative z-30"></div>
     </section>
 
     <!-- SCENE 3: LIVE INTERACTIVE AI BOT DEMO SIMULATOR -->

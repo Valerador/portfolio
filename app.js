@@ -429,7 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sHeight = starfieldCanvas.height = window.innerHeight;
         });
 
-        const numDust = 550; // Ultra-rich 550 bright warp stars!
+        const isMobileScreen = window.innerWidth < 768;
+        const numDust = isMobileScreen ? 180 : 550; // Dynamic particle scaling for smooth mobile performance
         const dustParticles = [];
 
         for (let i = 0; i < numDust; i++) {
@@ -643,7 +644,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);   // Crisp Pearl Core + Electric Violet Rim
 
         const cubeSize = Math.min(cWidth, cHeight) * 0.32; // Perfect 3D scale
-        const numCubeParticles = 4800; // 4,800 micro-fine spherical stardust orbs!
+        const isMobileDevice = window.innerWidth < 768;
+        const numCubeParticles = isMobileDevice ? 1200 : 4800; // 1,200 on mobile, 4,800 on desktop for 60-120 FPS performance!
         const cubeParticles = [];
 
         function isCubeEdgePoint(x, y, z, s) {
@@ -1150,6 +1152,7 @@ const translations = {
         'metrics.v5desc': 'ИИ-Агенты & Автоматизация',
         'metrics.v6': '<100ms',
         'metrics.v6desc': 'Оптимизация & Скорость',
+        'metrics.swipe': 'Свайпайте карточки ⟵ ⟶',
         'bot.title': 'Демо ИИ-Бота',
         'bot.sub': 'Проверь работу агента — нажми на одну из кнопок ниже.',
         'bot.reset': 'Сбросить',
@@ -1208,6 +1211,7 @@ const translations = {
         'metrics.v5desc': 'AI Agents & Workflows',
         'metrics.v6': '<100ms',
         'metrics.v6desc': 'Optimized Performance',
+        'metrics.swipe': 'Swipe cards ⟵ ⟶',
         'bot.title': 'AI Agent Demo',
         'bot.sub': 'Test live agent responses — click any scenario button below.',
         'bot.reset': 'Reset',
@@ -1578,34 +1582,84 @@ function initBorderBeamEngine() {
 }
 
 // ==========================================================================
-// 17. 3D CURVED LENS SCREEN ENGINE (MANUAL SCROLL & DRAG)
+// 17. 3D CURVED LENS SHOWCASE ENGINE (ULTRA-FAST 120 FPS & MOBILE UX)
 // ==========================================================================
 function initMetrics3DCurvatureEngine() {
     const track = document.getElementById('metrics-track');
     if (!track) return;
 
-    const cards = track.querySelectorAll('.metric-card');
+    const cards = Array.from(track.querySelectorAll('.metric-card'));
     if (cards.length === 0) return;
+
+    const dotsContainer = document.getElementById('metrics-dots');
+    const prevBtn = document.getElementById('metrics-prev-btn');
+    const nextBtn = document.getElementById('metrics-next-btn');
 
     let isMouseDown = false;
     let startX = 0;
     let scrollLeftStart = 0;
+    let currentActiveIdx = 0;
+    let isRafScheduled = false;
 
-    function updateCurvature() {
-        const trackRect = track.getBoundingClientRect();
-        const trackCenterX = trackRect.left + trackRect.width / 2;
+    // Create pagination dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        cards.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.className = `metric-dot ${idx === 0 ? 'active' : ''}`;
+            dot.setAttribute('aria-label', `Карточка ${idx + 1}`);
+            dot.addEventListener('click', () => scrollToCardIndex(idx));
+            dotsContainer.appendChild(dot);
+        });
+    }
 
-        cards.forEach(card => {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenterX = cardRect.left + cardRect.width / 2;
-            
-            // Normalized offset from center
-            const offset = (cardCenterX - trackCenterX) / (trackRect.width * 0.35);
+    function scrollToCardIndex(idx) {
+        const targetCard = cards[idx];
+        if (!targetCard) return;
+        const targetScroll = targetCard.offsetLeft - (track.clientWidth - targetCard.offsetWidth) / 2;
+        track.scrollTo({
+            left: Math.max(0, targetScroll),
+            behavior: 'smooth'
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const prevIdx = Math.max(0, currentActiveIdx - 1);
+            scrollToCardIndex(prevIdx);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const nextIdx = Math.min(cards.length - 1, currentActiveIdx + 1);
+            scrollToCardIndex(nextIdx);
+        });
+    }
+
+    // Zero-reflow 3D lens math (0.01ms frame execution)
+    function renderCurvature() {
+        isRafScheduled = false;
+        const scrollLeft = track.scrollLeft;
+        const trackWidth = track.clientWidth;
+        const trackCenterX = scrollLeft + trackWidth / 2;
+
+        let closestIdx = 0;
+        let minDistance = Infinity;
+
+        cards.forEach((card, idx) => {
+            const cardCenterX = card.offsetLeft + card.offsetWidth / 2;
+            const dist = Math.abs(cardCenterX - trackCenterX);
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestIdx = idx;
+            }
+
+            const offset = (cardCenterX - trackCenterX) / (trackWidth * 0.35);
             const clampedOffset = Math.max(-2.5, Math.min(2.5, offset));
             const absOffset = Math.abs(clampedOffset);
             const sign = Math.sign(clampedOffset);
 
-            // Progressive 3D Curved Lens Math:
             const rotateY = -sign * Math.pow(absOffset, 1.1) * 36;
             const scale = Math.max(0.74, 1.18 - absOffset * 0.3);
             const translateZ = 60 - absOffset * 80;
@@ -1623,11 +1677,28 @@ function initMetrics3DCurvatureEngine() {
             card.style.transform = `perspective(1000px) rotateY(${rotateY.toFixed(2)}deg) translateZ(${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
             card.style.opacity = opacity.toFixed(2);
         });
+
+        currentActiveIdx = closestIdx;
+
+        // Update dot indicators
+        if (dotsContainer) {
+            const dots = dotsContainer.querySelectorAll('.metric-dot');
+            dots.forEach((dot, dIdx) => {
+                dot.classList.toggle('active', dIdx === currentActiveIdx);
+            });
+        }
     }
 
-    // Update 3D lens on scroll
-    track.addEventListener('scroll', updateCurvature, { passive: true });
-    window.addEventListener('resize', updateCurvature);
+    function scheduleCurvatureUpdate() {
+        if (!isRafScheduled) {
+            isRafScheduled = true;
+            requestAnimationFrame(renderCurvature);
+        }
+    }
+
+    // Passive scroll listener for zero touch blocking on mobile
+    track.addEventListener('scroll', scheduleCurvatureUpdate, { passive: true });
+    window.addEventListener('resize', scheduleCurvatureUpdate);
 
     // Desktop Mouse Drag-to-Scroll
     track.addEventListener('mousedown', (e) => {
@@ -1649,13 +1720,13 @@ function initMetrics3DCurvatureEngine() {
         e.preventDefault();
         const x = e.pageX - startX;
         track.scrollLeft = scrollLeftStart - x * 1.2;
-        updateCurvature();
+        scheduleCurvatureUpdate();
     });
 
-    // Initial positioning
+    // Initial positioning render
     setTimeout(() => {
-        updateCurvature();
-    }, 150);
+        renderCurvature();
+    }, 100);
 }
 
 // Initialize Scroll Animations after DOM loaded

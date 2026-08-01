@@ -411,12 +411,16 @@ input:focus-visible {
     transform-style: preserve-3d;
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+    touch-action: pan-y; /* Allows 100% smooth native vertical page scroll on mobile touch! */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
 }
 
 .metrics-3d-track.is-dragging {
     user-select: none;
+    scroll-snap-type: none; /* Disable snap while dragging */
 }
 
 .metrics-3d-track::-webkit-scrollbar {
@@ -429,4 +433,23 @@ input:focus-visible {
     transform-style: preserve-3d;
     will-change: transform, opacity;
     transition: opacity 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+/* METRICS NAVIGATION DOTS & ARROWS UX */
+.metric-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.metric-dot.active {
+    width: 28px;
+    background-color: #a855f7;
+    border-color: rgba(168, 85, 247, 0.8);
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
 }
