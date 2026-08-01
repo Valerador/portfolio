@@ -661,16 +661,6 @@
         </div>
 
         <div class="relative">
-            <!-- Navigation Left Arrow Button -->
-            <button id="metrics-prev-btn" aria-label="Предыдущая карточка" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-lg active:scale-95">
-                <i class="ph-bold ph-caret-left text-xl"></i>
-            </button>
-
-            <!-- Navigation Right Arrow Button -->
-            <button id="metrics-next-btn" aria-label="Следующая карточка" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-lg active:scale-95">
-                <i class="ph-bold ph-caret-right text-xl"></i>
-            </button>
-
             <!-- 3D Curved Screen Drum Track -->
             <div id="metrics-track" class="metrics-3d-track flex items-stretch gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-12 sm:py-20 px-[calc(50vw-140px)] sm:px-[calc(50vw-160px)] select-none">
                 
@@ -714,8 +704,21 @@
             </div>
         </div>
 
-        <!-- Dot Indicators Container -->
-        <div id="metrics-dots" class="flex items-center justify-center gap-2.5 pt-2 pb-2 relative z-30"></div>
+        <!-- Bottom Controls Bar: Left Arrow, Dots Pagination, Right Arrow -->
+        <div class="flex items-center justify-center gap-4 pt-3 pb-2 relative z-30">
+            <!-- Navigation Left Arrow Button -->
+            <button id="metrics-prev-btn" aria-label="Предыдущая карточка" class="w-9 h-9 rounded-full bg-white/10 border border-white/15 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-md active:scale-95">
+                <i class="ph-bold ph-caret-left text-lg"></i>
+            </button>
+
+            <!-- Dot Indicators Container -->
+            <div id="metrics-dots" class="flex items-center justify-center gap-2.5"></div>
+
+            <!-- Navigation Right Arrow Button -->
+            <button id="metrics-next-btn" aria-label="Следующая карточка" class="w-9 h-9 rounded-full bg-white/10 border border-white/15 text-white flex items-center justify-center backdrop-blur-md hover:bg-brandPurple hover:border-brandPurple transition-all shadow-md active:scale-95">
+                <i class="ph-bold ph-caret-right text-lg"></i>
+            </button>
+        </div>
     </section>
 
     <!-- SCENE 3: LIVE INTERACTIVE AI BOT DEMO SIMULATOR -->

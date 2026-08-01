@@ -1643,6 +1643,15 @@ function initMetrics3DCurvatureEngine() {
         const scrollLeft = track.scrollLeft;
         const trackWidth = track.clientWidth;
         const trackCenterX = scrollLeft + trackWidth / 2;
+        const isMobile = window.innerWidth < 768;
+
+        // Mobile responsive 3D parameters (subtle depth on mobile for 100% natural touch swipe)
+        const maxAngle = isMobile ? 8 : 36;
+        const baseScale = isMobile ? 1.04 : 1.18;
+        const scaleDrop = isMobile ? 0.10 : 0.30;
+        const minScale = isMobile ? 0.94 : 0.74;
+        const baseZ = isMobile ? 15 : 60;
+        const zDrop = isMobile ? 25 : 80;
 
         let closestIdx = 0;
         let minDistance = Infinity;
@@ -1660,10 +1669,10 @@ function initMetrics3DCurvatureEngine() {
             const absOffset = Math.abs(clampedOffset);
             const sign = Math.sign(clampedOffset);
 
-            const rotateY = -sign * Math.pow(absOffset, 1.1) * 36;
-            const scale = Math.max(0.74, 1.18 - absOffset * 0.3);
-            const translateZ = 60 - absOffset * 80;
-            const opacity = Math.max(0.55, 1 - absOffset * 0.35);
+            const rotateY = -sign * Math.pow(absOffset, 1.1) * maxAngle;
+            const scale = Math.max(minScale, baseScale - absOffset * scaleDrop);
+            const translateZ = baseZ - absOffset * zDrop;
+            const opacity = Math.max(0.60, 1 - absOffset * 0.30);
 
             if (absOffset < 0.2) {
                 card.style.borderColor = 'rgba(168, 85, 247, 0.9)';
@@ -1700,8 +1709,9 @@ function initMetrics3DCurvatureEngine() {
     track.addEventListener('scroll', scheduleCurvatureUpdate, { passive: true });
     window.addEventListener('resize', scheduleCurvatureUpdate);
 
-    // Desktop Mouse Drag-to-Scroll
+    // Desktop Mouse Drag-to-Scroll (Disabled on touch devices to prevent touch conflicts)
     track.addEventListener('mousedown', (e) => {
+        if (window.matchMedia('(pointer: coarse)').matches) return;
         isMouseDown = true;
         track.classList.add('is-dragging');
         startX = e.pageX - track.offsetLeft;
