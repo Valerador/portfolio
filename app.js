@@ -1199,6 +1199,15 @@ function applyLanguage(lang) {
     resetBotDemo();
 }
 
+function toggleLanguage() {
+    const nextLang = currentLang === 'RU' ? 'EN' : 'RU';
+    applyLanguage(nextLang);
+}
+
+// Expose globally to window for onclick handlers
+window.toggleLanguage = toggleLanguage;
+window.applyLanguage = applyLanguage;
+
 
 // 12. Live AI Bot Simulation Demo
 function triggerBotDemo(scenario) {
