@@ -183,11 +183,40 @@ document.addEventListener('DOMContentLoaded', () => {
     let smoothScrollVelocity = 0;
 
     const heroContentWrapper = document.getElementById('hero-content-wrapper');
+    const desktopDock = document.getElementById('macos-dock-container');
+    const mobileDock = document.getElementById('mobile-dock-wrapper');
+
+    function updateDockVisibility() {
+        const currentScrollY = window.scrollY;
+        
+        // Hide navigation pill at top of page so it does not overlap Hero buttons
+        if (currentScrollY > 80) {
+            if (desktopDock) {
+                desktopDock.classList.remove('dock-hidden');
+                desktopDock.classList.add('dock-visible');
+            }
+            if (mobileDock) {
+                mobileDock.classList.remove('dock-hidden');
+                mobileDock.classList.add('dock-visible');
+            }
+        } else {
+            if (desktopDock) {
+                desktopDock.classList.remove('dock-visible');
+                desktopDock.classList.add('dock-hidden');
+            }
+            if (mobileDock) {
+                mobileDock.classList.remove('dock-visible');
+                mobileDock.classList.add('dock-hidden');
+            }
+        }
+    }
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         rawScrollVelocity = currentScrollY - lastScrollY;
         lastScrollY = currentScrollY;
+
+        updateDockVisibility();
 
         // Smooth scroll fade-out and slide-up for ALL Hero content elements on scroll down
         if (heroContentWrapper) {
@@ -199,6 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
             heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
         }
     });
+
+    updateDockVisibility();
 
     function setCursorState(state) {
         if (!tickTop || !tickBottom || !tickLeft || !tickRight) return;

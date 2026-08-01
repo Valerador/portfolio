@@ -10,8 +10,22 @@ html, body {
 }
 
 /* iOS Safari Bottom Bar & Safe Area Clearance */
-#macos-dock-container {
+#macos-dock-container, #mobile-dock-wrapper {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+#macos-dock-container.dock-hidden, #mobile-dock-wrapper.dock-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translate(-50%, 25px) !important;
+}
+
+#macos-dock-container.dock-visible, #mobile-dock-wrapper.dock-visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translate(-50%, 0px) !important;
 }
 
 /* GPU Hardware Acceleration & Layer Promotion for Smooth 60-120 FPS Rendering */
