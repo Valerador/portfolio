@@ -1097,14 +1097,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     updateOrbitContainerScroll();
-    applyLanguage('RU');
+    applyLanguage('EN');
 });
 
 
 // ==========================================================================
 // 11. INTERNATIONALIZATION (i18n) MULTI-LANGUAGE ENGINE
 // ==========================================================================
-let currentLang = 'RU';
+let currentLang = 'EN';
 
 const translations = {
     RU: {
