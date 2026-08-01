@@ -1401,11 +1401,11 @@ function handleCmdSubmit(event) {
 // ==========================================================================
 function initScrollRevealEngine() {
     const revealTargets = document.querySelectorAll(
-        '.scroll-reveal, #metrics-section, #bot-simulation, #terminal-section, #contact-section'
+        '.scroll-reveal, .scroll-reveal-card, #metrics-section, #bot-simulation, #terminal-section, #contact-section'
     );
 
     revealTargets.forEach(el => {
-        if (!el.classList.contains('scroll-reveal')) {
+        if (!el.classList.contains('scroll-reveal') && !el.classList.contains('scroll-reveal-card')) {
             el.classList.add('scroll-reveal');
         }
     });

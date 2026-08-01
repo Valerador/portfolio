@@ -262,6 +262,24 @@ body {
     transform: translateY(0) scale(1);
 }
 
+/* CARD ELEVATION REVEAL WITH STAGGERED ELEVATION & HOVER LIFT */
+.scroll-reveal-card {
+    opacity: 0;
+    transform: translateY(50px) scale(0.96);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    will-change: opacity, transform;
+}
+
+.scroll-reveal-card.reveal-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.scroll-reveal-card.reveal-active:hover {
+    transform: translateY(-8px) scale(1.006);
+    box-shadow: 0 30px 60px -15px rgba(168, 85, 247, 0.3);
+}
+
 /* INFINITE MARQUEE TICKER ANIMATION */
 @keyframes marquee-scroll {
     0% { transform: translateX(0%); }
