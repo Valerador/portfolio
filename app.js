@@ -1464,6 +1464,32 @@ function initScrollLetterAnimationEngine() {
     });
 }
 
+// ==========================================================================
+// 16. INTERACTIVE 2.5D MOUSE TILT PARALLAX ENGINE FOR CARDS
+// ==========================================================================
+function init2DCardMouseTiltEngine() {
+    const cards = document.querySelectorAll('.scroll-reveal-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (!card.classList.contains('reveal-active')) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            card.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(25px) scale(1.012)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (!card.classList.contains('reveal-active')) return;
+            card.style.transform = '';
+        });
+    });
+}
+
 // Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
 initScrollLetterAnimationEngine();
+init2DCardMouseTiltEngine();
