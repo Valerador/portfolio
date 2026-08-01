@@ -739,26 +739,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================================================
-    // 7. ULTRA-OPTIMIZED 120+ FPS RICARDO CHANCE STARDUST CUBE (Pre-rendered Sprites)
+    // 7. ULTRA-OPTIMIZED 120+ FPS RICARDO CHANCE STARDUST CUBE (High-DPI Retina Support)
     // ==========================================================================
     const cubeCanvas = document.getElementById('particle-star-canvas');
     if (cubeCanvas) {
         const cCtx = cubeCanvas.getContext('2d');
-        let cWidth = cubeCanvas.width = window.innerWidth;
-        let cHeight = cubeCanvas.height = window.innerHeight;
+        let cWidth = window.innerWidth;
+        let cHeight = window.innerHeight;
 
-        window.addEventListener('resize', () => {
-            cWidth = cubeCanvas.width = window.innerWidth;
-            cHeight = cubeCanvas.height = window.innerHeight;
-        });
+        function resizeCubeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 3);
+            cWidth = window.innerWidth;
+            cHeight = window.innerHeight;
+            
+            cubeCanvas.width = Math.floor(cWidth * dpr);
+            cubeCanvas.height = Math.floor(cHeight * dpr);
+            cubeCanvas.style.width = cWidth + 'px';
+            cubeCanvas.style.height = cHeight + 'px';
+            
+            cCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            cCtx.imageSmoothingEnabled = true;
+            cCtx.imageSmoothingQuality = 'high';
+        }
+
+        resizeCubeCanvas();
+        window.addEventListener('resize', resizeCubeCanvas);
 
         // ----------------------------------------------------------------------
-        // PRE-RENDERED HIGH-OPACITY SPHERICAL BOKEH ORB SPRITES (Dense & Solid!)
-        // Opaque Pearl-White Core + Deep Vivid Violet Rim
+        // PRE-RENDERED HIGH-OPACITY SPHERICAL BOKEH ORB SPRITES (128x128 High-Res)
         // ----------------------------------------------------------------------
         function createParticleSprite(coreR, coreG, coreB, haloR, haloG, haloB) {
             const sprCanvas = document.createElement('canvas');
-            const size = 64;
+            const size = 128; // High-res 128px sprite for crisp Retina rendering
             sprCanvas.width = size;
             sprCanvas.height = size;
             const sprCtx = sprCanvas.getContext('2d');
@@ -767,11 +779,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const grad = sprCtx.createRadialGradient(center, center, 0, center, center, center);
             // 1. Opaque Solid Pearl-Silver Core
             grad.addColorStop(0,    `rgba(${coreR}, ${coreG}, ${coreB}, 1.0)`);
-            grad.addColorStop(0.32, `rgba(${coreR}, ${coreG}, ${coreB}, 0.90)`);
+            grad.addColorStop(0.32, `rgba(${coreR}, ${coreG}, ${coreB}, 0.95)`);
             // 2. Rich High-Contrast Violet Body
-            grad.addColorStop(0.68, `rgba(${haloR}, ${haloG}, ${haloB}, 0.80)`);
+            grad.addColorStop(0.68, `rgba(${haloR}, ${haloG}, ${haloB}, 0.85)`);
             // 3. Deep Indigo Outer Rim
-            grad.addColorStop(0.88, `rgba(88, 28, 135, 0.50)`);
+            grad.addColorStop(0.88, `rgba(88, 28, 135, 0.55)`);
             grad.addColorStop(1.0,  `rgba(30, 10, 60, 0)`);
 
             sprCtx.fillStyle = grad;
@@ -783,13 +795,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // High-Contrast Spherical Bokeh Orbs (Solid Pearl Center + Deep Violet Rim)
-        const spriteCore = createParticleSprite(238, 242, 255, 192, 132, 252);   // Pearl White Core + Violet Rim
-        const spriteAmbient = createParticleSprite(226, 232, 240, 168, 85, 247); // Pearl Silver Core + Purple Rim
-        const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);   // Crisp Pearl Core + Electric Violet Rim
+        const spriteCore = createParticleSprite(238, 242, 255, 192, 132, 252);
+        const spriteAmbient = createParticleSprite(226, 232, 240, 168, 85, 247);
+        const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);
 
         const isMobileDevice = window.innerWidth < 768;
-        const cubeSize = isMobileDevice ? 90 : 135; // Sleek, compact 3D scale on desktop & mobile
-        const numCubeParticles = isMobileDevice ? 1000 : 2800; // Optimized particle budget for locked 60-120 FPS performance!
+        const cubeSize = isMobileDevice ? 110 : 135; // Boosted 3D scale on mobile for crisp prominence
+        const numCubeParticles = isMobileDevice ? 2200 : 3000; // Increased particle budget on iOS Retina!
         const cubeParticles = [];
 
         function isCubeEdgePoint(x, y, z, s) {
