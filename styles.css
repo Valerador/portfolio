@@ -6,9 +6,20 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+/* Global 8-Bit Arcade Retro Typography (Press Start 2P) */
+body, button, input, textarea, select {
+  font-family: 'Press Start 2P', cursive, monospace !important;
+  font-size: 0.825rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   overflow-x: hidden;
   cursor: none !important;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Press Start 2P', cursive, monospace !important;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
 }
 
 /* Hide native cursor everywhere so custom reticle takes over */
@@ -56,9 +67,9 @@ body {
   overflow: hidden;
   outline-offset: 4px;
   padding: 0.75rem 1.4rem;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.2;
+  font-family: 'Press Start 2P', cursive, monospace !important;
+  font-size: 0.725rem;
+  line-height: 1.4;
   font-weight: 600;
   border: 1px solid transparent;
   border-radius: 9999px;

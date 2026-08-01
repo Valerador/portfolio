@@ -52,10 +52,10 @@
     }
     </script>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Cyrillic + Latin Hacker & Retro Fonts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Fira+Code:wght@700&family=Press+Start+2P&family=Orbitron:wght@800;900&family=Silkscreen:wght@700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Outfit:wght@600;800;900&family=Fira+Code:wght@500;700&family=JetBrains+Mono:wght@500;700;800&family=Pixelify+Sans:wght@500;700&family=Press+Start+2P&family=Anonymous+Pro:wght@400;700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Tailwind CSS CDN -->
@@ -74,9 +74,9 @@
                         glassBorder: 'rgba(255, 255, 255, 0.12)',
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Press Start 2P', 'cursive', 'sans-serif'],
+                        heading: ['Press Start 2P', 'cursive', 'sans-serif'],
+                        mono: ['Press Start 2P', 'cursive', 'monospace'],
                     }
                 }
             }
@@ -225,7 +225,7 @@
                     <svg class="w-5 h-5 shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="#38BDF8"/>
                     </svg>
-                    <span>Telegram @Easyvaleriy</span>
+                    <span>Telegram</span>
                 </a>
             </div>
 
@@ -656,45 +656,39 @@
         <div id="circular-gallery-stage" class="relative w-full h-[300px] sm:h-[350px] mx-auto flex items-center justify-center select-none" style="perspective: 1200px;">
             <div id="circular-gallery-ring" class="relative w-full h-full" style="transform-style: preserve-3d;">
                 
-                <!-- CARD 1: FAST LEARNER (PURPLE - FIRA CODE HACKER MONO) -->
-                <div data-glow="168, 85, 247" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-purple-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-purple-400/70 tracking-widest uppercase">Font 1: Fira Code</span>
-                    <div class="text-3xl sm:text-4xl font-bold text-brandPurple whitespace-nowrap" style="font-family: 'Fira Code', monospace;" data-i18n="metrics.v1">Fast Learner</div>
+                <!-- CARD 1: FAST LEARNER (PURPLE) -->
+                <div data-glow="168, 85, 247" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-purple-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-3xl sm:text-4xl font-black font-heading text-brandPurple whitespace-nowrap" data-i18n="metrics.v1">Fast Learner</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.experience">Adaptability to New Stack</div>
                 </div>
 
-                <!-- CARD 2: 15+ PROJECTS (INDIGO - PRESS START 2P 8-BIT) -->
-                <div data-glow="99, 102, 241" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-indigo-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-indigo-400/70 tracking-widest uppercase">Font 2: Press Start 2P (8-Bit)</span>
-                    <div class="text-2xl sm:text-3xl font-bold text-brandPrimary" style="font-family: 'Press Start 2P', cursive; line-height: 1.2;" data-i18n="metrics.v2">15+</div>
+                <!-- CARD 2: 15+ PROJECTS (INDIGO) -->
+                <div data-glow="99, 102, 241" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-indigo-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-brandPrimary" data-i18n="metrics.v2">15+</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.projects">Projects & AI Bots</div>
                 </div>
 
-                <!-- CARD 3: 100% AUTOTESTS (EMERALD - ORBITRON SCI-FI HUD) -->
-                <div data-glow="52, 211, 153" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-emerald-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-emerald-400/70 tracking-widest uppercase">Font 3: Orbitron (Sci-Fi HUD)</span>
-                    <div class="text-4xl sm:text-5xl font-black text-emerald-400" style="font-family: 'Orbitron', sans-serif; letter-spacing: 0.05em;" data-i18n="metrics.v3">100%</div>
+                <!-- CARD 3: 100% AUTOTESTS (EMERALD) -->
+                <div data-glow="52, 211, 153" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-emerald-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-emerald-400" data-i18n="metrics.v3">100%</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.autotests">RLS & CI/CD Auto-tests</div>
                 </div>
 
-                <!-- CARD 4: 3X SPEED (AMBER - SILKSCREEN RETRO PIXEL) -->
-                <div data-glow="251, 191, 36" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-amber-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-amber-400/70 tracking-widest uppercase">Font 4: Silkscreen (Pixel)</span>
-                    <div class="text-4xl sm:text-5xl font-bold text-amber-400" style="font-family: 'Silkscreen', monospace;" data-i18n="metrics.v4">3x</div>
+                <!-- CARD 4: 3X SPEED (AMBER) -->
+                <div data-glow="251, 191, 36" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-amber-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-amber-400" data-i18n="metrics.v4">3x</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.speed">Speed with AI Stack</div>
                 </div>
 
-                <!-- CARD 5: 24/7 AI AGENTS (CYAN - SHARE TECH MONO CONSOLE) -->
-                <div data-glow="34, 211, 238" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-cyan-400/70 tracking-widest uppercase">Font 5: Share Tech Mono</span>
-                    <div class="text-4xl sm:text-5xl font-bold text-cyan-400" style="font-family: 'Share Tech Mono', monospace; letter-spacing: 0.08em;" data-i18n="metrics.v5">24/7</div>
+                <!-- CARD 5: 24/7 AI AGENTS (CYAN) -->
+                <div data-glow="34, 211, 238" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-cyan-400" data-i18n="metrics.v5">24/7</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v5desc">AI Agents & Workflows</div>
                 </div>
 
-                <!-- CARD 6: OPTIMIZED PERFORMANCE (ROSE - VT323 CRT TERMINAL) -->
-                <div data-glow="251, 113, 133" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-rose-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-1.5 cursor-grab active:cursor-grabbing">
-                    <span class="text-[10px] font-mono text-rose-400/70 tracking-widest uppercase">Font 6: VT323 (CRT)</span>
-                    <div class="text-5xl sm:text-6xl font-bold text-rose-400" style="font-family: 'VT323', monospace; line-height: 1;" data-i18n="metrics.v6">&lt;100ms</div>
+                <!-- CARD 6: OPTIMIZED PERFORMANCE (ROSE) -->
+                <div data-glow="251, 113, 133" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-rose-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
+                    <div class="text-4xl sm:text-5xl font-black font-heading text-rose-400" data-i18n="metrics.v6">&lt;100ms</div>
                     <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v6desc">Optimized Performance</div>
                 </div>
 
@@ -702,7 +696,6 @@
         </div>
     </section>
 
-    <!-- SCENE 3: LIVE INTERACTIVE AI BOT DEMO SIMULATOR -->
     <section id="bot-simulation" class="py-20 px-4 max-w-4xl mx-auto relative z-20">
         <div class="scroll-reveal text-center max-w-2xl mx-auto space-y-3 mb-10">
             <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight" data-i18n="bot.title">Демо ИИ-Бота</h2>
