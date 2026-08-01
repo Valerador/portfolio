@@ -279,7 +279,15 @@ document.addEventListener('DOMContentLoaded', () => {
             lastMouseY = e.clientY;
         });
 
+        let isBeamsVisible = true;
+        let beamsAnimationFrameId = null;
+
         function renderBeams() {
+            if (!isBeamsVisible || document.hidden) {
+                beamsAnimationFrameId = null;
+                return;
+            }
+
             bCtx.clearRect(0, 0, bWidth, bHeight);
 
             beams.forEach((beam, index) => {
@@ -322,9 +330,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 bCtx.restore();
             });
 
-            requestAnimationFrame(renderBeams);
+            beamsAnimationFrameId = requestAnimationFrame(renderBeams);
         }
-        renderBeams();
+
+        function startBeamsLoop() {
+            if (!beamsAnimationFrameId && isBeamsVisible && !document.hidden) {
+                beamsAnimationFrameId = requestAnimationFrame(renderBeams);
+            }
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                isBeamsVisible = entries[0].isIntersecting;
+                if (isBeamsVisible) startBeamsLoop();
+            }, { threshold: 0 });
+            observer.observe(beamsCanvas);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && isBeamsVisible) startBeamsLoop();
+        });
+
+        startBeamsLoop();
     }
 
 
@@ -366,7 +393,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let smoothMouseX = sWidth / 2;
         let smoothMouseY = sHeight / 2;
 
+        let isStarfieldVisible = true;
+        let starfieldAnimationFrameId = null;
+
         function renderMicroDustWarp() {
+            if (!isStarfieldVisible || document.hidden) {
+                starfieldAnimationFrameId = null;
+                return;
+            }
+
             sCtx.clearRect(0, 0, sWidth, sHeight);
 
             if (mouseX > -9000) {
@@ -473,9 +508,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             sCtx.restore();
 
-            requestAnimationFrame(renderMicroDustWarp);
+            starfieldAnimationFrameId = requestAnimationFrame(renderMicroDustWarp);
         }
-        renderMicroDustWarp();
+
+        function startStarfieldLoop() {
+            if (!starfieldAnimationFrameId && isStarfieldVisible && !document.hidden) {
+                starfieldAnimationFrameId = requestAnimationFrame(renderMicroDustWarp);
+            }
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                isStarfieldVisible = entries[0].isIntersecting;
+                if (isStarfieldVisible) startStarfieldLoop();
+            }, { threshold: 0 });
+            observer.observe(starfieldCanvas);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && isStarfieldVisible) startStarfieldLoop();
+        });
+
+        startStarfieldLoop();
     }
 
 
@@ -647,7 +701,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let smoothScrollProgress = 0;
         let animTime = 0;
 
+        let isCubeVisible = true;
+        let cubeAnimationFrameId = null;
+
         function renderStorylineParticleCube() {
+            if (!isCubeVisible || document.hidden) {
+                cubeAnimationFrameId = null;
+                return;
+            }
+
             cCtx.clearRect(0, 0, cWidth, cHeight);
             const cx = cWidth / 2;
             const cy = cHeight / 2;
@@ -782,9 +844,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 cCtx.restore();
             }
 
-            requestAnimationFrame(renderStorylineParticleCube);
+            cubeAnimationFrameId = requestAnimationFrame(renderStorylineParticleCube);
         }
-        renderStorylineParticleCube();
+
+        function startCubeLoop() {
+            if (!cubeAnimationFrameId && isCubeVisible && !document.hidden) {
+                cubeAnimationFrameId = requestAnimationFrame(renderStorylineParticleCube);
+            }
+        }
+
+        if ('IntersectionObserver' in window) {
+            const heroSection = document.getElementById('hero-sky');
+            const target = heroSection || cubeCanvas;
+            const observer = new IntersectionObserver((entries) => {
+                isCubeVisible = entries[0].isIntersecting;
+                if (isCubeVisible) startCubeLoop();
+            }, { threshold: 0 });
+            observer.observe(target);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && isCubeVisible) startCubeLoop();
+        });
+
+        startCubeLoop();
     }
 
 
@@ -1238,16 +1321,27 @@ function runCmd(cmd) {
         return;
     }
 
-    const cmdLine = document.getElementById('terminal-input');
     const cmdLineDiv = document.createElement('div');
-    cmdLineDiv.innerHTML = `<span class="text-brandAccent">$</span> <span class="text-white font-bold">${cleanCmd}</span>`;
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'text-brandAccent';
+    promptSpan.textContent = '$ ';
+
+    const cmdSpan = document.createElement('span');
+    cmdSpan.className = 'text-white font-bold';
+    cmdSpan.textContent = cleanCmd;
+
+    cmdLineDiv.appendChild(promptSpan);
+    cmdLineDiv.appendChild(cmdSpan);
     termBody.appendChild(cmdLineDiv);
 
     const resLine = document.createElement('div');
     if (cmdOutputs[cmdOutputs[cleanCmd] ? cleanCmd : 'help']) {
         resLine.innerHTML = cmdOutputs[cleanCmd];
     } else {
-        resLine.innerHTML = `<span class="text-red-400">Command not found: "${cleanCmd}". Type <span class="text-brandAccent font-bold">help</span> for list of commands.</span>`;
+        const errSpan = document.createElement('span');
+        errSpan.className = 'text-red-400';
+        errSpan.textContent = `Command not found: "${cleanCmd}". Type help for list of commands.`;
+        resLine.appendChild(errSpan);
     }
     termBody.appendChild(resLine);
     termBody.scrollTop = termBody.scrollHeight;
