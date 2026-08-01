@@ -196,27 +196,18 @@ document.addEventListener('DOMContentLoaded', () => {
         rawScrollVelocity = currentScrollY - lastScrollY;
         lastScrollY = currentScrollY;
 
-        const heroDesc = document.getElementById('hero-desc');
-        const heroButtons = document.getElementById('hero-buttons');
+        const heroSubBlock = document.getElementById('hero-sub-block');
 
-        // Reveal description text & CTA buttons after first scroll down
-        if (currentScrollY > 15) {
-            if (heroDesc) {
-                heroDesc.classList.remove('hero-scroll-hidden');
-                heroDesc.classList.add('hero-scroll-visible');
-            }
-            if (heroButtons) {
-                heroButtons.classList.remove('hero-scroll-hidden');
-                heroButtons.classList.add('hero-scroll-visible');
+        // Reveal description text & CTA buttons lower down after first scroll down
+        if (currentScrollY > 40) {
+            if (heroSubBlock) {
+                heroSubBlock.classList.remove('hero-scroll-hidden');
+                heroSubBlock.classList.add('hero-scroll-visible');
             }
         } else {
-            if (heroDesc) {
-                heroDesc.classList.remove('hero-scroll-visible');
-                heroDesc.classList.add('hero-scroll-hidden');
-            }
-            if (heroButtons) {
-                heroButtons.classList.remove('hero-scroll-visible');
-                heroButtons.classList.add('hero-scroll-hidden');
+            if (heroSubBlock) {
+                heroSubBlock.classList.remove('hero-scroll-visible');
+                heroSubBlock.classList.add('hero-scroll-hidden');
             }
         }
 

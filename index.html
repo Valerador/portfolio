@@ -259,8 +259,9 @@
             <!-- Reference Layout: Left Column (Headline & Mobile Description) & Right Column (Desktop Description) -->
             <div class="w-full px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-screen py-8">
                 
-                <!-- Left Column (Role + Letter-by-letter Headline + Mobile Description + Buttons) -->
-                <div class="lg:col-span-6 flex flex-col justify-start space-y-4 sm:space-y-5 h-auto lg:h-[82vh] pl-0 pt-2 lg:pt-6">
+                <!-- Left Column (Role + Letter-by-letter Headline + Lower Scroll Sub-block) -->
+                <div class="lg:col-span-6 flex flex-col justify-between h-auto lg:h-[82vh] pl-0 pt-2 lg:pt-6">
+                    <!-- Top Headline Block (Visible Immediately) -->
                     <div class="space-y-3 sm:space-y-4 pt-4 lg:pt-10">
                         <div id="hero-role" class="seq-hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-semibold">
                             <span class="w-2 h-2 rounded-full bg-brandPurple animate-pulse"></span>
@@ -272,37 +273,40 @@
                             <span id="title-line-1" class="block" data-i18n="hero.line1">Валерий</span>
                             <span id="title-line-2" class="text-purple-300 block" data-i18n="hero.line2">Fullstack AI-Разработчик</span>
                         </h1>
-
-                        <!-- Mobile Description -->
-                        <p id="hero-desc" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-md lg:hidden pt-1 hero-scroll-hidden" data-i18n="hero.desc">
-                            Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
-                        </p>
                     </div>
 
-                    <!-- Dynamic Glowing Buttons -->
-                    <div id="hero-buttons" class="seq-hidden flex flex-col sm:flex-row sm:flex-wrap items-center gap-2.5 sm:gap-4 w-full sm:w-auto pt-1 sm:pt-3 pb-2 hero-scroll-hidden">
-                        <!-- Top Row on Mobile: Telegram full width -->
-                        <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
-                            <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm">
-                                <i class="pixelarticons-message-text text-lg text-white"></i>
-                                Telegram
-                            </span>
-                        </a>
+                    <!-- LOWER SCROLL SUB-BLOCK (Reveals LOWER DOWN on screen after scroll down) -->
+                    <div id="hero-sub-block" class="mt-28 sm:mt-36 lg:mt-6 space-y-4 hero-scroll-hidden">
+                        <!-- Mobile Description -->
+                        <p id="hero-desc" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-md lg:hidden" data-i18n="hero.desc">
+                            Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
+                        </p>
 
-                        <!-- Bottom Row on Mobile: GitHub & Resume side-by-side on 1 level -->
-                        <div class="grid grid-cols-2 gap-2.5 w-full sm:w-auto sm:flex sm:items-center sm:gap-4">
-                            <a href="https://github.com/Valerador" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
-                                <span data-i18n="hero.github" class="flex items-center justify-center gap-1.5 text-xs">
-                                    <i class="pixelarticons-code text-base text-white"></i>
-                                    GitHub
+                        <!-- Dynamic Glowing Buttons -->
+                        <div id="hero-buttons" class="seq-hidden flex flex-col sm:flex-row sm:flex-wrap items-center gap-2.5 sm:gap-4 w-full sm:w-auto">
+                            <!-- Top Row on Mobile: Telegram full width -->
+                            <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
+                                <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm">
+                                    <i class="pixelarticons-message-text text-lg text-white"></i>
+                                    Telegram
                                 </span>
                             </a>
-                            <a href="resume_printable.html" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
-                                <span data-i18n="hero.cv" class="flex items-center justify-center gap-1.5 text-amber-300 text-xs">
-                                    <i class="pixelarticons-file-text text-base text-amber-300"></i>
-                                    Резюме
-                                </span>
-                            </a>
+
+                            <!-- Bottom Row on Mobile: GitHub & Resume side-by-side on 1 level -->
+                            <div class="grid grid-cols-2 gap-2.5 w-full sm:w-auto sm:flex sm:items-center sm:gap-4">
+                                <a href="https://github.com/Valerador" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
+                                    <span data-i18n="hero.github" class="flex items-center justify-center gap-1.5 text-xs">
+                                        <i class="pixelarticons-code text-base text-white"></i>
+                                        GitHub
+                                    </span>
+                                </a>
+                                <a href="resume_printable.html" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
+                                    <span data-i18n="hero.cv" class="flex items-center justify-center gap-1.5 text-amber-300 text-xs">
+                                        <i class="pixelarticons-file-text text-base text-amber-300"></i>
+                                        Резюме
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
