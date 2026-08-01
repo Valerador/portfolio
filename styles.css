@@ -8,6 +8,12 @@ html {
 
 body {
   overflow-x: hidden;
+  cursor: none !important;
+}
+
+/* Hide native cursor everywhere so custom reticle takes over */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 @property --gradient-angle {
@@ -48,7 +54,6 @@ body {
   isolation: isolate;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   outline-offset: 4px;
   padding: 0.75rem 1.4rem;
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -406,11 +411,11 @@ input:focus-visible {
     transform-style: preserve-3d;
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
-    cursor: grab;
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
 }
 
 .metrics-3d-track.is-dragging {
-    cursor: grabbing !important;
     user-select: none;
 }
 
@@ -423,5 +428,5 @@ input:focus-visible {
 .metric-card {
     transform-style: preserve-3d;
     will-change: transform, opacity;
-    transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.35s ease, border-color 0.3s ease;
+    transition: opacity 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }

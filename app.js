@@ -1578,7 +1578,7 @@ function initBorderBeamEngine() {
 }
 
 // ==========================================================================
-// 17. INFINITE 3D CURVED SCREEN RIBBON ENGINE
+// 17. 3D CURVED LENS SCREEN ENGINE (MANUAL SCROLL & DRAG)
 // ==========================================================================
 function initMetrics3DCurvatureEngine() {
     const track = document.getElementById('metrics-track');
@@ -1587,8 +1587,6 @@ function initMetrics3DCurvatureEngine() {
     const cards = track.querySelectorAll('.metric-card');
     if (cards.length === 0) return;
 
-    let autoSpeed = 0.8; // Smooth ambient glide speed (px per frame)
-    let isHovered = false;
     let isMouseDown = false;
     let startX = 0;
     let scrollLeftStart = 0;
@@ -1601,55 +1599,37 @@ function initMetrics3DCurvatureEngine() {
             const cardRect = card.getBoundingClientRect();
             const cardCenterX = cardRect.left + cardRect.width / 2;
             
-            // Offset relative to center (-1.5 to +1.5 range)
-            const offset = (cardCenterX - trackCenterX) / (trackRect.width / 2);
-            const clampedOffset = Math.max(-2.2, Math.min(2.2, offset));
+            // Normalized offset from center
+            const offset = (cardCenterX - trackCenterX) / (trackRect.width * 0.35);
+            const clampedOffset = Math.max(-2.5, Math.min(2.5, offset));
+            const absOffset = Math.abs(clampedOffset);
+            const sign = Math.sign(clampedOffset);
 
-            // 3D Curved Screen Math:
-            // 1. Rotate Y angle: left cards curve inwards, right cards curve inwards
-            const rotateY = -clampedOffset * 25; // 25deg 3D curved screen arc
-            
-            // 2. Depth Z: center card pops forward, edge cards curve back into screen depth
-            const translateZ = (1 - Math.abs(clampedOffset) * 0.45) * 40 - 25;
+            // Progressive 3D Curved Lens Math:
+            const rotateY = -sign * Math.pow(absOffset, 1.1) * 36;
+            const scale = Math.max(0.74, 1.18 - absOffset * 0.3);
+            const translateZ = 60 - absOffset * 80;
+            const opacity = Math.max(0.55, 1 - absOffset * 0.35);
 
-            // 3. Scale: center card 104%, edge cards 82%
-            const scale = Math.max(0.82, 1.04 - Math.abs(clampedOffset) * 0.16);
+            if (absOffset < 0.2) {
+                card.style.borderColor = 'rgba(168, 85, 247, 0.9)';
+                card.style.boxShadow = '0 0 25px rgba(168, 85, 247, 0.3)';
+            } else {
+                card.style.borderColor = '';
+                card.style.boxShadow = '';
+            }
 
-            // 4. Opacity: center card 100%, edge cards 65%
-            const opacity = Math.max(0.65, 1 - Math.abs(clampedOffset) * 0.25);
-
+            card.style.zIndex = Math.round(100 - absOffset * 30);
             card.style.transform = `perspective(1000px) rotateY(${rotateY.toFixed(2)}deg) translateZ(${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
             card.style.opacity = opacity.toFixed(2);
         });
     }
 
-    // Continuous Animation Loop
-    function animationLoop() {
-        if (!isHovered && !isMouseDown) {
-            track.scrollLeft += autoSpeed;
+    // Update 3D lens on scroll
+    track.addEventListener('scroll', updateCurvature, { passive: true });
+    window.addEventListener('resize', updateCurvature);
 
-            // Seamless Infinite Wrap
-            const halfScroll = track.scrollWidth / 2;
-            if (track.scrollLeft >= halfScroll) {
-                track.scrollLeft -= halfScroll;
-            } else if (track.scrollLeft <= 0) {
-                track.scrollLeft += halfScroll;
-            }
-        }
-
-        updateCurvature();
-        requestAnimationFrame(animationLoop);
-    }
-
-    // Hover Pause
-    track.addEventListener('mouseenter', () => { isHovered = true; });
-    track.addEventListener('mouseleave', () => { isHovered = false; });
-
-    // Touch Support
-    track.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
-    track.addEventListener('touchend', () => { isHovered = false; }, { passive: true });
-
-    // Desktop Mouse Drag-to-Scroll (Click & Drag)
+    // Desktop Mouse Drag-to-Scroll
     track.addEventListener('mousedown', (e) => {
         isMouseDown = true;
         track.classList.add('is-dragging');
@@ -1667,13 +1647,15 @@ function initMetrics3DCurvatureEngine() {
     track.addEventListener('mousemove', (e) => {
         if (!isMouseDown) return;
         e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        track.scrollLeft = scrollLeftStart - walk;
+        const x = e.pageX - startX;
+        track.scrollLeft = scrollLeftStart - x * 1.2;
+        updateCurvature();
     });
 
-    // Start Infinite 3D Curved Loop
-    requestAnimationFrame(animationLoop);
+    // Initial positioning
+    setTimeout(() => {
+        updateCurvature();
+    }, 150);
 }
 
 // Initialize Scroll Animations after DOM loaded
