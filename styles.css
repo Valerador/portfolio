@@ -477,3 +477,24 @@ input:focus-visible {
     border-color: rgba(168, 85, 247, 0.8);
     box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
 }
+
+/* UNIVERSAL SCROLL FADE-IN & FADE-OUT UTILITY CLASSES */
+.scroll-fade-item {
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+.scroll-fade-item.scroll-out-bottom {
+  opacity: 0 !important;
+  transform: translateY(40px) scale(0.97) !important;
+}
+
+.scroll-fade-item.scroll-in-view {
+  opacity: 1 !important;
+  transform: translateY(0px) scale(1) !important;
+}
+
+.scroll-fade-item.scroll-out-top {
+  opacity: 0 !important;
+  transform: translateY(-30px) scale(0.97) !important;
+}

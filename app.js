@@ -182,10 +182,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let rawScrollVelocity = 0;
     let smoothScrollVelocity = 0;
 
+    const heroContentWrapper = document.getElementById('hero-content-wrapper');
+
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         rawScrollVelocity = currentScrollY - lastScrollY;
         lastScrollY = currentScrollY;
+
+        // Smooth scroll fade-out and slide-up for ALL Hero content elements on scroll down
+        if (heroContentWrapper) {
+            const fadeDistance = window.innerWidth < 768 ? 220 : 380;
+            const heroOpacity = Math.max(0, 1 - (currentScrollY / fadeDistance));
+            const translateY = Math.min(45, (currentScrollY / fadeDistance) * 28);
+            heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
+            heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
+            heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
+        }
     });
 
     function setCursorState(state) {
@@ -807,8 +819,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currRotX += (targetRotX - currRotX) * 0.08;
             currRotY += (targetRotY - currRotY) * 0.08;
 
-            // Continuous subtle auto-rotation on mobile when standing still
-            const idleRotY = window.innerWidth < 640 ? autoRotateAngle : 0;
+            // Disable auto-rotation of Hero Cube on mobile screens
+            const isMobileHero = window.innerWidth < 768;
+            const idleRotY = isMobileHero ? 0 : (autoRotateAngle * 0.5);
             const scrollRotY = scrollProgress * Math.PI * 0.65;
             const finalRotX = currRotX;
             const finalRotY = currRotY + scrollRotY + idleRotY;
@@ -1597,11 +1610,10 @@ function initCircularGalleryEngine() {
 
     let rotation = 0;
     let targetRotation = 0;
+    let radius = window.innerWidth < 768 ? 260 : 420;
     let autoRotateSpeed = 0.08;
     let isUserInteracting = false;
     let scrollTimeout = null;
-
-    let radius = window.innerWidth < 768 ? 260 : 420;
 
     window.addEventListener('resize', () => {
         radius = window.innerWidth < 768 ? 260 : 420;
@@ -1696,8 +1708,61 @@ function initCircularGalleryEngine() {
     animate();
 }
 
+// Universal Scroll Fade-In & Fade-Out Observer Engine for Headings & Cards
+function initUniversalScrollFadeEngine() {
+    const selectors = [
+        '#container-scroll-header',
+        '#metrics-header',
+        '#bot-header',
+        '#term-header',
+        '#contact-header',
+        '.orbit-card',
+        '#metrics-section .circular-stage',
+        '#bot-sim-card',
+        '#terminal-container',
+        '#contact-cards > div',
+        '.scroll-reveal-card'
+    ];
+
+    const scrollItems = Array.from(document.querySelectorAll(selectors.join(', ')));
+
+    scrollItems.forEach(item => {
+        item.classList.add('scroll-fade-item', 'scroll-out-bottom');
+    });
+
+    function updateScrollFades() {
+        const windowH = window.innerHeight;
+
+        scrollItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            
+            // Bottom threshold: entering screen from bottom
+            const isTooLow = rect.top > windowH - 40;
+            
+            // Top threshold: leaving screen at top
+            const isTooHigh = rect.bottom < 60;
+
+            if (isTooLow) {
+                item.classList.remove('scroll-in-view', 'scroll-out-top');
+                item.classList.add('scroll-out-bottom');
+            } else if (isTooHigh) {
+                item.classList.remove('scroll-in-view', 'scroll-out-bottom');
+                item.classList.add('scroll-out-top');
+            } else {
+                item.classList.remove('scroll-out-bottom', 'scroll-out-top');
+                item.classList.add('scroll-in-view');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateScrollFades, { passive: true });
+    window.addEventListener('resize', updateScrollFades, { passive: true });
+    setTimeout(updateScrollFades, 150);
+}
+
 // Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
 initScrollLetterAnimationEngine();
 initBorderBeamEngine();
 initCircularGalleryEngine();
+initUniversalScrollFadeEngine();
