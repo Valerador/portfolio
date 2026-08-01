@@ -334,158 +334,161 @@
                     <div id="orbit-track" class="flex gap-8 sm:gap-12 lg:gap-16 transition-all duration-300 ease-out items-center pt-2 pb-10 sm:pt-4 sm:pb-14 px-[calc(50vw-min(475px,44vw))]">
                     
                     <!-- ACETERNETY 3D TABLET CARD 1: Atlas CRM -->
-                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[48vh] sm:h-[50vh] max-h-[480px] shrink-0 rounded-[32px] border-4 border-slate-700/80 bg-[#120826]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#080314] p-4 sm:p-6 sm:pb-5 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            
+                    <div class="container-scroll-card w-[90vw] max-w-[950px] h-[64vh] xs:h-[58vh] sm:h-[52vh] min-h-[460px] max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-slate-700/80 bg-[#120826]/90 p-2 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#080314]/95 p-3.5 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-purple-600/15 rounded-full blur-2xl pointer-events-none"></div>
+
                             <!-- Header Info -->
-                            <div class="space-y-2 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between">
-                                    <span class="px-3.5 py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-bold" data-i18n="card1.tag">
+                            <div class="space-y-1.5 sm:space-y-3 relative z-10">
+                                <div class="flex items-center justify-between gap-1.5">
+                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card1.tag">
                                         Коммерческий MVP CRM
                                     </span>
-                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
+                                    <span class="text-slate-400 font-mono text-[11px] sm:text-xs flex items-center gap-1.5 shrink-0">
                                         <i class="ph ph-lock text-brandAccent text-sm"></i> Private Client Repo
                                     </span>
                                 </div>
 
-                                <h3 class="font-heading text-xl sm:text-3xl font-extrabold text-white" data-i18n="card1.title">Atlas CRM — Платформа автоматизации ниш</h3>
+                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card1.title">Atlas CRM — Платформа автоматизации ниш</h3>
 
                                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card1.desc">
                                     Полнофункциональная CRM-система на React + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.
                                 </p>
 
                                 <!-- Feature Grid -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 pt-1 text-xs sm:text-sm">
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3.5 pt-0.5 text-xs sm:text-sm">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-brandPrimary font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-4 h-4 object-contain" alt="Supabase"> 
                                             <span>Supabase RLS</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card1.f1">Строгое разграничение доступов в СУБД.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card1.f1">Строгое разграничение доступов в СУБД.</div>
                                     </div>
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-brandAccent font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.simpleicons.org/githubactions/2088FF" class="w-4 h-4 object-contain" alt="GitHub Actions">
                                             <span>CI/CD Pipeline</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card1.f2">GitHub Actions -> Linux Ubuntu.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card1.f2">GitHub Actions -> Linux Ubuntu.</div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Footer Tech Badges -->
-                            <div class="pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-2">
+                            <div class="pt-2 sm:pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
+                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
                                     <span class="text-slate-400 hidden sm:inline">Стек:</span>
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-4 h-4 object-contain" title="React">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-4 h-4 object-contain" title="Supabase">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 object-contain" title="Playwright">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 object-contain" title="Vitest">
-                                    <span class="text-slate-300 ml-1">React, Supabase, Playwright, Vitest</span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="React">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Supabase">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Playwright">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Vitest">
+                                    <span class="text-slate-300 ml-0.5 truncate">React, Supabase, Vitest</span>
                                 </div>
-                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-base"></i> Ready MVP</span>
+                                <span class="text-emerald-400 flex items-center gap-1 font-bold shrink-0"><i class="ph ph-check-circle text-sm sm:text-base"></i> Ready MVP</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- ACETERNETY 3D TABLET CARD 2: AI Telepilot Assistant -->
-                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[48vh] sm:h-[50vh] max-h-[480px] shrink-0 rounded-[32px] border-4 border-purple-800/80 bg-[#14082c]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#080314] p-4 sm:p-6 sm:pb-5 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            
-                            <div class="space-y-2 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between">
-                                    <span class="px-3.5 py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-bold" data-i18n="card2.tag">
+                    <div class="container-scroll-card w-[90vw] max-w-[950px] h-[64vh] xs:h-[58vh] sm:h-[52vh] min-h-[460px] max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-purple-800/80 bg-[#14082c]/90 p-2 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#080314]/95 p-3.5 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-indigo-600/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                            <div class="space-y-1.5 sm:space-y-3 relative z-10">
+                                <div class="flex items-center justify-between gap-1.5">
+                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card2.tag">
                                         AI Agent & Automation
                                     </span>
-                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
-                                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 object-contain" alt="Telegram"> Telepilot API
+                                    <span class="text-slate-400 font-mono text-[11px] sm:text-xs flex items-center gap-1.5 shrink-0">
+                                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain" alt="Telegram"> Telepilot API
                                     </span>
                                 </div>
 
-                                <h3 class="font-heading text-xl sm:text-3xl font-extrabold text-white" data-i18n="card2.title">ИИ-Бот Онлайн-Записи & RAG Context</h3>
+                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card2.title">ИИ-Бот Онлайн-Записи & RAG Context</h3>
 
                                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card2.desc">
                                     Умный бот, ведающий диалог от лица Telegram-аккаунта (Telepilot API). Сам извлекает правила и свободные слоты из БД, согласует время с клиентом и отправляет уведомления в мессенджеры.
                                 </p>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 pt-1 text-xs sm:text-sm">
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3.5 pt-0.5 text-xs sm:text-sm">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-brandPurple font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" class="w-4 h-4 object-contain" alt="PostgreSQL">
                                             <span>RAG DB Context</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card2.f1">Запрос правил и слотов из базы данных.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card2.f1">Запрос правил и слотов из базы данных.</div>
                                     </div>
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-brandAccent font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.simpleicons.org/google/4285F4" class="w-4 h-4 object-contain" alt="Google">
                                             <span>Google Sync</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card2.f2">Интеграция с Google Календарем.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card2.f2">Интеграция с Google Календарем.</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-2">
+                            <div class="pt-2 sm:pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
+                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
                                     <span class="text-slate-400 hidden sm:inline">Стек:</span>
-                                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 object-contain" title="n8n">
-                                    <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 object-contain" title="Telegram">
-                                    <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 object-contain" title="Google Gemini API">
-                                    <span class="text-slate-300 ml-1">n8n, Telepilot, Gemini API</span>
+                                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="n8n">
+                                    <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Telegram">
+                                    <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Google Gemini API">
+                                    <span class="text-slate-300 ml-0.5 truncate">n8n, Telepilot, Gemini</span>
                                 </div>
-                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-base"></i> Active Agent</span>
+                                <span class="text-emerald-400 flex items-center gap-1 font-bold shrink-0"><i class="ph ph-check-circle text-sm sm:text-base"></i> Active Agent</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- ACETERNETY 3D TABLET CARD 3: DevOps & SysAdmin -->
-                    <div class="container-scroll-card w-[88vw] max-w-[950px] h-[48vh] sm:h-[50vh] max-h-[480px] shrink-0 rounded-[32px] border-4 border-emerald-800/80 bg-[#081816]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#03120e] p-4 sm:p-6 sm:pb-5 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            
-                            <div class="space-y-2 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between">
-                                    <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono text-xs font-bold" data-i18n="card3.tag">
+                    <div class="container-scroll-card w-[90vw] max-w-[950px] h-[64vh] xs:h-[58vh] sm:h-[52vh] min-h-[460px] max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-emerald-800/80 bg-[#081816]/90 p-2 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
+                        <div class="h-full w-full rounded-2xl bg-[#03120e]/95 p-3.5 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
+                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-emerald-600/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                            <div class="space-y-1.5 sm:space-y-3 relative z-10">
+                                <div class="flex items-center justify-between gap-1.5">
+                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card3.tag">
                                         DevOps & SysAdmin
                                     </span>
-                                    <span class="text-slate-400 font-mono text-xs flex items-center gap-1.5">
-                                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 object-contain" alt="Ubuntu"> Infrastructure
+                                    <span class="text-slate-400 font-mono text-[11px] sm:text-xs flex items-center gap-1.5 shrink-0">
+                                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain" alt="Ubuntu"> Infrastructure
                                     </span>
                                 </div>
 
-                                <h3 class="font-heading text-xl sm:text-3xl font-extrabold text-white" data-i18n="card3.title">Серверная Инфраструктура & Защита</h3>
+                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card3.title">Серверная Инфраструктура & Защита</h3>
 
                                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card3.desc">
                                     Развертывание и обслуживание Linux Ubuntu серверов. Конфигурация Nginx Reverse Proxy, установка SSL (Certbot), проксирование Cloudflare WAF, Docker контейнеризация и VPN.
                                 </p>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 pt-1 text-xs sm:text-sm">
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3.5 pt-0.5 text-xs sm:text-sm">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-emerald-400 font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 object-contain" alt="Cloudflare">
                                             <span>Cloudflare WAF</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card3.f1">Защита от атак и управление DNS.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card3.f1">Защита от атак и управление DNS.</div>
                                     </div>
-                                    <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
+                                    <div class="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
                                         <div class="text-brandPrimary font-bold text-xs sm:text-sm flex items-center gap-2">
                                             <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 object-contain" alt="Docker">
                                             <span>PM2 & Docker</span>
                                         </div>
-                                        <div class="text-slate-400 text-xs mt-0.5" data-i18n="card3.f2">Управление процессами и сборкой.</div>
+                                        <div class="text-slate-400 text-[11px] sm:text-xs mt-0.5" data-i18n="card3.f2">Управление процессами и сборкой.</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-2">
+                            <div class="pt-2 sm:pt-2.5 border-t border-glassBorder mt-1 flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
+                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
                                     <span class="text-slate-400 hidden sm:inline">ОС:</span>
-                                    <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 object-contain" title="Ubuntu">
-                                    <img src="https://cdn.simpleicons.org/nginx/009639" class="w-4 h-4 object-contain" title="Nginx">
-                                    <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 object-contain" title="Docker">
-                                    <span class="text-slate-300 ml-1">Linux Ubuntu, Nginx, Certbot SSL</span>
+                                    <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Ubuntu">
+                                    <img src="https://cdn.simpleicons.org/nginx/009639" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Nginx">
+                                    <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Docker">
+                                    <span class="text-slate-300 ml-0.5 truncate">Linux, Nginx, SSL</span>
                                 </div>
-                                <span class="text-emerald-400 flex items-center gap-1.5 font-bold"><i class="ph ph-check-circle text-base"></i> Hardened</span>
+                                <span class="text-emerald-400 flex items-center gap-1 font-bold shrink-0"><i class="ph ph-check-circle text-sm sm:text-base"></i> Hardened</span>
                             </div>
                         </div>
                     </div>
