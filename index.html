@@ -246,7 +246,7 @@
     </div>
 
     <!-- HERO STORYLINE SECTION -->
-    <section id="hero-sky" class="relative min-h-[175vh] z-10">
+    <section id="hero-sky" class="relative min-h-[280vh] z-10">
         
         <!-- Pinned Sticky 3D Particle Canvas Frame -->
         <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pointer-events-none">
@@ -268,10 +268,10 @@
                             <span data-i18n="hero.role">Interactive CV & Portfolio</span>
                         </div>
 
-                        <!-- Headline for Letter-by-letter animation -->
+                        <!-- Headline for Sequential Staggered Animation -->
                         <h1 id="hero-title" class="font-heading text-3xl xs:text-4xl sm:text-6xl lg:text-6xl font-black text-white tracking-tight leading-[1.15]">
-                            <span id="title-line-1" class="block" data-i18n="hero.line1">Валерий</span>
-                            <span id="title-line-2" class="text-purple-300 block" data-i18n="hero.line2">Fullstack AI-Разработчик</span>
+                            <span id="title-line-1" class="block seq-hidden" data-i18n="hero.line1">Валерий</span>
+                            <span id="title-line-2" class="text-purple-300 block seq-hidden" data-i18n="hero.line2">Fullstack AI-Разработчик</span>
                         </h1>
                     </div>
 
@@ -282,38 +282,33 @@
                             Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
                         </p>
 
-                        <!-- Dynamic Glowing Buttons -->
-                        <div id="hero-buttons" class="seq-hidden flex flex-col sm:flex-row sm:flex-wrap items-center gap-2.5 sm:gap-4 w-full sm:w-auto">
-                            <!-- Top Row on Mobile: Telegram full width -->
-                            <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta w-full sm:w-auto justify-center">
-                                <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm">
-                                    <i class="pixelarticons-message-text text-lg text-white"></i>
-                                    Telegram
+                        <!-- Dynamic Glowing Buttons (Uniform Equal-Sized Buttons) -->
+                        <div id="hero-buttons" class="seq-hidden flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                            <a href="https://t.me/Easyvaleriy" target="_blank" class="shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
+                                <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold w-full text-center">
+                                    <i class="pixelarticons-message-text text-base text-white shrink-0"></i>
+                                    <span>Telegram</span>
                                 </span>
                             </a>
-
-                            <!-- Bottom Row on Mobile: GitHub & Resume side-by-side on 1 level -->
-                            <div class="grid grid-cols-2 gap-2.5 w-full sm:w-auto sm:flex sm:items-center sm:gap-4">
-                                <a href="https://github.com/Valerador" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
-                                    <span data-i18n="hero.github" class="flex items-center justify-center gap-1.5 text-xs">
-                                        <i class="pixelarticons-code text-base text-white"></i>
-                                        GitHub
-                                    </span>
-                                </a>
-                                <a href="resume_printable.html" target="_blank" class="shiny-cta w-full sm:w-auto justify-center !px-3 !py-2.5">
-                                    <span data-i18n="hero.cv" class="flex items-center justify-center gap-1.5 text-amber-300 text-xs">
-                                        <i class="pixelarticons-file-text text-base text-amber-300"></i>
-                                        Резюме
-                                    </span>
-                                </a>
-                            </div>
+                            <a href="https://github.com/Valerador" target="_blank" class="shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
+                                <span data-i18n="hero.github" class="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold w-full text-center">
+                                    <i class="pixelarticons-code text-base text-white shrink-0"></i>
+                                    <span>GitHub</span>
+                                </span>
+                            </a>
+                            <a href="resume_printable.html" target="_blank" class="shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
+                                <span data-i18n="hero.cv" class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm font-semibold w-full text-center">
+                                    <i class="pixelarticons-file-text text-base text-amber-300 shrink-0"></i>
+                                    <span>Резюме</span>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right Column (Desktop Description) -->
                 <div class="hidden lg:flex lg:col-span-6 flex-col justify-end h-[84vh] text-left pr-0 items-end">
-                    <p id="hero-desc" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-xs sm:max-w-sm mr-0 ml-auto pb-6 text-left" data-i18n="hero.desc">
+                    <p id="hero-desc-desktop" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-xs sm:max-w-sm mr-0 ml-auto pb-6 text-left" data-i18n="hero.desc">
                         Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
                     </p>
                 </div>
@@ -325,7 +320,7 @@
 
 
     <!-- SCENE 2: ACETERNETY UI 3D CONTAINER SCROLL SHOWCASE -->
-    <section id="orbit-showcase" class="relative min-h-[460vh] -mt-[60vh] sm:-mt-[42vh] lg:-mt-[30vh] z-20">
+    <section id="orbit-showcase" class="relative min-h-[460vh] -mt-[160vh] sm:-mt-[130vh] lg:-mt-[110vh] z-20">
         
         <!-- Pinned Sticky Container Scroll Frame with Top Title Clearance & Dock Clearance -->
         <div class="sticky top-0 h-screen flex flex-col justify-between overflow-hidden pt-4 sm:pt-6 pb-28 sm:pb-32">
@@ -333,7 +328,7 @@
             <div class="w-full space-y-2 sm:space-y-3">
                 <!-- Section Header (Container Scroll Title Component) -->
                 <div id="container-scroll-header" class="scroll-reveal text-center space-y-1 sm:space-y-2 transition-transform duration-200 px-4">
-                    <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight scroll-scrub-text" data-i18n="orbit.title">
+                    <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="orbit.title">
                         Мои работы
                     </h2>
                 </div>
@@ -710,7 +705,7 @@
 
     <section id="bot-simulation" class="py-20 px-4 max-w-4xl mx-auto relative z-20">
         <div class="scroll-reveal text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-scrub-text" data-i18n="bot.title">Демо ИИ-Бота</h2>
+            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="bot.title">Демо ИИ-Бота</h2>
             <p class="text-slate-400 text-sm" data-i18n="bot.sub">Проверь работу агента — нажми на одну из кнопок ниже.</p>
         </div>
 
@@ -759,7 +754,7 @@
     <!-- SCENE 4: INTERACTIVE CLI TERMINAL -->
     <section id="terminal-section" class="py-20 px-4 max-w-5xl mx-auto relative z-20 mb-20">
         <div class="scroll-reveal text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-scrub-text" data-i18n="term.title">Консоль Навыков</h2>
+            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="term.title">Консоль Навыков</h2>
             <p class="text-slate-400 text-sm" data-i18n="term.sub">Проверь стековые команды или введи <span class="text-brandAccent font-mono">skills</span>, <span class="text-brandPurple font-mono">devops</span>, <span class="text-brandPrimary font-mono">education</span>.</p>
         </div>
 
@@ -804,7 +799,7 @@
                 <span data-i18n="contact.badge">Открыт к предложениям & Вакансиям</span>
             </div>
 
-            <h2 class="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight scroll-scrub-text" data-i18n="contact.title">
+            <h2 class="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="contact.title">
                 Давайте обсудим ваш проект
             </h2>
 

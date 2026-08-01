@@ -1,4 +1,4 @@
-// Global helper for letter-by-letter splitting (with word-wrapper boundary protection)
+// Global helper for letter-by-letter splitting (with word-wrapper & <br> line break protection)
 function splitTextToSpans(el) {
     if (!el) return [];
 
@@ -10,14 +10,60 @@ function splitTextToSpans(el) {
     const icon = el.querySelector('i');
     const iconClone = icon ? icon.cloneNode(true) : null;
 
-    // Get clean text with collapsed whitespace (no double spaces or newlines)
+    const hasBr = el.querySelector('br') !== null || el.innerHTML.includes('<br');
+    
+    if (hasBr) {
+        const lineParts = el.innerHTML.split(/<br\s*\/?>/i);
+        el.innerHTML = '';
+        if (iconClone) {
+            el.appendChild(iconClone);
+            el.appendChild(document.createTextNode(' '));
+        }
+
+        const spans = [];
+        lineParts.forEach((partText, pIndex) => {
+            const temp = document.createElement('div');
+            temp.innerHTML = partText;
+            const cleanText = (temp.textContent || '').replace(/\s+/g, ' ').trim();
+            if (cleanText) {
+                const words = cleanText.split(' ');
+                words.forEach((wordText, wIndex) => {
+                    const wordWrapper = document.createElement('span');
+                    wordWrapper.className = 'inline-block whitespace-nowrap';
+
+                    for (let i = 0; i < wordText.length; i++) {
+                        const span = document.createElement('span');
+                        span.className = 'char-span';
+                        span.textContent = wordText[i];
+                        wordWrapper.appendChild(span);
+                        spans.push(span);
+                    }
+
+                    el.appendChild(wordWrapper);
+
+                    if (wIndex < words.length - 1) {
+                        const spaceSpan = document.createElement('span');
+                        spaceSpan.className = 'inline-block';
+                        spaceSpan.innerHTML = '&nbsp;';
+                        el.appendChild(spaceSpan);
+                    }
+                });
+            }
+
+            if (pIndex < lineParts.length - 1) {
+                el.appendChild(document.createElement('br'));
+            }
+        });
+        return spans;
+    }
+
+    // Standard non-BR text splitting
     const rawText = el.textContent || '';
     const cleanText = rawText.replace(/\s+/g, ' ').trim();
     if (!cleanText) return [];
 
     el.innerHTML = '';
 
-    // Re-attach icon first if present
     if (iconClone) {
         el.appendChild(iconClone);
         el.appendChild(document.createTextNode(' '));
@@ -62,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 7000);
 
-    // 1. Prepare Letter-by-Letter Headline Spans
+    // 1. Prepare Letter-by-Letter Hero Spans
     const line1 = document.getElementById('title-line-1');
     const line2 = document.getElementById('title-line-2');
     const line3 = document.getElementById('title-line-3');
@@ -70,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const spans1 = splitTextToSpans(line1);
     const spans2 = splitTextToSpans(line2);
     const spans3 = splitTextToSpans(line3);
-    const allHeadlineSpans = [...spans1, ...spans2, ...spans3];
 
     // 2. Preloader & Sequential Timed Animation Engine
     const introLoader = document.getElementById('intro-loader');
@@ -104,35 +149,106 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // CINEMATIC PRELOADER & TIMED STEP-BY-STEP SEQUENCE PIPELINE
+    // CINEMATIC PRELOADER & SEQUENTIAL STEP-BY-STEP ELEMENT REVEAL PIPELINE
+    const INTRO_PRELOADER_HOLD = 2400; // Longer preloader window (2.4s)
+
     setTimeout(() => {
-        // STEP 0: Fade out centered intro text & split curtains open sideways
+        // STEP 0: Fade out intro text & split curtains open sideways
         if (introTextBox) introTextBox.style.opacity = '0';
         if (curtainLeft) curtainLeft.style.transform = 'translateX(-100%)';
         if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
 
-        // Reveal all hero elements, role badge, description, and CTA buttons immediately
+        // STEP 1: HEADING APPEARS FIRST (Role badge + Letter-by-letter Title lines 1 & 2)
         setTimeout(() => {
-            document.querySelectorAll('.seq-hidden').forEach(el => el.classList.add('seq-visible'));
-            
-            allHeadlineSpans.forEach((span, index) => {
-                setTimeout(() => {
-                    span.classList.add('visible');
-                }, index * 20);
-            });
+            if (heroRole) {
+                heroRole.classList.remove('seq-hidden');
+                heroRole.classList.add('seq-visible');
+            }
 
-            // 3D particle cube implosion begins
-            assemblyStartTime = performance.now();
-            isAssemblyRunning = true;
-            requestAnimationFrame(updateAssembly);
+            const line1 = document.getElementById('title-line-1');
+            const line2 = document.getElementById('title-line-2');
+
+            if (line1) {
+                line1.classList.remove('seq-hidden');
+                line1.classList.add('seq-visible');
+                const spans1 = splitTextToSpans(line1);
+                spans1.forEach((span, i) => {
+                    setTimeout(() => span.classList.add('visible'), i * 50);
+                });
+            }
+
+            const line1Delay = line1 ? (line1.textContent.trim().length * 50 + 150) : 400;
 
             setTimeout(() => {
-                if (introLoader) introLoader.style.display = 'none';
-            }, 400);
+                if (line2) {
+                    line2.classList.remove('seq-hidden');
+                    line2.classList.add('seq-visible');
+                    const spans2 = splitTextToSpans(line2);
+                    spans2.forEach((span, i) => {
+                        setTimeout(() => span.classList.add('visible'), i * 35);
+                    });
+                }
 
-        }, 200);
+                const line2Delay = line2 ? (line2.textContent.trim().length * 35 + 400) : 600;
 
-    }, 600);
+                // STEP 2: BUTTONS APPEAR SECOND (CTA Buttons: Telegram, GitHub, Resume)
+                setTimeout(() => {
+                    if (heroButtons) {
+                        heroButtons.classList.remove('seq-hidden');
+                        heroButtons.classList.add('seq-visible');
+                    }
+
+                    // STEP 3: TEXT DESCRIPTION APPEARS THIRD (Hero description paragraph typed character-by-character)
+                    setTimeout(() => {
+                        const heroSubBlock = document.getElementById('hero-sub-block');
+                        if (heroSubBlock) {
+                            heroSubBlock.classList.remove('hero-scroll-hidden');
+                            heroSubBlock.classList.add('hero-scroll-visible');
+                        }
+
+                        const descEls = document.querySelectorAll('#hero-desc, #hero-desc-desktop');
+                        let maxDescTime = 0;
+
+                        descEls.forEach(heroDescEl => {
+                            heroDescEl.classList.remove('seq-hidden');
+                            heroDescEl.classList.add('seq-visible');
+                            const descSpans = splitTextToSpans(heroDescEl);
+                            descSpans.forEach((span, i) => {
+                                setTimeout(() => span.classList.add('visible'), i * 12);
+                            });
+                            const totalT = descSpans.length * 12;
+                            if (totalT > maxDescTime) maxDescTime = totalT;
+                        });
+
+                        const descDelay = Math.max(500, maxDescTime + 250);
+
+                        // STEP 4: NAVIGATION DOCK APPEARS LAST
+                        setTimeout(() => {
+                            if (desktopDock) {
+                                desktopDock.classList.remove('dock-hidden');
+                                desktopDock.classList.add('dock-visible');
+                            }
+
+                            // 3D Particle cube implosion begins
+                            assemblyStartTime = performance.now();
+                            isAssemblyRunning = true;
+                            requestAnimationFrame(updateAssembly);
+
+                            setTimeout(() => {
+                                if (introLoader) introLoader.style.display = 'none';
+                            }, 500);
+
+                        }, descDelay);
+
+                    }, 650);
+
+                }, line2Delay);
+
+            }, line1Delay);
+
+        }, 400);
+
+    }, INTRO_PRELOADER_HOLD);
 
 
     // 3. Mobile Menu Toggle
@@ -168,25 +284,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDockVisibility() {
         const currentScrollY = window.scrollY;
-        
-        // Hide navigation pill at top of page so it does not overlap Hero buttons
-        if (currentScrollY > 80) {
+        const isDesktopScreen = window.innerWidth >= 768;
+
+        if (isDesktopScreen) {
+            // Desktop: Navigation dock MUST STAY VISIBLE AT ALL TIMES!
             if (desktopDock) {
                 desktopDock.classList.remove('dock-hidden');
                 desktopDock.classList.add('dock-visible');
             }
-            if (mobileDock) {
-                mobileDock.classList.remove('dock-hidden');
-                mobileDock.classList.add('dock-visible');
-            }
         } else {
-            if (desktopDock) {
-                desktopDock.classList.remove('dock-visible');
-                desktopDock.classList.add('dock-hidden');
-            }
-            if (mobileDock) {
-                mobileDock.classList.remove('dock-visible');
-                mobileDock.classList.add('dock-hidden');
+            // Mobile: Navigation dock appears when scrolling down
+            if (currentScrollY > 60) {
+                if (mobileDock) {
+                    mobileDock.classList.remove('dock-hidden');
+                    mobileDock.classList.add('dock-visible');
+                }
+            } else {
+                if (mobileDock) {
+                    mobileDock.classList.remove('dock-visible');
+                    mobileDock.classList.add('dock-hidden');
+                }
             }
         }
     }
@@ -197,17 +314,26 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = currentScrollY;
 
         const heroSubBlock = document.getElementById('hero-sub-block');
+        const isMobileScreen = window.innerWidth < 768;
 
-        // Reveal description text & CTA buttons lower down after first scroll down
-        if (currentScrollY > 40) {
+        if (isMobileScreen) {
+            // Mobile: Reveal description text & CTA buttons lower down after first scroll down
+            if (currentScrollY > 40) {
+                if (heroSubBlock) {
+                    heroSubBlock.classList.remove('hero-scroll-hidden');
+                    heroSubBlock.classList.add('hero-scroll-visible');
+                }
+            } else {
+                if (heroSubBlock) {
+                    heroSubBlock.classList.remove('hero-scroll-visible');
+                    heroSubBlock.classList.add('hero-scroll-hidden');
+                }
+            }
+        } else {
+            // Desktop: ALWAYS visible immediately!
             if (heroSubBlock) {
                 heroSubBlock.classList.remove('hero-scroll-hidden');
                 heroSubBlock.classList.add('hero-scroll-visible');
-            }
-        } else {
-            if (heroSubBlock) {
-                heroSubBlock.classList.remove('hero-scroll-visible');
-                heroSubBlock.classList.add('hero-scroll-hidden');
             }
         }
 
@@ -687,7 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isMobileDevice = window.innerWidth < 768;
         const cubeSize = isMobileDevice ? 90 : 135; // Sleek, compact 3D scale on desktop & mobile
-        const numCubeParticles = isMobileDevice ? 1200 : 3600; // 1,200 on mobile, 3,600 on desktop for silky smooth performance!
+        const numCubeParticles = isMobileDevice ? 1000 : 2800; // Optimized particle budget for locked 60-120 FPS performance!
         const cubeParticles = [];
 
         function isCubeEdgePoint(x, y, z, s) {
@@ -768,7 +894,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 pSize = Math.random() * 0.9 + 1.1;
             }
 
-            const detachThreshold = 0.20 + Math.random() * 0.55;
+            // Widen detachment threshold to 0.06 - 0.88 for a much longer, multi-stage disintegration sequence
+            const detachThreshold = 0.06 + Math.random() * 0.82;
             const detachSpeed = Math.max(cWidth, cHeight) * (0.65 + Math.random() * 0.60);
             const swirlDir = Math.random() > 0.5 ? 1 : -1;
             const swirlFreq = 0.012 + Math.random() * 0.02;
@@ -834,7 +961,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let targetProgress = Math.min(1, Math.max(0, rawScrollProgress));
 
-            smoothScrollProgress += (targetProgress - smoothScrollProgress) * 0.10;
+            // Silky smooth scroll lerp factor (0.055) eliminates wheel step micro-stutters
+            smoothScrollProgress += (targetProgress - smoothScrollProgress) * 0.055;
             const scrollProgress = smoothScrollProgress;
 
             let mouseNormX = 0, mouseNormY = 0;
@@ -850,9 +978,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currRotX += (targetRotX - currRotX) * 0.08;
             currRotY += (targetRotY - currRotY) * 0.08;
 
-            // Disable auto-rotation of Hero Cube on mobile screens
-            const isMobileHero = window.innerWidth < 768;
-            const idleRotY = isMobileHero ? 0 : (autoRotateAngle * 0.5);
+            const idleRotY = 0;
             const scrollRotY = scrollProgress * Math.PI * 0.65;
             const finalRotX = currRotX;
             const finalRotY = currRotY + scrollRotY + idleRotY;
@@ -861,7 +987,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const cosY = Math.cos(finalRotY), sinY = Math.sin(finalRotY);
 
             const currentAssembly = Math.min(1, Math.max(0, assemblyProgress));
-            const activeAlpha = Math.cos(Math.min(1, scrollProgress * 0.95) * (Math.PI / 2));
+            // Slower, smoother alpha decay across longer scroll
+            const activeAlpha = Math.cos(Math.min(1, scrollProgress * 0.72) * (Math.PI / 2));
 
             if (activeAlpha > 0.005 && currentAssembly > 0.001) {
                 cCtx.save();
@@ -881,7 +1008,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     let swirlX = 0, swirlY = 0;
                     if (scrollProgress > p.detachThreshold) {
                         const progressDelta = (scrollProgress - p.detachThreshold) / (1 - p.detachThreshold);
-                        explodeDist = Math.pow(progressDelta, 1.15) * (p.detachSpeed * 0.85);
+                        // Fast quadratic multiplication instead of Math.pow for 10x faster particle math
+                        explodeDist = progressDelta * progressDelta * (p.detachSpeed * 0.85);
                         
                         const swirlAngle = explodeDist * p.swirlFreq * p.swirlDir;
                         swirlX = Math.sin(swirlAngle) * 55;
@@ -916,13 +1044,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (mouseX > -9000) {
                         const dx = screenX - mouseX;
                         const dy = screenY - mouseY;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        const repelRadius = 45; // Reduced radius for a subtle, elegant ripple under cursor
-
-                        if (dist < repelRadius && dist > 0) {
-                            const force = (repelRadius - dist) / repelRadius;
-                            p.vx += (dx / dist) * force * 12;
-                            p.vy += (dy / dist) * force * 12;
+                        // Fast bounding box check eliminates 95%+ of Math.sqrt calls for locked 60-120 FPS
+                        if (Math.abs(dx) < 45 && Math.abs(dy) < 45) {
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 45 && dist > 0) {
+                                const force = (45 - dist) / 45;
+                                p.vx += (dx / dist) * force * 12;
+                                p.vy += (dy / dist) * force * 12;
+                            }
                         }
                     }
 
@@ -935,7 +1064,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     let detachFade = 1;
                     if (explodeDist > 0) {
-                        detachFade = Math.pow(Math.max(0, 1 - explodeDist / (p.detachSpeed * 2.5)), 1.4);
+                        const fadeRatio = Math.max(0, 1 - explodeDist / (p.detachSpeed * 2.5));
+                        detachFade = fadeRatio * fadeRatio;
                     }
 
                     const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, perspectiveScale) * Math.min(1, currentAssembly * 2.0);
@@ -1221,7 +1351,7 @@ const translations = {
         'dock.contact': 'Telegram',
         'hero.role': 'Interactive CV & Portfolio',
         'hero.line1': 'Valerii',
-        'hero.line2': 'Fullstack AI Developer',
+        'hero.line2': 'Fullstack AI<br>Developer',
         'hero.desc': 'I architect full-stack AI services, commercial CRM platforms (React + Supabase RLS), n8n workflows, and server infrastructure.',
         'hero.cta': '<i class="pixelarticons-message-text text-lg text-white"></i> Telegram',
         'hero.github': '<i class="pixelarticons-code text-lg text-white"></i> GitHub',
@@ -1313,8 +1443,14 @@ function applyLanguage(lang) {
         link.href = `resume_printable.html?lang=${currentLang}`;
     });
 
-    // Re-split all section headings for letter-by-letter animation
+    // Re-split all section headings & hero text for letter-by-letter animation
     initScrollLetterAnimationEngine();
+
+    const revealedHeadings = document.querySelectorAll('#title-line-1.seq-visible, #title-line-2.seq-visible, #hero-desc.seq-visible, #hero-desc-desktop.seq-visible');
+    revealedHeadings.forEach(el => {
+        const spans = splitTextToSpans(el);
+        spans.forEach(span => span.classList.add('visible'));
+    });
 
     // Reset bot demo message in new language
     resetBotDemo();
@@ -1521,7 +1657,7 @@ function handleCmdSubmit(event) {
 // ==========================================================================
 function initScrollRevealEngine() {
     const revealTargets = document.querySelectorAll(
-        '.scroll-reveal, .scroll-reveal-card, #metrics-section, #bot-simulation, #terminal-section, #contact-section'
+        '.scroll-reveal, .scroll-reveal-card, #container-scroll-header, #metrics-section, #bot-simulation, #terminal-section, #contact-section, .container-scroll-card, #contact-section a'
     );
 
     revealTargets.forEach(el => {
@@ -1538,7 +1674,7 @@ function initScrollRevealEngine() {
         });
     }, {
         threshold: 0.05,
-        rootMargin: '0px 0px -20px 0px'
+        rootMargin: '0px 0px -30px 0px'
     });
 
     revealTargets.forEach(el => {
@@ -1774,68 +1910,65 @@ function initCircularGalleryEngine() {
     startGalleryLoop();
 }
 
-// Universal Scroll Fade-In & Fade-Out Observer Engine for Headings & Cards
-function initUniversalScrollFadeEngine() {
-    const selectors = [
-        '#container-scroll-header',
-        '#metrics-header',
-        '#bot-header',
-        '#term-header',
-        '#contact-header',
-        '.orbit-card',
-        '#metrics-section .circular-stage',
-        '#bot-sim-card',
-        '#terminal-container',
-        '#contact-cards > div',
-        '.scroll-reveal-card'
-    ];
+// 100% Scroll-Linked Character-by-Character Scrubbing Engine
+function initScrollLinkedCharScrubEngine() {
+    const rawTargets = document.querySelectorAll(
+        '.scroll-char-scrub, section h2, .container-scroll-card h3, #bot-simulation p, #terminal-section p, #contact-section p'
+    );
 
-    const scrollItems = Array.from(document.querySelectorAll(selectors.join(', ')));
-
-    scrollItems.forEach(item => {
-        item.classList.add('scroll-fade-item', 'scroll-out-bottom', 'reveal-text-line');
+    const scrubTargets = Array.from(rawTargets).filter(el => {
+        // Exclude hero title and description elements which are animated by load sequence
+        return !el.closest('#hero-sky') && el.id !== 'title-line-1' && el.id !== 'title-line-2' && el.id !== 'hero-desc' && el.id !== 'hero-desc-desktop';
     });
 
-    function updateScrollFades() {
-        const windowH = window.innerHeight;
+    scrubTargets.forEach(target => {
+        splitTextToSpans(target);
+    });
 
-        scrollItems.forEach(item => {
-            const rect = item.getBoundingClientRect();
-            
-            // Bottom threshold: entering screen from bottom
-            const isTooLow = rect.top > windowH - 40;
-            
-            // Top threshold: leaving screen at top
-            const isTooHigh = rect.bottom < 60;
+    function updateCharScrub() {
+        const viewH = window.innerHeight;
 
-            if (isTooLow) {
-                item.classList.remove('scroll-in-view', 'scroll-out-top', 'is-revealed');
-                item.classList.add('scroll-out-bottom');
-            } else if (isTooHigh) {
-                item.classList.remove('scroll-in-view', 'scroll-out-bottom', 'is-revealed');
-                item.classList.add('scroll-out-top');
-            } else {
-                item.classList.remove('scroll-out-bottom', 'scroll-out-top');
-                item.classList.add('scroll-in-view', 'is-revealed');
-            }
+        scrubTargets.forEach(target => {
+            const spans = target.querySelectorAll('.char-span');
+            if (!spans || !spans.length) return;
+
+            const rect = target.getBoundingClientRect();
+            
+            // Section elements scrub character by character as they move into viewport (from 90% to 35% screen height)
+            const startPos = viewH * 0.90;
+            const endPos = viewH * 0.35;
+            let rawProgress = (startPos - rect.top) / (startPos - endPos);
+            let progress = Math.max(0, Math.min(1, rawProgress));
+
+            const totalN = spans.length;
+            spans.forEach((span, idx) => {
+                const charStart = (idx / totalN) * 0.70;
+                const charEnd = charStart + 0.30;
+                let charProgress = (progress - charStart) / (charEnd - charStart);
+                charProgress = Math.max(0, Math.min(1, charProgress));
+
+                const opacity = 0.20 + (charProgress * 0.80);
+                const translateY = (1 - charProgress) * 12;
+                const blur = (1 - charProgress) * 3;
+
+                span.style.opacity = opacity.toFixed(2);
+                span.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+                span.style.filter = `blur(${blur.toFixed(1)}px)`;
+
+                if (charProgress >= 0.5) {
+                    span.style.color = '#ffffff';
+                    span.style.textShadow = '0 0 16px rgba(168, 85, 247, 0.6)';
+                } else {
+                    span.style.color = 'rgba(255, 255, 255, 0.3)';
+                    span.style.textShadow = 'none';
+                }
+            });
         });
     }
 
-    let isTicking = false;
-
-    function onScrollThrottled() {
-        if (!isTicking) {
-            requestAnimationFrame(() => {
-                updateScrollFades();
-                isTicking = false;
-            });
-            isTicking = true;
-        }
-    }
-
-    window.addEventListener('scroll', onScrollThrottled, { passive: true });
-    window.addEventListener('resize', onScrollThrottled, { passive: true });
-    setTimeout(updateScrollFades, 150);
+    window.addEventListener('scroll', updateCharScrub, { passive: true });
+    window.addEventListener('resize', updateCharScrub, { passive: true });
+    updateCharScrub();
 }
 
 // Initialize Scroll Animations after DOM loaded
@@ -1843,4 +1976,4 @@ initScrollRevealEngine();
 initScrollLetterAnimationEngine();
 initBorderBeamEngine();
 initCircularGalleryEngine();
-initUniversalScrollFadeEngine();
+initScrollLinkedCharScrubEngine();

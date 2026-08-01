@@ -28,6 +28,41 @@ html, body {
   transform: translate(-50%, 0px) !important;
 }
 
+/* SEQUENTIAL HERO LOAD ANIMATIONS (Role Badge, Title Lines, Desc & CTA Buttons) */
+.seq-hidden {
+    opacity: 0 !important;
+    transform: translateY(32px) scale(0.95) !important;
+    filter: blur(10px) !important;
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: opacity, transform, filter;
+    pointer-events: none !important;
+}
+
+.seq-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: blur(0px) !important;
+    pointer-events: auto !important;
+}
+
+.hero-scroll-hidden {
+    opacity: 0 !important;
+    transform: translateY(28px) !important;
+    filter: blur(6px) !important;
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: opacity, transform, filter;
+}
+
+.hero-scroll-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    filter: blur(0px) !important;
+}
+
 /* GPU Hardware Acceleration & Layer Promotion for Smooth 60-120 FPS Rendering */
 canvas, .border-beam-panel, .circular-card, .orbit-card, .scroll-fade-item {
   transform: translateZ(0);
@@ -322,48 +357,58 @@ i.ph, i.ph-bold, i.ph-fill, i.ph-regular, i.pixelarticons, [class^="pixelarticon
 }
 
 .seq-hidden.seq-visible {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
 }
 
 /* LETTER-BY-LETTER CHARACTER ANIMATION CLASS */
 .char-span {
     display: inline-block;
     opacity: 0;
-    transform: translateY(12px) scale(0.95);
-    transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+    transform: translateY(16px) scale(0.92);
+    filter: blur(4px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
 }
 
 .char-span.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0px);
 }
 
 /* SEQUENTIAL & UNIVERSAL SCROLL REVEAL ANIMATIONS */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(30px) scale(0.97);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    transform: translateY(40px) scale(0.96);
+    filter: blur(4px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
 }
 
 .scroll-reveal.reveal-active {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0px);
 }
 
 /* 2.5D PERSPECTIVE SCROLL REVEAL CARDS (RISE-ON-SCROLL ONLY) */
 .scroll-reveal-card {
     opacity: 0;
-    transform: perspective(1200px) rotateX(24deg) translateZ(-80px) translateY(80px) scale(0.92);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    transform: perspective(1200px) rotateX(16deg) translateZ(-40px) translateY(60px) scale(0.94);
+    filter: blur(6px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
     transform-style: preserve-3d;
 }
 
 .scroll-reveal-card.reveal-active {
     opacity: 1;
     transform: perspective(1200px) rotateX(0deg) translateZ(0px) translateY(0px) scale(1);
+    filter: blur(0px);
 }
 
 /* INFINITE MARQUEE TICKER ANIMATION */
@@ -558,8 +603,15 @@ input:focus-visible {
   }
 }
 
-/* RICARDO CHANCE STYLE SCROLL WORD SCRUB REVEAL */
-.scroll-scrub-text .scrub-word {
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, color, text-shadow;
+/* Container Scroll Header stays permanently visible during card scrolling */
+#container-scroll-header {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* 100% SCROLL-LINKED CHARACTER SCRUBBING ENGINE STYLES */
+.char-scrub-span {
+  will-change: opacity, transform, filter, color, text-shadow;
+  display: inline-block;
 }
