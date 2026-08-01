@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, index * 35);
                 });
 
-                // STEP 3 (2.5s): Sub-paragraph on bottom-right appears
+                // STEP 3 (2.5s): Sub-paragraph appears (both mobile and desktop)
                 const headlineAnimDuration = allHeadlineSpans.length * 35;
                 setTimeout(() => {
-                    if (heroDesc) heroDesc.classList.add('seq-visible');
+                    document.querySelectorAll('.seq-hidden:not(#hero-buttons)').forEach(el => el.classList.add('seq-visible'));
 
                     // STEP 4 (2.8s): Dynamic glowing CTA buttons appear
                     setTimeout(() => {
-                        if (heroButtons) heroButtons.classList.add('seq-visible');
+                        document.querySelectorAll('#hero-buttons, .seq-hidden').forEach(el => el.classList.add('seq-visible'));
 
                         // STEP 5 (3.1s): 3D particle cube implosion begins
                         setTimeout(() => {
