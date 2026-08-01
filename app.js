@@ -20,14 +20,14 @@ function splitTextToSpans(el) {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Safety Fallback: Ensure intro-loader is ALWAYS removed after 3.5 seconds
+    // Safety Fallback: Ensure intro-loader is ALWAYS removed after 7 seconds
     setTimeout(() => {
         const loader = document.getElementById('intro-loader');
         if (loader && loader.style.display !== 'none') {
             loader.style.opacity = '0';
             setTimeout(() => { loader.style.display = 'none'; }, 400);
         }
-    }, 3500);
+    }, 7000);
 
     // 1. Prepare Letter-by-Letter Headline Spans
     const line1 = document.getElementById('title-line-1');
@@ -71,43 +71,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // FAST & SLEEK PRELOADER PIPELINE
+    // CINEMATIC PRELOADER & TIMED STEP-BY-STEP SEQUENCE PIPELINE
     setTimeout(() => {
-        // STEP 1 (400ms): Fade out intro text & split curtains open
+        // STEP 0: Fade out centered intro text & split curtains open sideways
         if (introTextBox) introTextBox.style.opacity = '0';
         if (curtainLeft) curtainLeft.style.transform = 'translateX(-100%)';
         if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
 
-        // Hide overlay container as soon as curtains finish parting (800ms)
-        setTimeout(() => {
-            if (introLoader) introLoader.style.display = 'none';
-        }, 600);
-
-        // STEP 2: Hero elements reveal sequence
+        // STEP 1 (1.2s): Role badge appears
         setTimeout(() => {
             if (heroRole) heroRole.classList.add('seq-visible');
 
-            // Letter-by-letter headline reveal
-            allHeadlineSpans.forEach((span, index) => {
-                setTimeout(() => {
-                    span.classList.add('visible');
-                }, index * 25);
-            });
-
-            // Subparagraph and buttons reveal
+            // STEP 2 (1.4s): Letter-by-letter headline reveal
             setTimeout(() => {
-                if (heroDesc) heroDesc.classList.add('seq-visible');
-                if (heroButtons) heroButtons.classList.add('seq-visible');
+                allHeadlineSpans.forEach((span, index) => {
+                    setTimeout(() => {
+                        span.classList.add('visible');
+                    }, index * 35);
+                });
 
-                // Start 3D particle implosion
-                assemblyStartTime = performance.now();
-                isAssemblyRunning = true;
-                requestAnimationFrame(updateAssembly);
-            }, 300);
+                // STEP 3 (2.5s): Sub-paragraph on bottom-right appears
+                const headlineAnimDuration = allHeadlineSpans.length * 35;
+                setTimeout(() => {
+                    if (heroDesc) heroDesc.classList.add('seq-visible');
 
-        }, 150);
+                    // STEP 4 (2.8s): Dynamic glowing CTA buttons appear
+                    setTimeout(() => {
+                        if (heroButtons) heroButtons.classList.add('seq-visible');
 
-    }, 400);
+                        // STEP 5 (3.1s): 3D particle cube implosion begins
+                        setTimeout(() => {
+                            assemblyStartTime = performance.now();
+                            isAssemblyRunning = true;
+                            requestAnimationFrame(updateAssembly);
+
+                            setTimeout(() => {
+                                if (introLoader) introLoader.style.display = 'none';
+                            }, 500);
+
+                        }, 300);
+
+                    }, 350);
+
+                }, Math.max(400, headlineAnimDuration));
+
+            }, 200);
+
+        }, 300);
+
+    }, 1200);
 
 
     // 3. Mobile Menu Toggle
