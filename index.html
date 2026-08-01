@@ -43,18 +43,18 @@
     <!-- RICARDO CHANCE STYLE NOISE OVERLAY -->
     <div class="fixed inset-0 z-[150] pointer-events-none opacity-20 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); background-repeat: repeat;"></div>
 
-    <!-- PRELOADER ENTRANCE OVERLAY (Split Curtains & Pulsing Text Assembly Sequence) -->
+    <!-- PRELOADER ENTRANCE OVERLAY (Split Curtains & Simple Text Assembly Sequence) -->
     <div id="intro-loader" class="fixed inset-0 z-[200] pointer-events-none flex items-center justify-center overflow-hidden">
         <!-- Left Split Curtain -->
         <div id="curtain-left" class="absolute top-0 left-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
         <!-- Right Split Curtain -->
         <div id="curtain-right" class="absolute top-0 right-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
 
-        <!-- Centered Intro Glowing Text -->
+        <!-- Centered Simple Intro Text -->
         <div id="intro-text-box" class="relative z-10 text-center px-4 transition-all duration-700">
-            <p class="font-serif italic text-2xl sm:text-4xl text-purple-200 tracking-wide animate-pulse" data-i18n="intro.text">
-                Where intelligence meets code.
-            </p>
+            <h1 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-widest uppercase text-white animate-pulse" data-i18n="intro.text">
+                Portfolio<span class="text-brandPurple">.</span>
+            </h1>
         </div>
     </div>
 
