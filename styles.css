@@ -33,9 +33,9 @@ html, body {
     opacity: 0 !important;
     transform: translateY(32px) scale(0.95) !important;
     filter: blur(10px) !important;
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     will-change: opacity, transform, filter;
     pointer-events: none !important;
 }
@@ -44,23 +44,11 @@ html, body {
     opacity: 1 !important;
     transform: translateY(0) scale(1) !important;
     filter: blur(0px) !important;
-    pointer-events: auto !important;
-}
-
-.hero-scroll-hidden {
-    opacity: 0 !important;
-    transform: translateY(28px) !important;
-    filter: blur(6px) !important;
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     will-change: opacity, transform, filter;
-}
-
-.hero-scroll-visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    filter: blur(0px) !important;
+    pointer-events: auto !important;
 }
 
 /* GPU Hardware Acceleration & Layer Promotion for Smooth 60-120 FPS Rendering */
@@ -589,19 +577,7 @@ input:focus-visible {
   filter: blur(0px) !important;
 }
 
-/* Desktop overrides: macOS dock container & Hero sub-block ALWAYS visible immediately on Desktop */
-@media (min-width: 768px) {
-  #macos-dock-container {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translate(-50%, 0px) !important;
-  }
-  #hero-sub-block {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translateY(0px) !important;
-  }
-}
+
 
 /* Container Scroll Header stays permanently visible during card scrolling */
 #container-scroll-header {

@@ -191,20 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const line2Delay = line2 ? (line2.textContent.trim().length * 35 + 400) : 600;
 
-                // STEP 2: BUTTONS APPEAR SECOND (CTA Buttons: Telegram, GitHub, Resume)
+                // STEP 2: BUTTONS APPEAR SECOND (CTA Buttons: Telegram, GitHub, Resume staggered smoothly)
                 setTimeout(() => {
-                    if (heroButtons) {
-                        heroButtons.classList.remove('seq-hidden');
-                        heroButtons.classList.add('seq-visible');
-                    }
+                    const btnElements = document.querySelectorAll('#hero-buttons a');
+                    btnElements.forEach((btn, index) => {
+                        setTimeout(() => {
+                            btn.classList.remove('seq-hidden');
+                            btn.classList.add('seq-visible');
+                        }, index * 160);
+                    });
 
                     // STEP 3: TEXT DESCRIPTION APPEARS THIRD (Hero description paragraph typed character-by-character)
                     setTimeout(() => {
-                        const heroSubBlock = document.getElementById('hero-sub-block');
-                        if (heroSubBlock) {
-                            heroSubBlock.classList.remove('hero-scroll-hidden');
-                            heroSubBlock.classList.add('hero-scroll-visible');
-                        }
 
                         const descEls = document.querySelectorAll('#hero-desc, #hero-desc-desktop');
                         let maxDescTime = 0;
@@ -222,12 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const descDelay = Math.max(500, maxDescTime + 250);
 
-                        // STEP 4: NAVIGATION DOCK APPEARS LAST
+                        // STEP 4: PRELOADER COMPLETE (Dock remains hidden until user's first scroll)
                         setTimeout(() => {
-                            if (desktopDock) {
-                                desktopDock.classList.remove('dock-hidden');
-                                desktopDock.classList.add('dock-visible');
-                            }
+                            updateDockVisibility();
 
                             // 3D Particle cube implosion begins
                             assemblyStartTime = performance.now();
@@ -283,27 +278,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileDock = document.getElementById('mobile-dock-wrapper');
 
     function updateDockVisibility() {
+        const desktopDockEl = document.getElementById('macos-dock-container');
+        const mobileDockEl = document.getElementById('mobile-dock-wrapper');
         const currentScrollY = window.scrollY;
-        const isDesktopScreen = window.innerWidth >= 768;
 
-        if (isDesktopScreen) {
-            // Desktop: Navigation dock MUST STAY VISIBLE AT ALL TIMES!
-            if (desktopDock) {
-                desktopDock.classList.remove('dock-hidden');
-                desktopDock.classList.add('dock-visible');
+        // Navigation dock stays HIDDEN at top of page until user's first scroll!
+        if (currentScrollY > 15) {
+            if (desktopDockEl) {
+                desktopDockEl.classList.remove('dock-hidden');
+                desktopDockEl.classList.add('dock-visible');
+            }
+            if (mobileDockEl) {
+                mobileDockEl.classList.remove('dock-hidden');
+                mobileDockEl.classList.add('dock-visible');
             }
         } else {
-            // Mobile: Navigation dock appears when scrolling down
-            if (currentScrollY > 60) {
-                if (mobileDock) {
-                    mobileDock.classList.remove('dock-hidden');
-                    mobileDock.classList.add('dock-visible');
-                }
-            } else {
-                if (mobileDock) {
-                    mobileDock.classList.remove('dock-visible');
-                    mobileDock.classList.add('dock-hidden');
-                }
+            if (desktopDockEl) {
+                desktopDockEl.classList.remove('dock-visible');
+                desktopDockEl.classList.add('dock-hidden');
+            }
+            if (mobileDockEl) {
+                mobileDockEl.classList.remove('dock-visible');
+                mobileDockEl.classList.add('dock-hidden');
             }
         }
     }
@@ -313,36 +309,14 @@ document.addEventListener('DOMContentLoaded', () => {
         rawScrollVelocity = currentScrollY - lastScrollY;
         lastScrollY = currentScrollY;
 
-        const heroSubBlock = document.getElementById('hero-sub-block');
-        const isMobileScreen = window.innerWidth < 768;
 
-        if (isMobileScreen) {
-            // Mobile: Reveal description text & CTA buttons lower down after first scroll down
-            if (currentScrollY > 40) {
-                if (heroSubBlock) {
-                    heroSubBlock.classList.remove('hero-scroll-hidden');
-                    heroSubBlock.classList.add('hero-scroll-visible');
-                }
-            } else {
-                if (heroSubBlock) {
-                    heroSubBlock.classList.remove('hero-scroll-visible');
-                    heroSubBlock.classList.add('hero-scroll-hidden');
-                }
-            }
-        } else {
-            // Desktop: ALWAYS visible immediately!
-            if (heroSubBlock) {
-                heroSubBlock.classList.remove('hero-scroll-hidden');
-                heroSubBlock.classList.add('hero-scroll-visible');
-            }
-        }
 
-        // Smooth scroll fade-out and slide-up for ALL Hero content elements on deep scroll down
+        // Smooth scroll fade-out for Hero content on deep scroll down
         if (heroContentWrapper) {
-            if (currentScrollY > 120) {
-                const fadeDistance = window.innerWidth < 768 ? 580 : 750;
-                const heroOpacity = Math.max(0, 1 - ((currentScrollY - 120) / fadeDistance));
-                const translateY = Math.min(45, ((currentScrollY - 120) / fadeDistance) * 28);
+            if (currentScrollY > 220) {
+                const fadeDistance = 750;
+                const heroOpacity = Math.max(0, 1 - ((currentScrollY - 220) / fadeDistance));
+                const translateY = Math.min(45, ((currentScrollY - 220) / fadeDistance) * 28);
                 heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
                 heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
                 heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
@@ -352,6 +326,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroContentWrapper.style.pointerEvents = 'auto';
             }
         }
+
+        updateDockVisibility();
     });
 
     updateDockVisibility();
@@ -827,18 +803,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function generateRicardoChanceCubePoint(halfSize) {
             const mode = Math.random();
-            if (mode < 0.65) {
-                // 65% UNIFORM 3D Volume Fill across the ENTIRE cube volume
-                return {
-                    x: (Math.random() - 0.5) * 2 * halfSize,
-                    y: (Math.random() - 0.5) * 2 * halfSize,
-                    z: (Math.random() - 0.5) * 2 * halfSize,
-                    isCore: false,
-                    isEdge: false,
-                    isStardust: false
-                };
-            } else if (mode < 0.95) {
-                // 30% Crisp Outer Faces & Wireframe Edges
+            if (mode < 0.45) {
+                // 45% HIGH-ACCURACY 12 WIREFRAME EDGES (Sharp 3D edge definition!)
+                const edgeIndex = Math.floor(Math.random() * 12);
+                const t = (Math.random() - 0.5) * 2 * halfSize;
+                const s = halfSize;
+                let x = 0, y = 0, z = 0;
+
+                switch (edgeIndex) {
+                    case 0: x = t; y = s; z = s; break;
+                    case 1: x = t; y = -s; z = s; break;
+                    case 2: x = t; y = s; z = -s; break;
+                    case 3: x = t; y = -s; z = -s; break;
+                    case 4: x = s; y = t; z = s; break;
+                    case 5: x = -s; y = t; z = s; break;
+                    case 6: x = s; y = t; z = -s; break;
+                    case 7: x = -s; y = t; z = -s; break;
+                    case 8: x = s; y = s; z = t; break;
+                    case 9: x = -s; y = s; z = t; break;
+                    case 10: x = s; y = -s; z = t; break;
+                    default: x = -s; y = -s; z = t; break;
+                }
+
+                return { x, y, z, isCore: false, isEdge: true, isStardust: false };
+
+            } else if (mode < 0.85) {
+                // 40% OUTER 6 FACES
                 const face = Math.floor(Math.random() * 6);
                 const u = (Math.random() - 0.5) * 2 * halfSize;
                 const v = (Math.random() - 0.5) * 2 * halfSize;
@@ -854,18 +844,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const isEdge = isCubeEdgePoint(pt.x, pt.y, pt.z, halfSize);
                 return { ...pt, isCore: false, isEdge, isStardust: false };
+
             } else {
-                // 5% Ambient Stardust Envelope around the Cube
-                const R = halfSize * (1.05 + Math.random() * 0.30);
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.acos((Math.random() * 2) - 1);
+                // 15% INNER CORE & VOLUME DUST
                 return {
-                    x: R * Math.sin(phi) * Math.cos(theta),
-                    y: R * Math.sin(phi) * Math.sin(theta),
-                    z: R * Math.cos(phi),
-                    isCore: false,
+                    x: (Math.random() - 0.5) * 1.8 * halfSize,
+                    y: (Math.random() - 0.5) * 1.8 * halfSize,
+                    z: (Math.random() - 0.5) * 1.8 * halfSize,
+                    isCore: true,
                     isEdge: false,
-                    isStardust: true
+                    isStardust: false
                 };
             }
         }
@@ -882,8 +870,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (pt.isEdge) {
                 sprite = spriteEdge;
-                baseAlpha = Math.random() * 0.15 + 0.85;
-                pSize = Math.random() * 0.8 + 1.2;
+                baseAlpha = 1.0;
+                pSize = Math.random() * 0.8 + 1.5;
             } else if (pt.isStardust) {
                 sprite = spriteAmbient;
                 baseAlpha = Math.random() * 0.20 + 0.60;
