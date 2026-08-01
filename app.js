@@ -1,25 +1,38 @@
-// Ultra-Optimized 60 FPS 3D Particle Cube (Vivid Electric Violet Edges & Extra Large Particles)
+// Global helper for letter-by-letter splitting
+function splitTextToSpans(el) {
+    if (!el) return [];
+    // Avoid double splitting
+    const existing = el.querySelectorAll('.char-span');
+    if (existing.length > 0) return Array.from(existing);
+
+    const text = el.textContent.trim();
+    el.innerHTML = '';
+    const spans = [];
+    for (let i = 0; i < text.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'char-span';
+        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+        el.appendChild(span);
+        spans.push(span);
+    }
+    return spans;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Safety Fallback: Ensure intro-loader is ALWAYS removed after 3.5 seconds
+    setTimeout(() => {
+        const loader = document.getElementById('intro-loader');
+        if (loader && loader.style.display !== 'none') {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 400);
+        }
+    }, 3500);
+
     // 1. Prepare Letter-by-Letter Headline Spans
     const line1 = document.getElementById('title-line-1');
     const line2 = document.getElementById('title-line-2');
     const line3 = document.getElementById('title-line-3');
-
-    function splitTextToSpans(el) {
-        if (!el) return [];
-        const text = el.textContent;
-        el.innerHTML = '';
-        const spans = [];
-        for (let i = 0; i < text.length; i++) {
-            const span = document.createElement('span');
-            span.className = 'char-span';
-            span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-            el.appendChild(span);
-            spans.push(span);
-        }
-        return spans;
-    }
 
     const spans1 = splitTextToSpans(line1);
     const spans2 = splitTextToSpans(line2);
