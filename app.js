@@ -1592,10 +1592,6 @@ function initCircularGalleryEngine() {
     const cards = Array.from(ring.querySelectorAll('.circular-card'));
     if (cards.length === 0) return;
 
-    const dotsContainer = document.getElementById('metrics-dots');
-    const prevBtn = document.getElementById('metrics-prev-btn');
-    const nextBtn = document.getElementById('metrics-next-btn');
-
     const numItems = cards.length;
     const anglePerItem = 360 / numItems;
 
@@ -1610,54 +1606,6 @@ function initCircularGalleryEngine() {
     window.addEventListener('resize', () => {
         radius = window.innerWidth < 768 ? 260 : 420;
     });
-
-    // Create dot indicators
-    if (dotsContainer) {
-        dotsContainer.innerHTML = '';
-        cards.forEach((_, idx) => {
-            const dot = document.createElement('button');
-            dot.className = `metric-dot ${idx === 0 ? 'active' : ''}`;
-            dot.setAttribute('aria-label', `Карточка ${idx + 1}`);
-            dot.addEventListener('click', () => rotateToIndex(idx));
-            dotsContainer.appendChild(dot);
-        });
-    }
-
-    function rotateToIndex(idx) {
-        targetRotation = -idx * anglePerItem;
-        isUserInteracting = true;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            targetRotation += anglePerItem;
-            isUserInteracting = true;
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            targetRotation -= anglePerItem;
-            isUserInteracting = true;
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
-        });
-    }
-
-    // Scroll-driven subtle rotation delta
-    window.addEventListener('scroll', () => {
-        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollableHeight > 0) {
-            const scrollProgress = window.scrollY / scrollableHeight;
-            if (!isUserInteracting && !isDragging) {
-                targetRotation = -(scrollProgress * 360);
-            }
-        }
-    }, { passive: true });
 
     // Pointer Drag & Touch Swipe support
     let isDragging = false;
@@ -1708,9 +1656,6 @@ function initCircularGalleryEngine() {
 
         ring.style.transform = `rotateY(${rotation.toFixed(2)}deg)`;
 
-        let activeIdx = 0;
-        let minNormalizedAngle = 360;
-
         cards.forEach((card, i) => {
             const cardWidth = card.offsetWidth || 280;
             const cardHeight = card.offsetHeight || 160;
@@ -1724,31 +1669,26 @@ function initCircularGalleryEngine() {
             const relativeAngle = (itemAngle + totalRotation + 360) % 360;
             const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
 
-            if (normalizedAngle < minNormalizedAngle) {
-                minNormalizedAngle = normalizedAngle;
-                activeIdx = i;
-            }
-
-            const opacity = Math.max(0.20, 1 - (normalizedAngle / 130));
+            const opacity = Math.max(0.28, 1 - (normalizedAngle / 180));
             card.style.opacity = opacity.toFixed(2);
+            card.style.zIndex = Math.round(100 - (normalizedAngle / 180) * 80);
 
-            if (normalizedAngle < 28) {
-                card.style.borderColor = 'rgba(168, 85, 247, 0.9)';
-                card.style.boxShadow = '0 0 30px rgba(168, 85, 247, 0.4)';
+            // Dynamic multi-color theme glow matching each card's text color
+            const glowRgb = card.getAttribute('data-glow') || '168, 85, 247';
+            const glowFactor = Math.max(0, 1 - (normalizedAngle / 32));
+
+            if (glowFactor > 0.01) {
+                const borderAlpha = (0.35 + glowFactor * 0.55).toFixed(2);
+                const shadowAlpha = (glowFactor * 0.45).toFixed(2);
+                const shadowRadius = (12 + glowFactor * 24).toFixed(1);
+
+                card.style.borderColor = `rgba(${glowRgb}, ${borderAlpha})`;
+                card.style.boxShadow = `0 0 ${shadowRadius}px rgba(${glowRgb}, ${shadowAlpha})`;
             } else {
-                card.style.borderColor = '';
-                card.style.boxShadow = '';
+                card.style.borderColor = `rgba(${glowRgb}, 0.20)`;
+                card.style.boxShadow = 'none';
             }
         });
-
-        // Update active dot
-        if (dotsContainer) {
-            const dots = dotsContainer.querySelectorAll('.metric-dot');
-            dots.forEach((dot, dIdx) => {
-                const normIdx = ((activeIdx % numItems) + numItems) % numItems;
-                dot.classList.toggle('active', dIdx === normIdx);
-            });
-        }
 
         requestAnimationFrame(animate);
     }

@@ -410,7 +410,7 @@ input:focus-visible {
     top: 50%;
     left: 50%;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
+    backface-visibility: visible;
     touch-action: pan-y;
     user-select: none;
     will-change: transform, opacity;
