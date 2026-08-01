@@ -1203,14 +1203,28 @@ const translations = {
 function applyLanguage(lang) {
     currentLang = lang;
     
-    // Update button text
+    // Update button text across desktop and mobile
     const langBtnText = document.getElementById('lang-btn-text');
-    if (langBtnText) {
-        if (currentLang === 'RU') {
-            langBtnText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
-        } else {
-            langBtnText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
-        }
+    const mobileLangBadge = document.getElementById('mobile-menu-lang-badge');
+    const mobileDrawerLangText = document.getElementById('mobile-drawer-lang-text');
+    const mobileMenuBtnLabel = document.getElementById('mobile-menu-btn-label');
+    const mobileDrawerTitle = document.getElementById('mobile-drawer-title');
+    const mobileLangLabel = document.getElementById('mobile-lang-label');
+
+    if (currentLang === 'RU') {
+        if (langBtnText) langBtnText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
+        if (mobileLangBadge) mobileLangBadge.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
+        if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
+        if (mobileMenuBtnLabel) mobileMenuBtnLabel.textContent = `Навигация`;
+        if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Навигация по сайту`;
+        if (mobileLangLabel) mobileLangLabel.textContent = `Язык сайта / Language:`;
+    } else {
+        if (langBtnText) langBtnText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
+        if (mobileLangBadge) mobileLangBadge.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
+        if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
+        if (mobileMenuBtnLabel) mobileMenuBtnLabel.textContent = `Navigation`;
+        if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Site Navigation`;
+        if (mobileLangLabel) mobileLangLabel.textContent = `Site Language:`;
     }
 
     // Translate all data-i18n elements
@@ -1242,9 +1256,25 @@ function toggleLanguage() {
     applyLanguage(nextLang);
 }
 
+function toggleMobileMenu() {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    if (!overlay || !drawer) return;
+
+    const isOpen = !overlay.classList.contains('opacity-0');
+    if (isOpen) {
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        drawer.classList.add('translate-y-full');
+    } else {
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-y-full');
+    }
+}
+
 // Expose globally to window for onclick handlers
 window.toggleLanguage = toggleLanguage;
 window.applyLanguage = applyLanguage;
+window.toggleMobileMenu = toggleMobileMenu;
 
 
 // 12. Live AI Bot Simulation Demo

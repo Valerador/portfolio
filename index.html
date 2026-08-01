@@ -120,57 +120,125 @@
     <!-- Background 3D Micro-Dust Canvas -->
     <canvas id="starfield" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
 
-    <!-- FLOATING MACOS STYLE NAVIGATION DOCK -->
-    <div class="fixed bottom-3 sm:bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[96vw] max-w-max">
-        <div id="macos-dock" class="backdrop-blur-2xl bg-[#090518]/90 border border-white/20 rounded-3xl px-2 sm:px-4 py-2 sm:py-2.5 flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-4 shadow-2xl shadow-black/90">
+    <!-- FLOATING NAVIGATION (DESKTOP DOCK & MOBILE BOTTOM SHEET) -->
+    
+    <!-- DESKTOP MACOS DOCK (Visible on Desktop md:block) -->
+    <div class="hidden md:block fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+        <div id="macos-dock" class="backdrop-blur-2xl bg-[#090518]/85 border border-white/15 rounded-3xl px-4 py-2.5 flex items-center gap-4 shadow-2xl shadow-black/90">
             
             <!-- DOCK ITEM 1: ГЛАВНАЯ (CUBE) -->
-            <a href="#hero-sky" aria-label="Главная - Вернуться наверх" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPurple transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <i class="ph-bold ph-cube text-xl sm:text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
+            <a href="#hero-sky" aria-label="Главная - Вернуться наверх" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPurple transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-cube text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
                 <span class="dock-tooltip">Главная</span>
             </a>
 
             <!-- DOCK ITEM 2: МОИ ПРОЕКТЫ -->
-            <a href="#orbit-showcase" aria-label="Мои проекты - Просмотр портфолио" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPrimary transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <i class="ph-bold ph-planet text-xl sm:text-2xl text-indigo-300 group-hover:text-white transition-colors"></i>
+            <a href="#orbit-showcase" aria-label="Мои проекты - Просмотр портфолио" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPrimary transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-planet text-2xl text-indigo-300 group-hover:text-white transition-colors"></i>
                 <span class="dock-tooltip">Мои проекты</span>
             </a>
 
             <!-- DOCK ITEM 3: AI BOT DEMO -->
-            <a href="#bot-simulation" aria-label="AI Bot Demo - Демо симуляция ИИ-бота" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandPurple hover:bg-brandPurple hover:text-white transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <i class="ph-bold ph-robot text-xl sm:text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
+            <a href="#bot-simulation" aria-label="AI Bot Demo - Демо симуляция ИИ-бота" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandPurple hover:bg-brandPurple hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-robot text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
                 <span class="dock-tooltip" data-i18n="dock.bot">AI Bot Demo</span>
             </a>
 
             <!-- DOCK ITEM 4: CLI TERMINAL -->
-            <a href="#terminal-section" aria-label="CLI Terminal - Консоль навыков" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandAccent hover:bg-brandAccent hover:text-white transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <i class="ph-bold ph-terminal-window text-xl sm:text-2xl text-emerald-400 group-hover:text-white transition-colors"></i>
+            <a href="#terminal-section" aria-label="CLI Terminal - Консоль навыков" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandAccent hover:bg-brandAccent hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-terminal-window text-2xl text-emerald-400 group-hover:text-white transition-colors"></i>
                 <span class="dock-tooltip" data-i18n="dock.terminal">CLI Terminal</span>
             </a>
 
-            <div class="w-px h-5 sm:h-6 bg-white/20"></div>
+            <div class="w-px h-6 bg-white/20"></div>
 
             <!-- DOCK ITEM 5: CV DOWNLOAD -->
-            <a href="resume_printable.html" target="_blank" aria-label="Download CV - Открыть и скачать резюме в PDF" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-slate-900 text-brandAccent hover:bg-slate-800 transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <i class="ph-bold ph-file-pdf text-xl sm:text-2xl text-amber-400 group-hover:text-white transition-colors"></i>
+            <a href="resume_printable.html" target="_blank" aria-label="Download CV - Открыть и скачать резюме в PDF" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-900 text-brandAccent hover:bg-slate-800 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <i class="ph-bold ph-file-pdf text-2xl text-amber-400 group-hover:text-white transition-colors"></i>
                 <span class="dock-tooltip" data-i18n="dock.cv">Download CV</span>
             </a>
 
             <!-- DOCK ITEM 6: TELEGRAM CONTACT -->
-            <a href="https://t.me/Easyvaleriy" target="_blank" aria-label="Telegram - Написать в Telegram @Easyvaleriy" class="dock-item group relative w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-brandPurple to-brandPrimary text-white shadow-lg shadow-brandPurple/40 transition-all duration-200 transform hover:scale-110 sm:hover:scale-125 hover:-translate-y-1 sm:hover:-translate-y-2">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <a href="https://t.me/Easyvaleriy" target="_blank" aria-label="Telegram - Написать в Telegram @Easyvaleriy" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-brandPurple to-brandPrimary text-white shadow-lg shadow-brandPurple/40 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
+                <svg class="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
                 </svg>
                 <span class="dock-tooltip" data-i18n="dock.contact">Telegram @Easyvaleriy</span>
             </a>
 
-            <div class="w-px h-5 sm:h-6 bg-white/20"></div>
+            <div class="w-px h-6 bg-white/20"></div>
 
             <!-- RU / EN LANGUAGE SWITCHER BUTTON -->
-            <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык (RU/EN)" class="dock-item group relative px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-purple-950/80 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white font-mono text-[11px] sm:text-xs font-bold transition-all duration-200 transform hover:scale-110 hover:-translate-y-1">
+            <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык (RU/EN)" class="dock-item group relative px-3 py-1.5 rounded-xl bg-purple-950/80 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white font-mono text-xs font-bold transition-all duration-200 transform hover:scale-110 hover:-translate-y-1">
                 <span id="lang-btn-text">RU / <span class="text-slate-400">EN</span></span>
                 <span class="dock-tooltip">Switch Language</span>
             </button>
+
+        </div>
+    </div>
+
+    <!-- MOBILE COMPACT MENU TRIGGER BUTTON (Visible on Mobile md:hidden) -->
+    <div class="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+        <button onclick="toggleMobileMenu()" aria-label="Открыть меню навигации" class="backdrop-blur-2xl bg-[#090518]/90 border border-brandPurple/50 rounded-full px-5 py-2.5 flex items-center gap-2.5 shadow-2xl shadow-purple-950/90 text-white font-semibold text-xs active:scale-95 transition-all">
+            <i class="ph-bold ph-[#compass] ph-compass text-lg text-brandPurple animate-pulse"></i>
+            <span id="mobile-menu-btn-label">Навигация</span>
+            <span class="w-px h-3.5 bg-white/20 mx-0.5"></span>
+            <span onclick="event.stopPropagation(); toggleLanguage();" id="mobile-menu-lang-badge" class="text-[11px] font-mono font-bold text-brandAccent px-2 py-0.5 rounded-lg bg-white/10">RU / EN</span>
+        </button>
+    </div>
+
+    <!-- MOBILE BOTTOM SHEET DRAWER MENU (Pop-up Slide Up) -->
+    <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="md:hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[100] opacity-0 pointer-events-none transition-opacity duration-300">
+        <div onclick="event.stopPropagation()" id="mobile-menu-drawer" class="absolute bottom-0 left-0 right-0 bg-[#0C0721] border-t border-brandPurple/40 rounded-t-3xl p-6 shadow-2xl transform translate-y-full transition-transform duration-300 ease-out space-y-4">
+            
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-glassBorder">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brandPurple animate-ping"></span>
+                    <span class="text-white font-bold text-base tracking-wide" id="mobile-drawer-title">Навигация по сайту</span>
+                </div>
+                <button onclick="toggleMobileMenu()" aria-label="Закрыть меню" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links List -->
+            <div class="space-y-2 font-medium text-sm pt-1">
+                <a href="#hero-sky" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPurple/20 text-white transition-colors">
+                    <i class="ph-bold ph-cube text-xl text-purple-400"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="#orbit-showcase" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPrimary/20 text-white transition-colors">
+                    <i class="ph-bold ph-planet text-xl text-indigo-400"></i>
+                    <span data-i18n="dock.projects">Мои проекты</span>
+                </a>
+                <a href="#bot-simulation" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPurple/20 text-white transition-colors">
+                    <i class="ph-bold ph-robot text-xl text-purple-400"></i>
+                    <span data-i18n="dock.bot">Демо ИИ-Бота</span>
+                </a>
+                <a href="#terminal-section" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandAccent/20 text-white transition-colors">
+                    <i class="ph-bold ph-terminal-window text-xl text-emerald-400"></i>
+                    <span data-i18n="dock.terminal">CLI Terminal</span>
+                </a>
+                <a href="resume_printable.html" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900 border border-amber-500/30 text-amber-300 transition-colors">
+                    <i class="ph-bold ph-file-pdf text-xl text-amber-400"></i>
+                    <span data-i18n="dock.cv">Открыть Резюме (PDF)</span>
+                </a>
+                <a href="https://t.me/Easyvaleriy" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-r from-brandPurple to-brandPrimary text-white shadow-lg">
+                    <svg class="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
+                    </svg>
+                    <span>Telegram @Easyvaleriy</span>
+                </a>
+            </div>
+
+            <!-- Drawer Footer Language Switch -->
+            <div class="pt-3 flex items-center justify-between text-xs border-t border-glassBorder">
+                <span class="text-slate-400" id="mobile-lang-label">Язык сайта / Language:</span>
+                <button onclick="toggleLanguage()" class="px-3.5 py-1.5 rounded-xl bg-brandPurple/30 border border-brandPurple/50 text-brandPurple font-mono font-bold">
+                    <span id="mobile-drawer-lang-text">RU / EN</span>
+                </button>
+            </div>
 
         </div>
     </div>
