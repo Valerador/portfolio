@@ -692,8 +692,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const spriteAmbient = createParticleSprite(226, 232, 240, 168, 85, 247); // Pearl Silver Core + Purple Rim
         const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);   // Crisp Pearl Core + Electric Violet Rim
 
-        const cubeSize = Math.min(cWidth, cHeight) * 0.32; // Perfect 3D scale
         const isMobileDevice = window.innerWidth < 768;
+        const cubeSize = isMobileDevice ? 145 : Math.min(cWidth, cHeight) * 0.32; // Responsive 3D scale
         const numCubeParticles = isMobileDevice ? 1200 : 4800; // 1,200 on mobile, 4,800 on desktop for 60-120 FPS performance!
         const cubeParticles = [];
 
@@ -913,16 +913,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     let rz = -px * sinY + z1 * cosY;
                     let ry = y1;
 
-                    const isMobileScreen = cWidth < 768;
-                    const cubeRadius = isMobileScreen ? Math.min(cWidth * 0.36, 135) : Math.min(cWidth * 0.28, cHeight * 0.28, 240);
-                    const baseScale = cubeRadius / 160;
+                    const fov = 480;
+                    const perspectiveScale = fov / (fov + rz + 100);
 
-                    const fov = 600;
-                    const perspectiveScale = fov / (fov + rz * baseScale * 0.75);
-                    const renderScale = baseScale * (explodeDist > 0 ? 0.75 : perspectiveScale);
-
-                    const screenX = cx + rx * renderScale;
-                    const screenY = cy + ry * renderScale;
+                    const screenX = cx + rx * perspectiveScale;
+                    const screenY = cy + ry * perspectiveScale;
 
                     if (mouseX > -9000) {
                         const dx = screenX - mouseX;
@@ -949,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         detachFade = Math.pow(Math.max(0, 1 - explodeDist / (p.detachSpeed * 2.5)), 1.4);
                     }
 
-                    const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, renderScale) * Math.min(1, currentAssembly * 2.0);
+                    const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, perspectiveScale) * Math.min(1, currentAssembly * 2.0);
 
                     if (particleAlpha > 0.02 && screenY >= -50 && screenY <= cHeight + 50 && screenX >= -50 && screenX <= cWidth + 50) {
                         const blobR = p.size * twinkleScale * (p.isEdge ? 2.9 : (p.isCore ? 2.6 : 2.2));
