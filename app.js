@@ -71,55 +71,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // PRELOADER & TIMED STEP-BY-STEP SEQUENCE PIPELINE
+    // FAST & SLEEK PRELOADER PIPELINE
     setTimeout(() => {
-        // STEP 0: Fade out centered intro text & split curtains open sideways
+        // STEP 1 (400ms): Fade out intro text & split curtains open
         if (introTextBox) introTextBox.style.opacity = '0';
         if (curtainLeft) curtainLeft.style.transform = 'translateX(-100%)';
         if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
 
-        // STEP 1 (1.2s): Role badge appears
+        // Hide overlay container as soon as curtains finish parting (800ms)
+        setTimeout(() => {
+            if (introLoader) introLoader.style.display = 'none';
+        }, 600);
+
+        // STEP 2: Hero elements reveal sequence
         setTimeout(() => {
             if (heroRole) heroRole.classList.add('seq-visible');
 
-            // STEP 2 (1.4s): Letter-by-letter headline reveal
-            setTimeout(() => {
-                allHeadlineSpans.forEach((span, index) => {
-                    setTimeout(() => {
-                        span.classList.add('visible');
-                    }, index * 35);
-                });
-
-                // STEP 3 (2.5s): Sub-paragraph on bottom-right appears
-                const headlineAnimDuration = allHeadlineSpans.length * 35;
+            // Letter-by-letter headline reveal
+            allHeadlineSpans.forEach((span, index) => {
                 setTimeout(() => {
-                    if (heroDesc) heroDesc.classList.add('seq-visible');
+                    span.classList.add('visible');
+                }, index * 25);
+            });
 
-                    // STEP 4 (2.8s): Dynamic glowing CTA buttons appear
-                    setTimeout(() => {
-                        if (heroButtons) heroButtons.classList.add('seq-visible');
+            // Subparagraph and buttons reveal
+            setTimeout(() => {
+                if (heroDesc) heroDesc.classList.add('seq-visible');
+                if (heroButtons) heroButtons.classList.add('seq-visible');
 
-                        // STEP 5 (3.1s): ONLY NOW THE 3D CUBE ASSEMBLES FROM SPACE!
-                        setTimeout(() => {
-                            assemblyStartTime = performance.now();
-                            isAssemblyRunning = true;
-                            requestAnimationFrame(updateAssembly);
+                // Start 3D particle implosion
+                assemblyStartTime = performance.now();
+                isAssemblyRunning = true;
+                requestAnimationFrame(updateAssembly);
+            }, 300);
 
-                            setTimeout(() => {
-                                if (introLoader) introLoader.style.display = 'none';
-                            }, 500);
+        }, 150);
 
-                        }, 300);
-
-                    }, 350);
-
-                }, Math.max(400, headlineAnimDuration));
-
-            }, 200);
-
-        }, 300);
-
-    }, 1100);
+    }, 400);
 
 
     // 3. Mobile Menu Toggle
