@@ -1582,165 +1582,182 @@ function initBorderBeamEngine() {
 }
 
 // ==========================================================================
-// 17. 3D CURVED LENS SHOWCASE ENGINE (ULTRA-FAST 120 FPS & MOBILE UX)
+// 17. CIRCULAR 3D GALLERY CYLINDER ENGINE (120 FPS SILKY 3D ROTATION)
 // ==========================================================================
-function initMetrics3DCurvatureEngine() {
-    const track = document.getElementById('metrics-track');
-    if (!track) return;
+function initCircularGalleryEngine() {
+    const stage = document.getElementById('circular-gallery-stage');
+    const ring = document.getElementById('circular-gallery-ring');
+    if (!stage || !ring) return;
 
-    const cards = Array.from(track.querySelectorAll('.metric-card'));
+    const cards = Array.from(ring.querySelectorAll('.circular-card'));
     if (cards.length === 0) return;
 
     const dotsContainer = document.getElementById('metrics-dots');
     const prevBtn = document.getElementById('metrics-prev-btn');
     const nextBtn = document.getElementById('metrics-next-btn');
 
-    let isMouseDown = false;
-    let startX = 0;
-    let scrollLeftStart = 0;
-    let currentActiveIdx = 0;
-    let isRafScheduled = false;
+    const numItems = cards.length;
+    const anglePerItem = 360 / numItems;
 
-    // Create pagination dots
+    let rotation = 0;
+    let targetRotation = 0;
+    let autoRotateSpeed = 0.08;
+    let isUserInteracting = false;
+    let scrollTimeout = null;
+
+    let radius = window.innerWidth < 768 ? 260 : 420;
+
+    window.addEventListener('resize', () => {
+        radius = window.innerWidth < 768 ? 260 : 420;
+    });
+
+    // Create dot indicators
     if (dotsContainer) {
         dotsContainer.innerHTML = '';
         cards.forEach((_, idx) => {
             const dot = document.createElement('button');
             dot.className = `metric-dot ${idx === 0 ? 'active' : ''}`;
             dot.setAttribute('aria-label', `Карточка ${idx + 1}`);
-            dot.addEventListener('click', () => scrollToCardIndex(idx));
+            dot.addEventListener('click', () => rotateToIndex(idx));
             dotsContainer.appendChild(dot);
         });
     }
 
-    function scrollToCardIndex(idx) {
-        const targetCard = cards[idx];
-        if (!targetCard) return;
-        const targetScroll = targetCard.offsetLeft - (track.clientWidth - targetCard.offsetWidth) / 2;
-        track.scrollTo({
-            left: Math.max(0, targetScroll),
-            behavior: 'smooth'
-        });
+    function rotateToIndex(idx) {
+        targetRotation = -idx * anglePerItem;
+        isUserInteracting = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
     }
 
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
-            const prevIdx = Math.max(0, currentActiveIdx - 1);
-            scrollToCardIndex(prevIdx);
+            targetRotation += anglePerItem;
+            isUserInteracting = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
         });
     }
 
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
-            const nextIdx = Math.min(cards.length - 1, currentActiveIdx + 1);
-            scrollToCardIndex(nextIdx);
+            targetRotation -= anglePerItem;
+            isUserInteracting = true;
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 3500);
         });
     }
 
-    // Zero-reflow 3D lens math (0.01ms frame execution)
-    function renderCurvature() {
-        isRafScheduled = false;
-        const scrollLeft = track.scrollLeft;
-        const trackWidth = track.clientWidth;
-        const trackCenterX = scrollLeft + trackWidth / 2;
-        const isMobile = window.innerWidth < 768;
+    // Scroll-driven subtle rotation delta
+    window.addEventListener('scroll', () => {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollableHeight > 0) {
+            const scrollProgress = window.scrollY / scrollableHeight;
+            if (!isUserInteracting && !isDragging) {
+                targetRotation = -(scrollProgress * 360);
+            }
+        }
+    }, { passive: true });
 
-        // Mobile responsive 3D parameters (subtle depth on mobile for 100% natural touch swipe)
-        const maxAngle = isMobile ? 8 : 36;
-        const baseScale = isMobile ? 1.04 : 1.18;
-        const scaleDrop = isMobile ? 0.10 : 0.30;
-        const minScale = isMobile ? 0.94 : 0.74;
-        const baseZ = isMobile ? 15 : 60;
-        const zDrop = isMobile ? 25 : 80;
+    // Pointer Drag & Touch Swipe support
+    let isDragging = false;
+    let startX = 0;
+    let startRotation = 0;
 
-        let closestIdx = 0;
-        let minDistance = Infinity;
+    function onPointerDown(e) {
+        isDragging = true;
+        isUserInteracting = true;
+        startX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+        startRotation = targetRotation;
+    }
 
-        cards.forEach((card, idx) => {
-            const cardCenterX = card.offsetLeft + card.offsetWidth / 2;
-            const dist = Math.abs(cardCenterX - trackCenterX);
-            if (dist < minDistance) {
-                minDistance = dist;
-                closestIdx = idx;
+    function onPointerMove(e) {
+        if (!isDragging) return;
+        const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+        const deltaX = x - startX;
+        targetRotation = startRotation + (deltaX * 0.45);
+    }
+
+    function onPointerUp() {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // Snap smoothly to nearest card angle
+        const nearestIndex = Math.round(-targetRotation / anglePerItem);
+        targetRotation = -nearestIndex * anglePerItem;
+
+        scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 4000);
+    }
+
+    stage.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    stage.addEventListener('touchstart', onPointerDown, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('touchend', onPointerUp);
+
+    // 60-120 FPS animation loop
+    function animate() {
+        if (!isUserInteracting && !isDragging) {
+            targetRotation -= autoRotateSpeed;
+        }
+
+        // Smooth Lerp Interpolation
+        rotation += (targetRotation - rotation) * 0.08;
+
+        ring.style.transform = `rotateY(${rotation.toFixed(2)}deg)`;
+
+        let activeIdx = 0;
+        let minNormalizedAngle = 360;
+
+        cards.forEach((card, i) => {
+            const cardWidth = card.offsetWidth || 280;
+            const cardHeight = card.offsetHeight || 160;
+            const itemAngle = i * anglePerItem;
+
+            card.style.marginLeft = `-${cardWidth / 2}px`;
+            card.style.marginTop = `-${cardHeight / 2}px`;
+            card.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
+
+            const totalRotation = rotation % 360;
+            const relativeAngle = (itemAngle + totalRotation + 360) % 360;
+            const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
+
+            if (normalizedAngle < minNormalizedAngle) {
+                minNormalizedAngle = normalizedAngle;
+                activeIdx = i;
             }
 
-            const offset = (cardCenterX - trackCenterX) / (trackWidth * 0.35);
-            const clampedOffset = Math.max(-2.5, Math.min(2.5, offset));
-            const absOffset = Math.abs(clampedOffset);
-            const sign = Math.sign(clampedOffset);
+            const opacity = Math.max(0.20, 1 - (normalizedAngle / 130));
+            card.style.opacity = opacity.toFixed(2);
 
-            const rotateY = -sign * Math.pow(absOffset, 1.1) * maxAngle;
-            const scale = Math.max(minScale, baseScale - absOffset * scaleDrop);
-            const translateZ = baseZ - absOffset * zDrop;
-            const opacity = Math.max(0.60, 1 - absOffset * 0.30);
-
-            if (absOffset < 0.2) {
+            if (normalizedAngle < 28) {
                 card.style.borderColor = 'rgba(168, 85, 247, 0.9)';
-                card.style.boxShadow = '0 0 25px rgba(168, 85, 247, 0.3)';
+                card.style.boxShadow = '0 0 30px rgba(168, 85, 247, 0.4)';
             } else {
                 card.style.borderColor = '';
                 card.style.boxShadow = '';
             }
-
-            card.style.zIndex = Math.round(100 - absOffset * 30);
-            card.style.transform = `perspective(1000px) rotateY(${rotateY.toFixed(2)}deg) translateZ(${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-            card.style.opacity = opacity.toFixed(2);
         });
 
-        currentActiveIdx = closestIdx;
-
-        // Update dot indicators
+        // Update active dot
         if (dotsContainer) {
             const dots = dotsContainer.querySelectorAll('.metric-dot');
             dots.forEach((dot, dIdx) => {
-                dot.classList.toggle('active', dIdx === currentActiveIdx);
+                const normIdx = ((activeIdx % numItems) + numItems) % numItems;
+                dot.classList.toggle('active', dIdx === normIdx);
             });
         }
+
+        requestAnimationFrame(animate);
     }
 
-    function scheduleCurvatureUpdate() {
-        if (!isRafScheduled) {
-            isRafScheduled = true;
-            requestAnimationFrame(renderCurvature);
-        }
-    }
-
-    // Passive scroll listener for zero touch blocking on mobile
-    track.addEventListener('scroll', scheduleCurvatureUpdate, { passive: true });
-    window.addEventListener('resize', scheduleCurvatureUpdate);
-
-    // Desktop Mouse Drag-to-Scroll (Disabled on touch devices to prevent touch conflicts)
-    track.addEventListener('mousedown', (e) => {
-        if (window.matchMedia('(pointer: coarse)').matches) return;
-        isMouseDown = true;
-        track.classList.add('is-dragging');
-        startX = e.pageX - track.offsetLeft;
-        scrollLeftStart = track.scrollLeft;
-    });
-
-    window.addEventListener('mouseup', () => {
-        if (isMouseDown) {
-            isMouseDown = false;
-            track.classList.remove('is-dragging');
-        }
-    });
-
-    track.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return;
-        e.preventDefault();
-        const x = e.pageX - startX;
-        track.scrollLeft = scrollLeftStart - x * 1.2;
-        scheduleCurvatureUpdate();
-    });
-
-    // Initial positioning render
-    setTimeout(() => {
-        renderCurvature();
-    }, 100);
+    animate();
 }
 
 // Initialize Scroll Animations after DOM loaded
 initScrollRevealEngine();
 initScrollLetterAnimationEngine();
 initBorderBeamEngine();
-initMetrics3DCurvatureEngine();
+initCircularGalleryEngine();
