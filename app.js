@@ -1207,7 +1207,6 @@ function applyLanguage(lang) {
     const langBtnText = document.getElementById('lang-btn-text');
     const mobileLangBadge = document.getElementById('mobile-menu-lang-badge');
     const mobileDrawerLangText = document.getElementById('mobile-drawer-lang-text');
-    const mobileMenuBtnLabel = document.getElementById('mobile-menu-btn-label');
     const mobileDrawerTitle = document.getElementById('mobile-drawer-title');
     const mobileLangLabel = document.getElementById('mobile-lang-label');
 
@@ -1215,14 +1214,12 @@ function applyLanguage(lang) {
         if (langBtnText) langBtnText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
         if (mobileLangBadge) mobileLangBadge.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
         if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
-        if (mobileMenuBtnLabel) mobileMenuBtnLabel.textContent = `Навигация`;
         if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Навигация по сайту`;
         if (mobileLangLabel) mobileLangLabel.textContent = `Язык сайта / Language:`;
     } else {
         if (langBtnText) langBtnText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
         if (mobileLangBadge) mobileLangBadge.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
         if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
-        if (mobileMenuBtnLabel) mobileMenuBtnLabel.textContent = `Navigation`;
         if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Site Navigation`;
         if (mobileLangLabel) mobileLangLabel.textContent = `Site Language:`;
     }
