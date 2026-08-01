@@ -1,17 +1,33 @@
 // Global helper for letter-by-letter splitting
 function splitTextToSpans(el) {
     if (!el) return [];
+
     // Avoid double splitting
     const existing = el.querySelectorAll('.char-span');
     if (existing.length > 0) return Array.from(existing);
 
-    const text = el.textContent.trim();
+    // Store any inner icon elements (like <i>) if present
+    const icon = el.querySelector('i');
+    const iconClone = icon ? icon.cloneNode(true) : null;
+
+    // Get clean text with collapsed whitespace (no double spaces or newlines)
+    const rawText = el.textContent || '';
+    const cleanText = rawText.replace(/\s+/g, ' ').trim();
+    if (!cleanText) return [];
+
     el.innerHTML = '';
+
+    // Re-attach icon first if present
+    if (iconClone) {
+        el.appendChild(iconClone);
+        el.appendChild(document.createTextNode(' '));
+    }
+
     const spans = [];
-    for (let i = 0; i < text.length; i++) {
+    for (let i = 0; i < cleanText.length; i++) {
         const span = document.createElement('span');
         span.className = 'char-span';
-        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+        span.textContent = cleanText[i] === ' ' ? '\u00A0' : cleanText[i];
         el.appendChild(span);
         spans.push(span);
     }
