@@ -1,9 +1,17 @@
 /* Modern Dark Mode Aesthetics & Global Smooth Scroll */
 
-html {
+html, body {
+  background-color: #06030E !important;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* iOS Safari Bottom Bar & Safe Area Clearance */
+#macos-dock-container {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* GPU Hardware Acceleration & Layer Promotion for Smooth 60-120 FPS Rendering */
