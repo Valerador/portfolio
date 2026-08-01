@@ -306,3 +306,19 @@ input:focus-visible {
     outline: 2px solid #34d399;
     outline-offset: 2px;
 }
+
+/* MOBILE & TOUCH SCREEN RESPONSIVE OPTIMIZATIONS */
+@media (max-width: 640px) {
+    .scroll-reveal-card {
+        transform: perspective(800px) rotateX(12deg) translateY(35px) scale(0.96);
+    }
+
+    .dock-tooltip {
+        display: none !important; /* Hide hover tooltips on touch screens to avoid sticky overlays */
+    }
+
+    body {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+}

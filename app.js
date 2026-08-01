@@ -211,6 +211,20 @@ document.addEventListener('DOMContentLoaded', () => {
             crosshair.style.top = `${mouseY}px`;
         });
 
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
         window.addEventListener('mousedown', () => {
             isMouseDown = true;
             setCursorState('click');
@@ -729,6 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currRotY = 0;
         let smoothScrollProgress = 0;
         let animTime = 0;
+        let autoRotateAngle = 0;
 
         let isCubeVisible = true;
         let cubeAnimationFrameId = null;
@@ -744,6 +759,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cy = cHeight / 2;
 
             animTime += 1;
+            autoRotateAngle += 0.008;
 
             const heroSection = document.getElementById('hero-sky');
             let rawScrollProgress = 0;
@@ -765,15 +781,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 mouseNormY = (mouseY / window.innerHeight - 0.5);
             }
 
-            // Gyro Mouse Rigging (Ricardo Chance style subtle tilt)
+            // Gyro Mouse & Touch Rigging
             const targetRotX = mouseNormY * 0.65;
             const targetRotY = mouseNormX * 0.75;
 
             currRotX += (targetRotX - currRotX) * 0.08;
             currRotY += (targetRotY - currRotY) * 0.08;
 
-            // Stable resting state (zero rotation when standing still; only turns on scroll / gyro tilt)
-            const idleRotY = 0;
+            // Continuous subtle auto-rotation on mobile when standing still
+            const idleRotY = window.innerWidth < 640 ? autoRotateAngle : 0;
             const scrollRotY = scrollProgress * Math.PI * 0.65;
             const finalRotX = currRotX;
             const finalRotY = currRotY + scrollRotY + idleRotY;
