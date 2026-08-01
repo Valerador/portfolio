@@ -1397,7 +1397,7 @@ function handleCmdSubmit(event) {
 }
 
 // ==========================================================================
-// 14. SMOOTH DYNAMIC SCROLL REVEAL & DISAPPEAR OBSERVER ENGINE
+// 14. SMOOTH DYNAMIC SCROLL REVEAL OBSERVER ENGINE
 // ==========================================================================
 function initScrollRevealEngine() {
     const revealTargets = document.querySelectorAll(
@@ -1414,14 +1414,11 @@ function initScrollRevealEngine() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal-active');
-            } else {
-                // Smoothly fade out when scrolling up/out of viewport
-                entry.target.classList.remove('reveal-active');
             }
         });
     }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px'
     });
 
     revealTargets.forEach(el => {
@@ -1449,14 +1446,10 @@ function initScrollLetterAnimationEngine() {
                             span.classList.add('visible');
                         }, index * 25);
                     });
-                } else {
-                    chars.forEach(span => {
-                        span.classList.remove('visible');
-                    });
                 }
             });
         }, {
-            threshold: 0.15,
+            threshold: 0.1,
             rootMargin: '0px 0px -20px 0px'
         });
 
