@@ -111,48 +111,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (curtainLeft) curtainLeft.style.transform = 'translateX(-100%)';
         if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
 
-        // STEP 1 (1.2s): Role badge appears
+        // Reveal all hero elements, role badge, description, and CTA buttons immediately
         setTimeout(() => {
-            if (heroRole) heroRole.classList.add('seq-visible');
-
-            // STEP 2 (1.4s): Letter-by-letter headline reveal
-            setTimeout(() => {
-                allHeadlineSpans.forEach((span, index) => {
-                    setTimeout(() => {
-                        span.classList.add('visible');
-                    }, index * 35);
-                });
-
-                // STEP 3 (2.5s): Sub-paragraph appears (both mobile and desktop)
-                const headlineAnimDuration = allHeadlineSpans.length * 35;
+            document.querySelectorAll('.seq-hidden').forEach(el => el.classList.add('seq-visible'));
+            
+            allHeadlineSpans.forEach((span, index) => {
                 setTimeout(() => {
-                    document.querySelectorAll('.seq-hidden:not(#hero-buttons)').forEach(el => el.classList.add('seq-visible'));
+                    span.classList.add('visible');
+                }, index * 20);
+            });
 
-                    // STEP 4 (2.8s): Dynamic glowing CTA buttons appear
-                    setTimeout(() => {
-                        document.querySelectorAll('#hero-buttons, .seq-hidden').forEach(el => el.classList.add('seq-visible'));
+            // 3D particle cube implosion begins
+            assemblyStartTime = performance.now();
+            isAssemblyRunning = true;
+            requestAnimationFrame(updateAssembly);
 
-                        // STEP 5 (3.1s): 3D particle cube implosion begins
-                        setTimeout(() => {
-                            assemblyStartTime = performance.now();
-                            isAssemblyRunning = true;
-                            requestAnimationFrame(updateAssembly);
+            setTimeout(() => {
+                if (introLoader) introLoader.style.display = 'none';
+            }, 400);
 
-                            setTimeout(() => {
-                                if (introLoader) introLoader.style.display = 'none';
-                            }, 500);
+        }, 200);
 
-                        }, 300);
-
-                    }, 350);
-
-                }, Math.max(400, headlineAnimDuration));
-
-            }, 200);
-
-        }, 300);
-
-    }, 1200);
+    }, 600);
 
 
     // 3. Mobile Menu Toggle
@@ -221,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Smooth scroll fade-out and slide-up for ALL Hero content elements on scroll down
         if (heroContentWrapper) {
             if (currentScrollY > 5) {
-                const fadeDistance = window.innerWidth < 768 ? 240 : 380;
+                const fadeDistance = window.innerWidth < 768 ? 580 : 750;
                 const heroOpacity = Math.max(0, 1 - (currentScrollY / fadeDistance));
                 const translateY = Math.min(45, (currentScrollY / fadeDistance) * 28);
                 heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
@@ -693,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);   // Crisp Pearl Core + Electric Violet Rim
 
         const isMobileDevice = window.innerWidth < 768;
-        const cubeSize = isMobileDevice ? 145 : Math.min(cWidth, cHeight) * 0.32; // Responsive 3D scale
+        const cubeSize = isMobileDevice ? 95 : Math.min(cWidth, cHeight) * 0.32; // Compact 3D scale on mobile
         const numCubeParticles = isMobileDevice ? 1200 : 4800; // 1,200 on mobile, 4,800 on desktop for 60-120 FPS performance!
         const cubeParticles = [];
 
