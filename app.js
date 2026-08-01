@@ -1384,6 +1384,8 @@ function initScrollRevealEngine() {
     revealTargets.forEach(el => {
         revealObserver.observe(el);
     });
+}
+
 // ==========================================================================
 // 15. SCROLL-DRIVEN LETTER-BY-LETTER HEADING REVEAL ENGINE
 // ==========================================================================
