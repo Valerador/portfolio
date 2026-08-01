@@ -249,16 +249,19 @@ body {
     transform: translateY(0) scale(1);
 }
 
-/* SEQUENTIAL ELEMENT FADE-IN */
-.seq-hidden {
+/* SEQUENTIAL & SCROLL REVEAL ANIMATIONS */
+.seq-hidden,
+.scroll-reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(28px) scale(0.97);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
 }
 
-.seq-visible {
+.seq-visible,
+.reveal-active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 /* INFINITE MARQUEE TICKER ANIMATION */

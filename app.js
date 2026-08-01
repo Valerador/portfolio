@@ -1261,3 +1261,39 @@ function handleCmdSubmit(event) {
         input.value = '';
     }
 }
+
+// ==========================================================================
+// 14. SMOOTH DYNAMIC SCROLL REVEAL & DISAPPEAR OBSERVER ENGINE
+// ==========================================================================
+function initScrollRevealEngine() {
+    const revealTargets = document.querySelectorAll(
+        '.scroll-reveal, #metrics-section, #bot-simulation, #terminal-section, #contact-section, .container-scroll-card'
+    );
+
+    revealTargets.forEach(el => {
+        if (!el.classList.contains('scroll-reveal')) {
+            el.classList.add('scroll-reveal');
+        }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+            } else {
+                // Smoothly fade out when scrolling up/out of viewport
+                entry.target.classList.remove('reveal-active');
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealTargets.forEach(el => {
+        revealObserver.observe(el);
+    });
+}
+
+// Initialize Scroll Reveal after DOM loaded
+initScrollRevealEngine();
