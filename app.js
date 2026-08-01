@@ -1657,8 +1657,29 @@ function initCircularGalleryEngine() {
     window.addEventListener('touchmove', onPointerMove, { passive: true });
     window.addEventListener('touchend', onPointerUp);
 
-    // 60-120 FPS animation loop
+    let isGalleryVisible = true;
+    let galleryAnimationFrameId = null;
+
+    // Set card center offsets ONCE to prevent per-frame DOM layout thrashing
+    function updateCardOffsets() {
+        cards.forEach(card => {
+            const cardWidth = card.offsetWidth || 280;
+            const cardHeight = card.offsetHeight || 160;
+            card.style.marginLeft = `-${cardWidth / 2}px`;
+            card.style.marginTop = `-${cardHeight / 2}px`;
+        });
+    }
+
+    updateCardOffsets();
+    window.addEventListener('resize', updateCardOffsets);
+
+    // 60-120 FPS animation loop with offscreen observer
     function animate() {
+        if (!isGalleryVisible || document.hidden) {
+            galleryAnimationFrameId = null;
+            return;
+        }
+
         if (!isUserInteracting && !isDragging) {
             targetRotation -= autoRotateSpeed;
         }
@@ -1669,12 +1690,8 @@ function initCircularGalleryEngine() {
         ring.style.transform = `rotateY(${rotation.toFixed(2)}deg)`;
 
         cards.forEach((card, i) => {
-            const cardWidth = card.offsetWidth || 280;
-            const cardHeight = card.offsetHeight || 160;
             const itemAngle = i * anglePerItem;
 
-            card.style.marginLeft = `-${cardWidth / 2}px`;
-            card.style.marginTop = `-${cardHeight / 2}px`;
             card.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
 
             const totalRotation = rotation % 360;
@@ -1702,10 +1719,29 @@ function initCircularGalleryEngine() {
             }
         });
 
-        requestAnimationFrame(animate);
+        galleryAnimationFrameId = requestAnimationFrame(animate);
     }
 
-    animate();
+    function startGalleryLoop() {
+        if (!galleryAnimationFrameId && isGalleryVisible && !document.hidden) {
+            galleryAnimationFrameId = requestAnimationFrame(animate);
+        }
+    }
+
+    if ('IntersectionObserver' in window) {
+        const metricsObserver = new IntersectionObserver((entries) => {
+            isGalleryVisible = entries[0].isIntersecting;
+            if (isGalleryVisible) startGalleryLoop();
+        }, { threshold: 0 });
+        const metricsSec = document.getElementById('metrics-section');
+        if (metricsSec) metricsObserver.observe(metricsSec);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && isGalleryVisible) startGalleryLoop();
+    });
+
+    startGalleryLoop();
 }
 
 // Universal Scroll Fade-In & Fade-Out Observer Engine for Headings & Cards
@@ -1755,8 +1791,20 @@ function initUniversalScrollFadeEngine() {
         });
     }
 
-    window.addEventListener('scroll', updateScrollFades, { passive: true });
-    window.addEventListener('resize', updateScrollFades, { passive: true });
+    let isTicking = false;
+
+    function onScrollThrottled() {
+        if (!isTicking) {
+            requestAnimationFrame(() => {
+                updateScrollFades();
+                isTicking = false;
+            });
+            isTicking = true;
+        }
+    }
+
+    window.addEventListener('scroll', onScrollThrottled, { passive: true });
+    window.addEventListener('resize', onScrollThrottled, { passive: true });
     setTimeout(updateScrollFades, 150);
 }
 

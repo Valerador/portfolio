@@ -6,6 +6,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* GPU Hardware Acceleration & Layer Promotion for Smooth 60-120 FPS Rendering */
+canvas, .border-beam-panel, .circular-card, .orbit-card, .scroll-fade-item {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 /* Universal Anonymous Pro Typography across the entire website */
 body, p, span, div, a, h1, h2, h3, h4, h5, h6, button, input, textarea, select, .shiny-cta {
   font-family: 'Anonymous Pro', monospace !important;
