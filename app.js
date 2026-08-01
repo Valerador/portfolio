@@ -1585,16 +1585,35 @@ function initMetrics3DCurvatureEngine() {
     if (!track) return;
 
     const cards = track.querySelectorAll('.metric-card');
+    const progressBar = document.getElementById('metrics-progress-bar');
+    const btnLeft = document.getElementById('metrics-btn-left');
+    const btnRight = document.getElementById('metrics-btn-right');
+
     if (cards.length === 0) return;
 
     let isScrolling = false;
     let scrollTimeout = null;
+
+    function updateProgressBar() {
+        if (!progressBar) return;
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll <= 0) {
+            progressBar.style.width = '100%';
+            progressBar.style.transform = 'translateX(0%)';
+            return;
+        }
+        const scrollRatio = Math.max(0, Math.min(1, track.scrollLeft / maxScroll));
+        const thumbWidth = Math.max(20, (track.clientWidth / track.scrollWidth) * 100);
+        progressBar.style.width = `${thumbWidth.toFixed(1)}%`;
+        progressBar.style.transform = `translateX(${scrollRatio * (100 - thumbWidth)}%)`;
+    }
 
     function resetToFlat() {
         cards.forEach(card => {
             card.style.transform = `perspective(1000px) rotateY(0deg) translateZ(0px) scale(1)`;
             card.style.opacity = '1';
         });
+        updateProgressBar();
     }
 
     function updateCurvature() {
@@ -1610,21 +1629,16 @@ function initMetrics3DCurvatureEngine() {
             const clampedOffset = Math.max(-2, Math.min(2, offset));
 
             // 3D Curvature Math (active during scroll):
-            // 1. Rotate Y angle: left cards rotate right, right cards rotate left
             const rotateY = -clampedOffset * 26; // -26deg to +26deg arc
-            
-            // 2. Depth Z: center card pops forward, edge cards sink backward
             const translateZ = (1 - Math.abs(clampedOffset) * 0.4) * 35 - 20;
-
-            // 3. Scale: center card 100%, edge cards 88%
             const scale = Math.max(0.88, 1 - Math.abs(clampedOffset) * 0.12);
-
-            // 4. Opacity: center card 100%, edge cards 75%
             const opacity = Math.max(0.75, 1 - Math.abs(clampedOffset) * 0.2);
 
             card.style.transform = `perspective(1000px) rotateY(${rotateY.toFixed(2)}deg) translateZ(${translateZ.toFixed(1)}px) scale(${scale.toFixed(3)})`;
             card.style.opacity = opacity.toFixed(2);
         });
+
+        updateProgressBar();
     }
 
     function onScroll() {
@@ -1640,6 +1654,45 @@ function initMetrics3DCurvatureEngine() {
 
     track.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', resetToFlat, { passive: true });
+
+    // Desktop Mouse Drag-to-Scroll (Click & Drag)
+    let isMouseDown = false;
+    let startX = 0;
+    let scrollLeftStart = 0;
+
+    track.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        track.classList.add('is-dragging');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeftStart = track.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isMouseDown) {
+            isMouseDown = false;
+            track.classList.remove('is-dragging');
+        }
+    });
+
+    track.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeftStart - walk;
+    });
+
+    // Caret Navigation Buttons
+    if (btnLeft) {
+        btnLeft.addEventListener('click', () => {
+            track.scrollBy({ left: -320, behavior: 'smooth' });
+        });
+    }
+    if (btnRight) {
+        btnRight.addEventListener('click', () => {
+            track.scrollBy({ left: 320, behavior: 'smooth' });
+        });
+    }
 
     // Initial state: perfectly flat
     resetToFlat();
