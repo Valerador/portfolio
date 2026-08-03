@@ -1145,20 +1145,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let targetSmoothY = window.scrollY;
     let isScrollLoopActive = false;
 
-    // Dynamic Hold Plateau Distribution: Every card gets the exact same long hold delay in the flat/straight position
+    // Dynamic Hold Plateau Distribution: Every card gets equal hold delay + 18% End Buffer for final card readability
     function applyCardHoldPlateau(progress, numCards) {
         if (numCards <= 1) return 0;
+        
+        // Reserve the final 18% of scroll progress as an End-Buffer for Card 4 staying pinned & readable!
+        const activeProgress = Math.min(1.0, progress / 0.82);
         const maxIdx = numCards - 1;
-        const rawVal = progress * maxIdx;
+        const rawVal = activeProgress * maxIdx;
         const currentIdx = Math.floor(rawVal);
         if (currentIdx >= maxIdx) return maxIdx;
 
         const frac = rawVal - currentIdx;
-        // 70% hold stationary on flat card, 30% smooth transition to next card
-        if (frac <= 0.70) {
+        // 65% hold stationary on flat card, 35% smooth transition to next card
+        if (frac <= 0.65) {
             return currentIdx;
         } else {
-            const t = (frac - 0.70) / 0.30;
+            const t = (frac - 0.65) / 0.35;
             const easeT = t * t * (3 - 2 * t);
             return currentIdx + easeT;
         }
