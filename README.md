@@ -1,47 +1,67 @@
 # 🌌 Valerii — Fullstack AI Developer & Systems Architect Portfolio
 
-> **Cinematic Scrollytelling & Interactive AI Showcase**  
-> Immersive web portfolio featuring 3D Canvas WebGL/Particle engines, interactive CLI terminal, live AI bot simulator, and macOS-style magnetic dock navigation.
+<p align="center">
+  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/n8n-Automations-FF6D5A?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.0-38BDF8?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Playwright-E2E_Testing-2EAD33?style=for-the-badge&logo=playwright&logoColor=white" alt="Playwright" />
+  <img src="https://img.shields.io/badge/Linux-Ubuntu_Server-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Ubuntu" />
+</p>
+
+> **Interactive Web Portfolio & Engineering Showcase**  
+> High-performance web portfolio featuring 3D Canvas WebGL/Retina particle engines, interactive CLI terminal, live AI bot simulator, letter-by-letter scroll scrubbing, and macOS-style magnetic dock navigation.
 
 ---
 
-## ⚡ Tech Stack
+## 🚀 Featured Commercial Projects Showcase
 
-- **Frontend Core:** HTML5, Modern CSS3 (Vanilla + Tailwind CSS CDN)
-- **Animation & Graphics:** Custom 60+ FPS Canvas Engines (3D Particle Cube, Beams Background, Warp Starfield Tunnel)
-- **Icons & Typography:** Phosphor Icons, Google Fonts (*Plus Jakarta Sans*, *Outfit*, *JetBrains Mono*)
-- **Logic & Systems:** Vanilla JavaScript (ES6+), Client-side i18n Engine (RU/EN), Interactive Terminal CLI, Live Bot Scenario Simulator
-- **Optimization:** `IntersectionObserver` & Tab Visibility API for zero-lag background GPU/CPU pause
+While commercial project codebases remain in private repositories due to NDA and IP protection, below is an overview of key systems I've architected and shipped:
+
+### 1. 🏢 Atlas CRM — Multi-Tenant Business Automation Platform
+* **Role:** Lead Architect & Full-Stack Developer
+* **Tech Stack:** React, Vite, Tailwind CSS, Supabase (PostgreSQL), Playwright, GitHub Actions, Nginx, Linux Ubuntu
+* **Highlights:** Commercial MVP designed for niche service businesses. Features multi-tenant row-level data privacy (**Supabase RLS**), automated E2E regression test suites with Playwright & Vitest, and zero-downtime CI/CD deployments to dedicated Linux servers.
+
+### 2. 🤖 AI Booking Agent & RAG Context Pipeline
+* **Role:** AI Automation & Workflow Engineer
+* **Tech Stack:** Telepilot API (Telegram Engine), Node.js, PostgreSQL, Google Calendar API, n8n
+* **Highlights:** Autonomous AI booking assistant operating directly through Telegram user accounts. Fetches real-time slot availability, business pricing, and rules via RAG pipelines, negotiates booking times, and dispatches automated notifications.
+
+### 3. 🛡 Server Infrastructure & Security Hardening
+* **Role:** DevOps & Reliability Engineer
+* **Tech Stack:** Linux Ubuntu 24.04, Nginx Reverse Proxy, Docker, Cloudflare WAF, SSL, GitHub Actions
+* **Highlights:** Automated setup and hardening of Linux production servers with automated SSL renewal, Cloudflare DDoS protection, containerized microservices, and CI/CD pipelines.
+
+---
+
+## ⚡ Portfolio Tech Stack & Features
+
+- **3D Retina Canvas Engine:** Locked 60-120 FPS high-DPI `devicePixelRatio` 3D particle cube animation with high-res 128px bokeh orb sprites and wireframe edge definition.
+- **Scroll-Linked Letter Scrubbing:** 100% scroll-driven letter-by-letter character lighting & blur transition engine across all section headings and titles.
+- **Interactive CLI Terminal:** Functional terminal supporting custom commands (`skills`, `devops`, `education`, `clear`) with safe DOM escaping.
+- **Client-Side i18n Engine:** Instant, seamless switching between Russian and English without full page reloads.
+- **Resource & GPU Optimization:** Automatic pause of canvas rendering loops when scrolled out of view or tab is hidden via Page Visibility API.
 
 ---
 
 ## 📁 Repository Structure
 
-```
+```text
 clever-hertz/
 ├── index.html            # Main portfolio landing page (SEO OpenGraph & Schema.org ready)
-├── styles.css            # Custom CSS animations (Shiny CTA, Reticle cursor, Dock tooltips)
-├── app.js                # Core JavaScript engines (3D Canvases, i18n, CLI, Bot simulation)
-├── resume_printable.html # Print/PDF-ready formal CV sheet
-└── README.md             # Project documentation
+├── styles.css            # Custom CSS animations (2.5D scroll reveal, Reticle cursor, Glass dock)
+├── app.js                # Core JavaScript engines (3D Canvases, i18n, CLI, Bot simulation, Scrubbing)
+├── resume_printable.html # Print/PDF-ready formal CV sheet (RU/EN dynamic params)
+└── README.md             # Project documentation & commercial showcase
 ```
-
----
-
-## 🚀 Key Features
-
-1. **3D Particle Stardust Cube Engine:** Real-time 3D particle assembly and scroll-driven explosion animation.
-2. **Dynamic 1000R Curved Container Scroll Showcase:** 3D perspective display cards highlighting commercial CRM, AI agents, and Linux infrastructure.
-3. **Interactive Skill CLI Portal:** Functional terminal supporting `skills`, `devops`, `education`, and `clear` commands with safe DOM escaping.
-4. **Live AI Agent Simulator:** Interactive chat component demonstrating RAG database slot retrieval and calendar sync.
-5. **Full Bicultural i18n:** Instant client-side language toggle between Russian and English.
-6. **Smart GPU/CPU Idle Management:** Pauses canvas loops automatically when scrolled out of view or tab is hidden.
 
 ---
 
 ## 💻 Local Preview & Running
 
-No complex build pipeline required! Simply serve the static files:
+No complex build steps required! Simply serve the static files:
 
 ```bash
 # Using Python builtin server
@@ -52,6 +72,14 @@ npx serve .
 ```
 
 Open `http://localhost:8000` in your browser.
+
+---
+
+## 📬 Contact & Links
+
+- 💬 **Telegram:** [@Easyvaleriy](https://t.me/Easyvaleriy)
+- 📧 **Email:** valeador555@gmail.com
+- 🌐 **GitHub Profile:** [github.com/Valerador](https://github.com/Valerador)
 
 ---
 
