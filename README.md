@@ -19,17 +19,24 @@
 
 While commercial project codebases remain in private repositories due to NDA and IP protection, below is an overview of key systems I've architected and shipped:
 
-### 1. 🏢 Atlas CRM — Multi-Tenant Business Automation Platform
+### 1. 🏢 Atlas CRM — Multi-Tenant Business Automation Platform ([crm.atlasauto.space](https://crm.atlasauto.space))
 * **Role:** Lead Architect & Full-Stack Developer
+* **Live App:** [crm.atlasauto.space](https://crm.atlasauto.space)
 * **Tech Stack:** React, Vite, Tailwind CSS, Supabase (PostgreSQL), Playwright, GitHub Actions, Nginx, Linux Ubuntu
 * **Highlights:** Commercial MVP designed for niche service businesses. Features multi-tenant row-level data privacy (**Supabase RLS**), automated E2E regression test suites with Playwright & Vitest, and zero-downtime CI/CD deployments to dedicated Linux servers.
 
-### 2. 🤖 AI Booking Agent & RAG Context Pipeline
+### 2. 🌐 Atlas Studio — Web Development & Automations ([atlasauto.space](https://atlasauto.space))
+* **Role:** Founder & Lead Web Developer
+* **Live Website:** [atlasauto.space](https://atlasauto.space)
+* **Tech Stack:** React, Tailwind CSS, n8n, Supabase, Webhooks, Figma
+* **Highlights:** Custom web development and business automation agency. Engineering high-converting commercial websites, custom SPAs, lead-capture systems, and automated messaging pipelines for clients.
+
+### 3. 🤖 AI Booking Agent & RAG Context Pipeline
 * **Role:** AI Automation & Workflow Engineer
 * **Tech Stack:** Telepilot API (Telegram Engine), Node.js, PostgreSQL, Google Calendar API, n8n
 * **Highlights:** Autonomous AI booking assistant operating directly through Telegram user accounts. Fetches real-time slot availability, business pricing, and rules via RAG pipelines, negotiates booking times, and dispatches automated notifications.
 
-### 3. 🛡 Server Infrastructure & Security Hardening
+### 4. 🛡 Server Infrastructure & Security Hardening
 * **Role:** DevOps & Reliability Engineer
 * **Tech Stack:** Linux Ubuntu 24.04, Nginx Reverse Proxy, Docker, Cloudflare WAF, SSL, GitHub Actions
 * **Highlights:** Automated setup and hardening of Linux production servers with automated SSL renewal, Cloudflare DDoS protection, containerized microservices, and CI/CD pipelines.
