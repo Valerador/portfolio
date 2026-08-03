@@ -972,16 +972,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Gyro Mouse & Touch Rigging
-            const targetRotX = mouseNormY * 0.65;
-            const targetRotY = mouseNormX * 0.75;
+            const targetRotX = mouseNormY * 0.45;
+            const targetRotY = mouseNormX * 0.55;
 
             currRotX += (targetRotX - currRotX) * 0.08;
             currRotY += (targetRotY - currRotY) * 0.08;
 
-            const idleRotY = 0;
-            const scrollRotY = scrollProgress * Math.PI * 0.65;
-            const finalRotX = currRotX;
-            const finalRotY = currRotY + scrollRotY + idleRotY;
+            // Perfect 3D Isometric Pitch Angle (0.42 rad ~24deg) keeps cube top & front faces proportioned
+            const idlePitchX = 0.42 + Math.sin(autoRotateAngle * 0.4) * 0.08;
+            const scrollRotY = scrollProgress * Math.PI * 0.75;
+            const finalRotX = idlePitchX + currRotX;
+            const finalRotY = autoRotateAngle + currRotY + scrollRotY;
 
             const cosX = Math.cos(finalRotX), sinX = Math.sin(finalRotX);
             const cosY = Math.cos(finalRotY), sinY = Math.sin(finalRotY);
@@ -1144,28 +1145,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let targetSmoothY = window.scrollY;
     let isScrollLoopActive = false;
 
-    // Equal Hold Plateau Distribution: Every card gets the exact same long hold delay in the flat/straight position
+    // Dynamic Hold Plateau Distribution: Every card gets the exact same long hold delay in the flat/straight position
     function applyCardHoldPlateau(progress, numCards) {
         if (numCards <= 1) return 0;
-        
-        // Equal 26% Hold Plateau per card with smooth 11% transition windows:
-        // Card 1: 0% -> 26% (Locked 100% straight & flat)
-        // Card 2: 37% -> 63% (Locked 100% straight & flat — identical duration!)
-        // Card 3: 74% -> 100% (Locked 100% straight & flat — identical duration!)
-        if (progress <= 0.26) {
-            return 0.0;
-        } else if (progress <= 0.37) {
-            const t = (progress - 0.26) / 0.11;
-            const easeT = t * t * (3 - 2 * t);
-            return 0.0 + easeT * 1.0;
-        } else if (progress <= 0.63) {
-            return 1.0;
-        } else if (progress <= 0.74) {
-            const t = (progress - 0.63) / 0.11;
-            const easeT = t * t * (3 - 2 * t);
-            return 1.0 + easeT * 1.0;
+        const maxIdx = numCards - 1;
+        const rawVal = progress * maxIdx;
+        const currentIdx = Math.floor(rawVal);
+        if (currentIdx >= maxIdx) return maxIdx;
+
+        const frac = rawVal - currentIdx;
+        // 70% hold stationary on flat card, 30% smooth transition to next card
+        if (frac <= 0.70) {
+            return currentIdx;
         } else {
-            return 2.0;
+            const t = (frac - 0.70) / 0.30;
+            const easeT = t * t * (3 - 2 * t);
+            return currentIdx + easeT;
         }
     }
 
@@ -1344,6 +1339,7 @@ const translations = {
         'contact.title': 'Давайте обсудим ваш проект',
         'contact.sub': 'Я открыт к новым предложениям, фуллтайм-разработке и проектным задачам. Напишите мне в Telegram или посмотрите исходный код на GitHub — отвечу в течение 15 минут.',
         'contact.tgdesc': 'Быстрый ответ в течение 15 минут.',
+        'contact.emaildesc': 'Прямая связь для офферов и контрактов.',
         'contact.ghdesc': 'Исходный код, коммиты и коммерческие MVP.'
     },
     EN: {
@@ -1408,6 +1404,7 @@ const translations = {
         'contact.title': "Let's Discuss Your Project",
         'contact.sub': 'I am open for new opportunities, full-time positions, and contract work. Message me on Telegram or check my GitHub — I reply within 15 minutes.',
         'contact.tgdesc': 'Fast response within 15 minutes.',
+        'contact.emaildesc': 'Direct contact for offers & contracts.',
         'contact.ghdesc': 'Source code, commits, and production MVPs.'
     }
 };

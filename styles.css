@@ -411,6 +411,12 @@ i.ph, i.ph-bold, i.ph-fill, i.ph-regular, i.pixelarticons, [class^="pixelarticon
     animation: marquee-scroll 28s linear infinite;
 }
 
+@media (max-width: 767px) {
+    .animate-marquee-infinite {
+        animation-duration: 14s;
+    }
+}
+
 .marquee-container:hover .animate-marquee-infinite {
     animation-play-state: paused;
 }
