@@ -138,10 +138,10 @@
     <!-- ==========================================================================
          HERO SECTION (High-Status Linear Aesthetic with 3D Ambient Particle Cube)
          ========================================================================== -->
-    <header id="hero" class="relative z-10 pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center text-center overflow-visible">
+    <header id="hero" class="relative z-10 pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center text-center overflow-x-clip sm:overflow-visible">
         
         <!-- Ambient 3D Retina Particle Cube (Framing Headline from Background) -->
-        <div class="absolute top-[33%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] sm:w-[720px] md:w-[960px] h-[440px] sm:h-[560px] md:h-[680px] pointer-events-none z-0 flex items-center justify-center opacity-80">
+        <div class="absolute top-[33%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] md:w-[720px] lg:w-[960px] h-[320px] sm:h-[440px] md:h-[560px] lg:h-[680px] pointer-events-none z-0 flex items-center justify-center opacity-80">
             <canvas id="particle-star-canvas" class="w-full h-full"></canvas>
         </div>
 
@@ -220,11 +220,17 @@
             </h2>
         </div>
 
-        <!-- 12-Column Asymmetric Bento Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Mobile Horizontal Swipe Indicator -->
+        <div class="flex lg:hidden items-center justify-center gap-1.5 text-xs text-zinc-500 font-mono mb-4">
+            <i class="ph ph-hand-swipe-left text-sm text-indigo-400"></i>
+            <span data-i18n="projects.swipe">Свайп для просмотра проектов →</span>
+        </div>
+
+        <!-- 12-Column Asymmetric Bento Grid on Desktop / Snap Carousel on Mobile -->
+        <div class="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 no-scrollbar lg:grid lg:grid-cols-12 lg:gap-5 lg:mx-0 lg:px-0 lg:pb-0 lg:overflow-visible" data-lenis-prevent>
             
             <!-- TILE 1: Atlas CRM (Primary Flagship - 8 Columns) -->
-            <div class="reveal-init bento-card lg:col-span-8">
+            <div class="reveal-init bento-card w-[86vw] sm:w-[380px] lg:w-auto shrink-0 snap-center lg:col-span-8 lg:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -277,7 +283,7 @@
             </div>
 
             <!-- TILE 2: AI Telegram Agent (4 Columns) -->
-            <div class="reveal-init bento-card lg:col-span-4">
+            <div class="reveal-init bento-card w-[86vw] sm:w-[380px] lg:w-auto shrink-0 snap-center lg:col-span-4 lg:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -316,7 +322,7 @@
             </div>
 
             <!-- TILE 3: Linux & Cloud Infrastructure (4 Columns) -->
-            <div class="reveal-init bento-card lg:col-span-4">
+            <div class="reveal-init bento-card w-[86vw] sm:w-[380px] lg:w-auto shrink-0 snap-center lg:col-span-4 lg:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -360,7 +366,7 @@
             </div>
 
             <!-- TILE 4: Atlas Studio & Commercial Web (8 Columns) -->
-            <div class="reveal-init bento-card lg:col-span-8">
+            <div class="reveal-init bento-card w-[86vw] sm:w-[380px] lg:w-auto shrink-0 snap-center lg:col-span-8 lg:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -531,10 +537,10 @@
 
                     <div class="code-panel">
                         <div class="code-header">
-                            <span class="font-mono">supabase/migrations/20260215_tenant_rls_security.sql</span>
-                            <span class="text-zinc-500 font-mono text-xs">PostgreSQL</span>
+                            <span class="font-mono truncate">supabase/migrations/20260215_tenant_rls_security.sql</span>
+                            <span class="text-zinc-500 font-mono text-xs shrink-0">PostgreSQL</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-sql"><span class="text-indigo-400">ALTER TABLE</span> clients <span class="text-indigo-400">ENABLE ROW LEVEL SECURITY</span>;
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-sql"><span class="text-indigo-400">ALTER TABLE</span> clients <span class="text-indigo-400">ENABLE ROW LEVEL SECURITY</span>;
 
 <span class="text-zinc-500">-- Политика: Пользователь видит только записи своей организации (Tenant Isolation)</span>
 <span class="text-indigo-400">CREATE POLICY</span> <span class="text-emerald-400">"tenant_isolated_access"</span>
@@ -565,10 +571,10 @@
 
                     <div class="code-panel">
                         <div class="code-header">
-                            <span class="font-mono">workflows/telegram-booking-orchestrator.json</span>
-                            <span class="text-zinc-500 font-mono text-xs">Pipeline Flow</span>
+                            <span class="font-mono truncate">workflows/telegram-booking-orchestrator.json</span>
+                            <span class="text-zinc-500 font-mono text-xs shrink-0">Pipeline Flow</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-json">{
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-json">{
   <span class="text-indigo-400">"nodes"</span>: [
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Telegram Webhook"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.webhook"</span> },
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"PostgreSQL RAG Slots Query"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.postgres"</span> },
@@ -596,10 +602,10 @@
 
                     <div class="code-panel">
                         <div class="code-header">
-                            <span class="font-mono">.github/workflows/production-deploy.yml</span>
-                            <span class="text-zinc-500 font-mono text-xs">YAML</span>
+                            <span class="font-mono truncate">.github/workflows/production-deploy.yml</span>
+                            <span class="text-zinc-500 font-mono text-xs shrink-0">YAML</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-yaml"><span class="text-indigo-400">name</span>: <span class="text-zinc-200">Production Build & Linux Deploy</span>
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-yaml"><span class="text-indigo-400">name</span>: <span class="text-zinc-200">Production Build & Linux Deploy</span>
 <span class="text-indigo-400">jobs</span>:
   <span class="text-emerald-400">test-and-deploy</span>:
     <span class="text-indigo-400">runs-on</span>: <span class="text-zinc-200">ubuntu-latest</span>
@@ -634,10 +640,16 @@
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Mobile Horizontal Swipe Indicator -->
+        <div class="flex md:hidden items-center justify-center gap-1.5 text-xs text-zinc-500 font-mono mb-4">
+            <i class="ph ph-hand-swipe-left text-sm text-indigo-400"></i>
+            <span data-i18n="stack.swipe">Свайп для просмотра стека →</span>
+        </div>
+
+        <div class="flex flex-row overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-4 px-4 pb-4 no-scrollbar md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-5 md:mx-0 md:px-0 md:pb-0 md:overflow-visible" data-lenis-prevent>
             
             <!-- Category 1: Frontend -->
-            <div class="reveal-init bento-card">
+            <div class="reveal-init bento-card w-[78vw] sm:w-[320px] md:w-auto shrink-0 snap-center md:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4">
@@ -665,7 +677,7 @@
             </div>
 
             <!-- Category 2: Backend & Database -->
-            <div class="reveal-init bento-card">
+            <div class="reveal-init bento-card w-[78vw] sm:w-[320px] md:w-auto shrink-0 snap-center md:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
@@ -693,7 +705,7 @@
             </div>
 
             <!-- Category 3: AI & Automation -->
-            <div class="reveal-init bento-card">
+            <div class="reveal-init bento-card w-[78vw] sm:w-[320px] md:w-auto shrink-0 snap-center md:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4">
@@ -721,7 +733,7 @@
             </div>
 
             <!-- Category 4: DevOps & QA -->
-            <div class="reveal-init bento-card">
+            <div class="reveal-init bento-card w-[78vw] sm:w-[320px] md:w-auto shrink-0 snap-center md:shrink flex flex-col justify-between">
                 <div class="bento-core">
                     <div>
                         <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-4">

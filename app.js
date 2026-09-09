@@ -29,6 +29,7 @@ const translations = {
 
         'projects.eyebrow': 'Selected Work & Production MVPs',
         'projects.title': 'Реализованные проекты и сервисы',
+        'projects.swipe': 'Свайп для просмотра проектов →',
 
         'p1.badge': 'Коммерческий MVP CRM',
         'p1.title': 'Atlas CRM: Мультитенантная платформа автоматизации',
@@ -80,6 +81,7 @@ const translations = {
 
         'stack.eyebrow': 'Technologies & Architecture Stack',
         'stack.title': 'Технологический стек и квалификация',
+        'stack.swipe': 'Свайп для просмотра стека →',
         'stack.c1.title': 'Frontend Engineering',
         'stack.c1.desc': 'Современные SPA и конверсионные интерфейсы.',
         'stack.c2.title': 'Backend & Database',
@@ -121,6 +123,7 @@ const translations = {
 
         'projects.eyebrow': 'Selected Work & Production MVPs',
         'projects.title': 'Selected Projects & Solutions',
+        'projects.swipe': 'Swipe to browse projects →',
 
         'p1.badge': 'Commercial MVP CRM',
         'p1.title': 'Atlas CRM: Multi-Tenant Automation Platform',
@@ -172,6 +175,7 @@ const translations = {
 
         'stack.eyebrow': 'Technologies & Architecture Stack',
         'stack.title': 'Technical Stack & Qualifications',
+        'stack.swipe': 'Swipe to browse stack →',
         'stack.c1.title': 'Frontend Engineering',
         'stack.c1.desc': 'Modern SPAs and high-converting interfaces.',
         'stack.c2.title': 'Backend & Database',
@@ -808,13 +812,13 @@ function initCircularGalleryEngine() {
 
     let rotation = 0;
     let targetRotation = 0;
-    let radius = window.innerWidth < 768 ? 220 : 340;
+    let radius = window.innerWidth < 480 ? 140 : (window.innerWidth < 768 ? 200 : 340);
     let autoRotateSpeed = 0.022;
     let isUserInteracting = false;
     let interactionTimeout = null;
 
     window.addEventListener('resize', () => {
-        radius = window.innerWidth < 768 ? 220 : 340;
+        radius = window.innerWidth < 480 ? 140 : (window.innerWidth < 768 ? 200 : 340);
         updateCardOffsets();
     });
 
@@ -865,8 +869,9 @@ function initCircularGalleryEngine() {
     // Set card center offsets ONCE to prevent per-frame DOM layout thrashing
     function updateCardOffsets() {
         cards.forEach(card => {
-            const cardWidth = card.offsetWidth || 170;
-            const cardHeight = card.offsetHeight || 130;
+            const isMobile = window.innerWidth < 640;
+            const cardWidth = card.offsetWidth || (isMobile ? 130 : 170);
+            const cardHeight = card.offsetHeight || (isMobile ? 100 : 130);
             card.style.marginLeft = `-${cardWidth / 2}px`;
             card.style.marginTop = `-${cardHeight / 2}px`;
         });
@@ -1008,6 +1013,15 @@ function initScrollObserver() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal-visible');
                 observer.unobserve(entry.target);
+
+                // If element is in a horizontal snap container, reveal all sibling cards
+                const carouselParent = entry.target.closest('[data-lenis-prevent]');
+                if (carouselParent) {
+                    carouselParent.querySelectorAll('.reveal-init').forEach(card => {
+                        card.classList.add('reveal-visible');
+                        observer.unobserve(card);
+                    });
+                }
             }
         });
     }, {

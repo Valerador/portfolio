@@ -75,6 +75,14 @@ html.lenis, html.lenis body {
   text-shadow: 0 2px 24px rgba(9, 9, 11, 0.95), 0 0 40px rgba(9, 9, 11, 0.85);
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+  overscroll-behavior-x: none;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-canvas);
@@ -83,6 +91,11 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Custom Selection */
@@ -353,6 +366,44 @@ code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   transform: translateX(-50%) scale(1);
 }
 
+/* Mobile Responsive Optimization for Linear Dock */
+@media (max-width: 639px) {
+  .linear-dock {
+    bottom: 0.85rem;
+    gap: 0.2rem;
+    padding: 0.25rem 0.35rem;
+    max-width: calc(100vw - 1rem);
+    touch-action: pan-y;
+  }
+
+  .dock-btn {
+    width: 2.125rem;
+    height: 2.125rem;
+  }
+
+  .dock-btn i {
+    font-size: 1.125rem;
+  }
+
+  .dock-tooltip {
+    display: none;
+  }
+
+  #lang-toggle-btn {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.65rem;
+  }
+}
+
+/* No Scrollbar Utility for Horizontal Snap Carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Architectural Inspector Tab System */
 .arch-tab-btn {
   padding: 0.6rem 1.2rem;
@@ -398,6 +449,9 @@ code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   border-bottom: 1px solid var(--border-subtle);
   font-size: 0.75rem;
   color: var(--text-muted);
+  gap: 0.5rem;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .code-content {
@@ -497,6 +551,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 #circular-gallery-stage {
   perspective: 1200px;
   overflow: hidden;
+  touch-action: pan-y;
+  max-width: 100%;
+}
+
+@media (max-width: 639px) {
+  .circular-card {
+    width: 130px !important;
+    height: 100px !important;
+  }
+  .circular-logo {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+  }
 }
 
 #circular-gallery-ring {
