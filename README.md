@@ -33,7 +33,7 @@ While commercial project codebases remain in private repositories due to NDA and
 
 ### 3. 🤖 AI Booking Agent & RAG Context Pipeline
 * **Role:** AI Automation & Workflow Engineer
-* **Tech Stack:** Telepilot API (Telegram Engine), Node.js, PostgreSQL, Google Calendar API, n8n
+* **Tech Stack:** Telegram API (User-Bot Engine), Node.js, PostgreSQL, Google Calendar API, n8n
 * **Highlights:** Autonomous AI booking assistant operating directly through Telegram user accounts. Fetches real-time slot availability, business pricing, and rules via RAG pipelines, negotiates booking times, and dispatches automated notifications.
 
 ### 4. 🛡 Server Infrastructure & Security Hardening

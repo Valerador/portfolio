@@ -98,17 +98,29 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   letter-spacing: -0.025em;
   line-height: 1.15;
   font-weight: 700;
+  text-wrap: balance;
 }
 
 p {
   color: var(--text-secondary);
   line-height: 1.65;
+  text-wrap: pretty;
+}
+
+/* Hero Typography Protection over 3D Particle Canvas */
+#hero h1 {
+  text-shadow: 0 0 24px rgba(9, 9, 11, 0.95), 0 2px 10px rgba(9, 9, 11, 0.9), 0 0 45px rgba(9, 9, 11, 0.8);
+}
+
+#hero p {
+  text-shadow: 0 0 20px rgba(9, 9, 11, 0.9), 0 1px 8px rgba(9, 9, 11, 0.85);
 }
 
 /* Monospace exclusively for Code, Badges, Metrics and Tech tags */
-code, pre, kbd, .font-mono, .tech-tag, .metric-val {
+code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Ambient Radial Background & Grain */
@@ -501,11 +513,46 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   touch-action: pan-y;
   user-select: none;
   will-change: transform, opacity;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: grab;
 }
 
 .circular-card:active {
   cursor: grabbing;
+}
+
+/* Tactile Micro-Press States */
+.dock-btn:active {
+  transform: scale(0.92) translateY(0);
+}
+
+.arch-tab-btn:active {
+  transform: scale(0.97);
+}
+
+#lang-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Accessible Focus Rings for Keyboard Navigation */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent-primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: REDUCED MOTION (A11y Standard WCAG 2.1 AA)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 

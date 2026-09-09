@@ -73,6 +73,11 @@
 </head>
 <body class="bg-canvas text-zinc-300 font-sans antialiased relative selection:bg-indigo-500/30 selection:text-white">
 
+    <!-- Accessible Skip to Content Link -->
+    <a href="#projects" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg focus:font-mono focus:text-xs focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-white">
+        <span data-i18n="a11y.skip">Перейти к основному контенту</span>
+    </a>
+
     <!-- Fixed Ambient Noise Texture -->
     <div class="noise-overlay"></div>
 
@@ -136,7 +141,7 @@
     <header id="hero" class="relative z-10 pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center text-center overflow-visible">
         
         <!-- Ambient 3D Retina Particle Cube (Framing Headline from Background) -->
-        <div class="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] sm:w-[620px] md:w-[760px] h-[380px] sm:h-[460px] md:h-[520px] pointer-events-none z-0 flex items-center justify-center opacity-85">
+        <div class="absolute top-[33%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] sm:w-[720px] md:w-[960px] h-[440px] sm:h-[560px] md:h-[680px] pointer-events-none z-0 flex items-center justify-center opacity-80">
             <canvas id="particle-star-canvas" class="w-full h-full"></canvas>
         </div>
 
@@ -151,11 +156,11 @@
         <!-- Main Headline (Linear Display Discipline: Max 2 lines) -->
         <h1 class="reveal-init relative z-10 text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] max-w-4xl mb-6">
             <span class="block" data-i18n="hero.line1">Разработка полносистемных ИИ-сервисов</span>
-            <span class="block text-zinc-400 font-semibold mt-1" data-i18n="hero.line2">и защищенной серверной инфраструктуры</span>
+            <span class="block text-zinc-200 font-semibold mt-1" data-i18n="hero.line2">и защищенной серверной инфраструктуры</span>
         </h1>
 
         <!-- Value Proposition Subtext (<= 25 words per taste-skill rules) -->
-        <p class="reveal-init relative z-10 text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-6" data-i18n="hero.sub">
+        <p class="reveal-init relative z-10 text-zinc-300 text-base sm:text-lg max-w-2xl leading-relaxed mb-6" data-i18n="hero.sub">
             Архитектура коммерческих React + Supabase RLS платформ, автономных n8n-пайплайнов, E2E автотестов и защищенного Linux DevOps.
         </p>
 
@@ -180,19 +185,19 @@
         <!-- Engineering Reality Metrics Strip (Clean, Honest, No Fake Percentages) -->
         <div class="reveal-init relative z-10 w-full max-w-3xl grid grid-cols-2 sm:grid-cols-4 gap-3 p-2 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm mt-4">
             <div class="p-4 text-center">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-white">15+</div>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">15+</div>
                 <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m1">Проектов и ИИ-ботов</div>
             </div>
             <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">RLS</div>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 tabular-nums">RLS</div>
                 <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m2">СУБД-изоляция доступа</div>
             </div>
             <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400">CI/CD</div>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400 tabular-nums">CI/CD</div>
                 <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m3">Автодеплой на Linux</div>
             </div>
             <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-400">E2E</div>
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-400 tabular-nums">E2E</div>
                 <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m4">Playwright & Vitest</div>
             </div>
         </div>
@@ -271,7 +276,7 @@
                 </div>
             </div>
 
-            <!-- TILE 2: AI Telepilot Agent (4 Columns) -->
+            <!-- TILE 2: AI Telegram Agent (4 Columns) -->
             <div class="reveal-init bento-card lg:col-span-4">
                 <div class="bento-core">
                     <div>
@@ -279,7 +284,7 @@
                             <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium" data-i18n="p2.badge">
                                 AI Agent & Automation
                             </span>
-                            <span class="text-xs font-mono text-zinc-400">Telepilot API</span>
+                            <span class="text-xs font-mono text-zinc-400">Telegram API</span>
                         </div>
 
                         <h3 class="text-xl font-bold text-white mb-3" data-i18n="p2.title">
@@ -305,7 +310,7 @@
                     <div class="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
                         <span class="tech-pill"><img src="https://cdn.simpleicons.org/n8n/FF6D5A" alt="n8n"> n8n</span>
                         <span class="tech-pill"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"> Telegram</span>
-                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/googlegemini/8E75FF" alt="Gemini"> Gemini API</span>
+                        <span class="tech-pill"><i class="ph ph-cpu text-purple-400 text-sm"></i> LLM API</span>
                     </div>
                 </div>
             </div>
@@ -427,85 +432,43 @@
         </div>
 
         <!-- 3D Circular Cylinder Gallery Stage -->
-        <div id="circular-gallery-stage" class="relative w-full h-[320px] sm:h-[360px] mx-auto flex items-center justify-center select-none" style="perspective: 1200px;">
+        <div id="circular-gallery-stage" class="relative w-full h-[280px] sm:h-[320px] mx-auto flex items-center justify-center select-none" style="perspective: 1200px;">
             <div id="circular-gallery-ring" class="relative w-full h-full" style="transform-style: preserve-3d;">
                 
-                <!-- Card 1: Google Antigravity -->
-                <div data-glow="99, 102, 241" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-indigo-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="icons/google-antigravity.png" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Antigravity">
-                        <div>
-                            <div class="text-sm font-bold text-white">Google Antigravity</div>
-                            <div class="text-[11px] font-mono text-indigo-400">Agentic IDE & SDK</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c1.desc">Автономная среда агентной разработки и мультиагентных систем.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Active Environment</div>
+                <!-- Item 1: Google Antigravity -->
+                <div data-glow="99, 102, 241" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="icons/google-antigravity.png" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain pointer-events-none transition-transform duration-200" alt="Google Antigravity">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">Google Antigravity</div>
                 </div>
 
-                <!-- Card 2: Claude Code -->
-                <div data-glow="217, 119, 6" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-amber-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="icons/claude-code.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Claude Code">
-                        <div>
-                            <div class="text-sm font-bold text-white">Claude Code</div>
-                            <div class="text-[11px] font-mono text-amber-400">Agentic CLI Workflows</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c2.desc">Автоматизация рефакторинга, генерация тестов и терминальные пайплайны.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Core CLI</div>
+                <!-- Item 2: Claude Code -->
+                <div data-glow="217, 119, 6" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="icons/claude-code.svg" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain pointer-events-none transition-transform duration-200" alt="Claude Code">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">Claude Code</div>
                 </div>
 
-                <!-- Card 3: OpenAI Codex -->
-                <div data-glow="16, 185, 129" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-emerald-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="icons/codex.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Codex">
-                        <div>
-                            <div class="text-sm font-bold text-white">OpenAI Codex</div>
-                            <div class="text-[11px] font-mono text-emerald-400">Code Synthesis</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c3.desc">Синтез программной логики, преобразование алгоритмов и интеграции.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Neural Engine</div>
+                <!-- Item 3: OpenAI Codex -->
+                <div data-glow="16, 185, 129" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="icons/codex.svg" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-xl pointer-events-none transition-transform duration-200" alt="OpenAI Codex">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">OpenAI Codex</div>
                 </div>
 
-                <!-- Card 4: Hermes Agent -->
-                <div data-glow="168, 85, 247" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-purple-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="icons/hermes-agent.png" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Hermes Agent">
-                        <div>
-                            <div class="text-sm font-bold text-white">Hermes Agent</div>
-                            <div class="text-[11px] font-mono text-purple-400">Autonomous Tasks</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c4.desc">Исполнение многошаговых сценариев и автоматизированный веб-поиск.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Task Runner</div>
+                <!-- Item 4: Hermes Agent -->
+                <div data-glow="168, 85, 247" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="icons/hermes-agent.png" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-2xl pointer-events-none transition-transform duration-200" alt="Hermes Agent">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">Hermes Agent</div>
                 </div>
 
-                <!-- Card 5: Atlas Core -->
-                <div data-glow="56, 189, 248" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-sky-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="icons/atlasapp.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Atlas">
-                        <div>
-                            <div class="text-sm font-bold text-white">Atlas Core</div>
-                            <div class="text-[11px] font-mono text-sky-400">Enterprise CRM Engine</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c5.desc">Собственный движок мультитенантной CRM с защитой Supabase RLS.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Proprietary MVP</div>
+                <!-- Item 5: Atlas Core -->
+                <div data-glow="56, 189, 248" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="icons/atlasapp.svg" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-xl pointer-events-none transition-transform duration-200" alt="Atlas Core">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">Atlas Core</div>
                 </div>
 
-                <!-- Card 6: n8n Platform -->
-                <div data-glow="244, 63, 94" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-rose-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
-                    <div class="flex items-center gap-3">
-                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="n8n">
-                        <div>
-                            <div class="text-sm font-bold text-white">n8n Orchestrator</div>
-                            <div class="text-[11px] font-mono text-rose-400">Event Automation</div>
-                        </div>
-                    </div>
-                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c6.desc">Оркестрация очередей вебхуков, баз данных и мессенджеров на Linux.</div>
-                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Event Router</div>
+                <!-- Item 6: n8n Orchestrator -->
+                <div data-glow="244, 63, 94" class="circular-card flex flex-col items-center justify-center text-center w-[150px] sm:w-[180px] h-[120px] sm:h-[130px]">
+                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="circular-logo w-14 h-14 sm:w-16 sm:h-16 object-contain pointer-events-none transition-transform duration-200" alt="n8n Orchestrator">
+                    <div class="mt-3 text-xs sm:text-sm font-semibold text-white tracking-tight pointer-events-none">n8n Orchestrator</div>
                 </div>
 
             </div>
@@ -543,7 +506,7 @@
                     
                     <button class="arch-tab-btn" onclick="switchArchTab('n8n')" id="tab-btn-n8n">
                         <i class="ph ph-git-merge text-emerald-400 text-base"></i>
-                        <span data-i18n="arch.tab2">2. n8n & Telepilot Pipeline</span>
+                        <span data-i18n="arch.tab2">2. n8n & Telegram Pipeline</span>
                     </button>
                     
                     <button class="arch-tab-btn" onclick="switchArchTab('cicd')" id="tab-btn-cicd">
@@ -592,7 +555,7 @@
                         <div>
                             <h4 class="text-lg font-bold text-white" data-i18n="arch.n8n.h">Автономный пайплайн обработки лидов через n8n Webhook</h4>
                             <p class="text-zinc-400 text-sm mt-1" data-i18n="arch.n8n.p">
-                                Входящее сообщение от Telepilot API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.
+                                Входящее сообщение от Telegram API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.
                             </p>
                         </div>
                         <span class="status-badge shrink-0">
@@ -607,9 +570,9 @@
                         </div>
                         <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-json">{
   <span class="text-indigo-400">"nodes"</span>: [
-    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Telepilot Webhook"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.webhook"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Telegram Webhook"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.webhook"</span> },
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"PostgreSQL RAG Slots Query"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.postgres"</span> },
-    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Google Gemini 1.5 Context Eval"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"langchain.agent"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"LLM API Context Eval"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"langchain.agent"</span> },
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Google Calendar Event Creator"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"googleCalendar"</span> },
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Dispatch Confirmation SMS/TG"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"telegram"</span> }
   ]
@@ -744,10 +707,10 @@
                                 <i class="ph ph-check text-emerald-400"></i> n8n Self-Hosted Workflows
                             </div>
                             <div class="text-xs text-zinc-300 flex items-center gap-2">
-                                <i class="ph ph-check text-emerald-400"></i> Telepilot User-Bots
+                                <i class="ph ph-check text-emerald-400"></i> Telegram User-Bots
                             </div>
                             <div class="text-xs text-zinc-300 flex items-center gap-2">
-                                <i class="ph ph-check text-emerald-400"></i> Google Gemini 1.5 API
+                                <i class="ph ph-check text-emerald-400"></i> LLM API
                             </div>
                             <div class="text-xs text-zinc-300 flex items-center gap-2">
                                 <i class="ph ph-check text-emerald-400"></i> RAG & Webhook Architecture

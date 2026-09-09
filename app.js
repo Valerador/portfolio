@@ -66,14 +66,14 @@ const translations = {
         'arch.title': 'Инспектор системной архитектуры',
         'arch.sub': 'Настоящие инженерные решения: от политик изоляции данных в СУБД до автоматизированных очередей и CI/CD деплоя.',
         'arch.tab1': '1. Supabase RLS & Auth',
-        'arch.tab2': '2. n8n & Telepilot Pipeline',
+        'arch.tab2': '2. n8n & Telegram Pipeline',
         'arch.tab3': '3. GitHub Actions CI/CD',
 
         'arch.rls.h': 'Многоарендная безопасность на уровне строк (PostgreSQL RLS)',
         'arch.rls.p': 'Клиент не может получить чужие данные даже при прямой компрометации фронтенда: доступ фильтруется СУБД по auth.uid().',
         
         'arch.n8n.h': 'Автономный пайплайн обработки лидов через n8n Webhook',
-        'arch.n8n.p': 'Входящее сообщение от Telepilot API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.',
+        'arch.n8n.p': 'Входящее сообщение от Telegram API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.',
 
         'arch.cicd.h': 'Автоматизированный CI/CD пайплайн с блокировкой деплоя',
         'arch.cicd.p': 'Сборка деплоится на Linux Ubuntu только после успешного прохождения 100% Vitest и Playwright тестов.',
@@ -95,7 +95,8 @@ const translations = {
         'contact.emaildesc': 'Прямая почта для документации и ТЗ.',
         'contact.ghdesc': 'Исходный код, коммиты и архитектура.',
 
-        'footer.cv': 'Печатная версия резюме (PDF)'
+        'footer.cv': 'Печатная версия резюме (PDF)',
+        'a11y.skip': 'Перейти к основному контенту'
     },
     EN: {
         'nav.home': 'Home',
@@ -129,7 +130,7 @@ const translations = {
 
         'p2.badge': 'AI Agent & Automation',
         'p2.title': 'AI Booking Agent & RAG Context',
-        'p2.desc': 'Smart agent executing user dialogue on behalf of Telegram account (Telepilot API). Dynamically fetches slots & rules from DB, negotiates time, and dispatches notifications.',
+        'p2.desc': 'Smart agent executing user dialogue on behalf of Telegram account (Telegram API). Dynamically fetches slots & rules from DB, negotiates time, and dispatches notifications.',
         'p2.f1': 'Accurate database rule and slot retrieval.',
         'p2.f2': 'Two-way Google Calendar synchronization.',
 
@@ -157,14 +158,14 @@ const translations = {
         'arch.title': 'Systems Architecture Inspector',
         'arch.sub': 'Real engineering solutions: from database row-level security to automated queues and CI/CD pipelines.',
         'arch.tab1': '1. Supabase RLS & Auth',
-        'arch.tab2': '2. n8n & Telepilot Pipeline',
+        'arch.tab2': '2. n8n & Telegram Pipeline',
         'arch.tab3': '3. GitHub Actions CI/CD',
 
         'arch.rls.h': 'Multi-Tenant Row-Level Security (PostgreSQL RLS)',
         'arch.rls.p': 'Clients cannot access unauthorized rows even if frontend is compromised: data access is strictly bounded in DB via auth.uid().',
         
         'arch.n8n.h': 'Autonomous Lead Orchestration via n8n Webhook',
-        'arch.n8n.p': 'Incoming message from Telepilot API is validated, enriched with PostgreSQL RAG context, and scheduled to calendar.',
+        'arch.n8n.p': 'Incoming message from Telegram API is validated, enriched with PostgreSQL RAG context, and scheduled to calendar.',
 
         'arch.cicd.h': 'Automated CI/CD Pipeline with Quality Gateways',
         'arch.cicd.p': 'Production build deploys to Linux Ubuntu only after 100% test pass rate across Vitest and Playwright.',
@@ -186,7 +187,8 @@ const translations = {
         'contact.emaildesc': 'Direct inbox for contracts and specifications.',
         'contact.ghdesc': 'Source code, commits, and system architecture.',
 
-        'footer.cv': 'Printable Resume (PDF)'
+        'footer.cv': 'Printable Resume (PDF)',
+        'a11y.skip': 'Skip to main content'
     }
 };
 
@@ -483,7 +485,7 @@ function initParticleCubeEngine() {
     const spriteAmbient = createParticleSprite(230, 235, 250, 192, 132, 252);
 
     const isMobile = window.innerWidth < 768;
-    const cubeSize = isMobile ? 85 : 120;
+    const cubeSize = isMobile ? 80 : 105;
     const numCubeParticles = isMobile ? 1600 : 2500;
     const cubeParticles = [];
 
@@ -573,6 +575,15 @@ function initParticleCubeEngine() {
             pSize = Math.random() * 0.5 + 0.9;
         }
 
+        // Disintegration & swirl trajectory dynamics
+        const detachThreshold = 0.03 + Math.random() * 0.65;
+        const detachSpeed = 320 + Math.random() * 260;
+        const swirlDir = Math.random() > 0.5 ? 1 : -1;
+        const swirlFreq = 0.012 + Math.random() * 0.018;
+        const noiseSpeedX = 0.0012 + Math.random() * 0.0015;
+        const noiseSpeedY = 0.0015 + Math.random() * 0.0015;
+        const noiseAmp = 3.0 + Math.random() * 3.5;
+
         cubeParticles.push({
             hx: pt.x, hy: pt.y, hz: pt.z,
             dirX, dirY, dirZ,
@@ -584,13 +595,20 @@ function initParticleCubeEngine() {
             sprite,
             baseAlpha,
             pulsePhase: Math.random() * Math.PI * 2,
-            pulseSpeed: 0.02 + Math.random() * 0.04
+            pulseSpeed: 0.02 + Math.random() * 0.04,
+            detachThreshold,
+            detachSpeed,
+            swirlDir,
+            swirlFreq,
+            noiseSpeedX,
+            noiseSpeedY,
+            noiseAmp
         });
     }
 
     let currRotX = 0;
     let currRotY = 0;
-    let autoRotateAngle = 0;
+    let smoothScrollProgress = 0;
     let animTime = 0;
     const startTime = performance.now();
     const assemblyDuration = 1800; // 1.8s live particle implosion curve
@@ -609,14 +627,23 @@ function initParticleCubeEngine() {
         const cy = cHeight / 2;
 
         animTime += 1;
-        autoRotateAngle += 0.007;
 
-        // Assembly easing calculation
+        // Assembly easing calculation (implosion on initial page load)
         const elapsed = performance.now() - startTime;
         const rawAssembly = Math.min(1, elapsed / assemblyDuration);
         const assemblyProgress = 1 - Math.pow(1 - rawAssembly, 3); // Cubic ease-out
 
-        // Gyro Parallax tracking
+        // Scroll progress calculation for particle disintegration
+        const heroSection = document.getElementById('hero');
+        let rawScrollProgress = 0;
+        if (heroSection) {
+            const heroHeight = Math.max(400, heroSection.offsetHeight);
+            rawScrollProgress = Math.min(1, Math.max(0, window.scrollY / (heroHeight * 0.85)));
+        }
+        smoothScrollProgress += (rawScrollProgress - smoothScrollProgress) * 0.08;
+        const scrollProgress = smoothScrollProgress;
+
+        // Gyro Parallax tracking via mouse
         let mouseNormX = 0, mouseNormY = 0;
         if (mouseX > -9000) {
             const rect = cubeCanvas.getBoundingClientRect();
@@ -626,92 +653,120 @@ function initParticleCubeEngine() {
             mouseNormY = Math.max(-1, Math.min(1, relY / 450));
         }
 
-        const targetRotX = mouseNormY * 0.42;
-        const targetRotY = mouseNormX * 0.52;
+        const targetRotX = mouseNormY * 0.25;
+        const targetRotY = mouseNormX * 0.32;
 
         currRotX += (targetRotX - currRotX) * 0.08;
         currRotY += (targetRotY - currRotY) * 0.08;
 
-        // Isometric pitch (0.42 rad ~24deg) keeps cube top and front faces proportioned
-        const idlePitchX = 0.42 + Math.sin(autoRotateAngle * 0.4) * 0.06;
+        // True Mathematical 3D Isometric Angles:
+        // Pitch (around X): arcsin(1/sqrt(3)) ≈ 0.61548 rad (35.264 deg) for 120-deg axis balance
+        // Yaw (around Y): -PI / 4 ≈ -0.785398 rad (-45 deg) for symmetric front corner view
+        const idlePitchX = 0.61548;
+        const baseRotY = -0.785398;
+        const scrollRotY = scrollProgress * 0.75;
+
         const finalRotX = idlePitchX + currRotX;
-        const finalRotY = autoRotateAngle + currRotY;
+        const finalRotY = baseRotY + currRotY + scrollRotY;
 
         const cosX = Math.cos(finalRotX), sinX = Math.sin(finalRotX);
         const cosY = Math.cos(finalRotY), sinY = Math.sin(finalRotY);
 
-        cCtx.save();
-        cCtx.globalCompositeOperation = 'screen';
+        const activeAlpha = Math.cos(Math.min(1, scrollProgress * 1.1) * (Math.PI / 2));
 
-        for (let i = 0; i < numCubeParticles; i++) {
-            const p = cubeParticles[i];
-            p.pulsePhase += p.pulseSpeed;
-            const twinkleBrightness = 0.80 + Math.sin(p.pulsePhase) * 0.20;
+        if (activeAlpha > 0.005 && assemblyProgress > 0.001) {
+            cCtx.save();
+            cCtx.globalCompositeOperation = 'screen';
 
-            const noiseWaveX = Math.sin(animTime * 0.002 + p.hy * 0.05) * 3;
-            const noiseWaveY = Math.cos(animTime * 0.002 + p.hx * 0.05) * 3;
+            for (let i = 0; i < numCubeParticles; i++) {
+                const p = cubeParticles[i];
+                p.pulsePhase += p.pulseSpeed;
+                const twinkleBrightness = 0.80 + Math.sin(p.pulsePhase) * 0.20;
 
-            const targetX = p.hx + noiseWaveX + p.offX;
-            const targetY = p.hy + noiseWaveY + p.offY;
-            const targetZ = p.hz;
+                // Edges stay razor-sharp and straight in idle; turbulence only activates upon scroll disintegration
+                const noiseFactor = scrollProgress > 0.02 ? (0.2 + scrollProgress * 0.8) : 0.03;
+                const noiseWaveX = Math.sin(animTime * p.noiseSpeedX + p.hy * 0.05) * (p.noiseAmp * noiseFactor);
+                const noiseWaveY = Math.cos(animTime * p.noiseSpeedY + p.hx * 0.05) * (p.noiseAmp * noiseFactor);
+                const noiseWaveZ = Math.sin(animTime * 0.002 + p.hz * 0.05) * (p.noiseAmp * 0.8 * noiseFactor);
 
-            const outerX = p.dirX * 320;
-            const outerY = p.dirY * 320;
-            const outerZ = p.dirZ * 320;
+                // Disintegration / explode physics on scroll
+                let explodeDist = 0;
+                let swirlX = 0, swirlY = 0;
+                if (scrollProgress > p.detachThreshold) {
+                    const progressDelta = (scrollProgress - p.detachThreshold) / (1 - p.detachThreshold);
+                    explodeDist = progressDelta * progressDelta * (p.detachSpeed * 0.85);
 
-            const px = outerX * (1 - assemblyProgress) + targetX * assemblyProgress;
-            const py = outerY * (1 - assemblyProgress) + targetY * assemblyProgress;
-            const pz = outerZ * (1 - assemblyProgress) + targetZ * assemblyProgress;
+                    const swirlAngle = explodeDist * p.swirlFreq * p.swirlDir;
+                    swirlX = Math.sin(swirlAngle) * 55;
+                    swirlY = Math.cos(swirlAngle) * 35;
+                }
 
-            let y1 = py * cosX - pz * sinX;
-            let z1 = py * sinX + pz * cosX;
+                const targetX = p.hx + noiseWaveX + p.dirX * explodeDist + swirlX + p.offX;
+                const targetY = p.hy + noiseWaveY + p.dirY * explodeDist + swirlY + p.offY;
+                const targetZ = p.hz + noiseWaveZ + p.dirZ * explodeDist;
 
-            let rx = px * cosY + z1 * sinY;
-            let rz = -px * sinY + z1 * cosY;
-            let ry = y1;
+                const outerX = p.dirX * 320;
+                const outerY = p.dirY * 320;
+                const outerZ = p.dirZ * 320;
 
-            const fov = 450;
-            const perspectiveScale = fov / (fov + rz + 100);
+                const px = outerX * (1 - assemblyProgress) + targetX * assemblyProgress;
+                const py = outerY * (1 - assemblyProgress) + targetY * assemblyProgress;
+                const pz = outerZ * (1 - assemblyProgress) + targetZ * assemblyProgress;
 
-            const screenX = cx + rx * perspectiveScale;
-            const screenY = cy + ry * perspectiveScale;
+                // Mathematical Isometric Rotation: Yaw around Y first, then Pitch around X
+                const rx1 = px * cosY - pz * sinY;
+                const rz1 = px * sinY + pz * cosY;
+                const ry1 = py;
 
-            // Mouse particle repulsion directly through text
-            if (mouseX > -9000) {
-                const rect = cubeCanvas.getBoundingClientRect();
-                const canvasMouseX = mouseX - rect.left;
-                const canvasMouseY = mouseY - rect.top;
-                const dx = screenX - canvasMouseX;
-                const dy = screenY - canvasMouseY;
+                const rx = rx1;
+                const ry = ry1 * cosX - rz1 * sinX;
+                const rz = ry1 * sinX + rz1 * cosX;
 
-                if (Math.abs(dx) < 45 && Math.abs(dy) < 45) {
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 45 && dist > 0) {
-                        const force = (45 - dist) / 45;
-                        p.vx += (dx / dist) * force * 10;
-                        p.vy += (dy / dist) * force * 10;
+                // Pure Isometric Orthographic mapping (completely eliminates trapezoidal skew & distorted perspective)
+                const screenX = cx + rx;
+                const screenY = cy + ry;
+
+                // Mouse particle repulsion directly through text (active when cube is intact)
+                if (mouseX > -9000 && explodeDist < 25) {
+                    const rect = cubeCanvas.getBoundingClientRect();
+                    const canvasMouseX = mouseX - rect.left;
+                    const canvasMouseY = mouseY - rect.top;
+                    const dx = screenX - canvasMouseX;
+                    const dy = screenY - canvasMouseY;
+
+                    if (Math.abs(dx) < 45 && Math.abs(dy) < 45) {
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 45 && dist > 0) {
+                            const force = (45 - dist) / 45;
+                            p.vx += (dx / dist) * force * 10;
+                            p.vy += (dy / dist) * force * 10;
+                        }
                     }
+                }
+
+                p.vx *= 0.82;
+                p.vy *= 0.82;
+                p.offX += p.vx;
+                p.offY += p.vy;
+                p.offX += (0 - p.offX) * 0.08;
+                p.offY += (0 - p.offY) * 0.08;
+
+                const detachFade = explodeDist > 0 ? Math.max(0, 1 - explodeDist / (p.detachSpeed * 1.8)) ** 2 : 1;
+                // Subtle depth attenuation (front particles slightly brighter)
+                const depthAlpha = Math.max(0.70, Math.min(1.10, 1 - rz / 700));
+                const particleAlpha = p.baseAlpha * twinkleBrightness * Math.min(1, assemblyProgress * 2.0) * activeAlpha * detachFade * depthAlpha;
+
+                if (particleAlpha > 0.02 && screenY >= -20 && screenY <= cHeight + 20 && screenX >= -20 && screenX <= cWidth + 20) {
+                    const depthScale = Math.max(0.85, Math.min(1.15, 1 - rz / 900));
+                    const blobR = p.size * (p.isEdge ? 2.5 : (p.isCore ? 2.2 : 1.9)) * depthScale;
+                    const d = blobR * 2;
+                    cCtx.globalAlpha = Math.min(1, particleAlpha);
+                    cCtx.drawImage(p.sprite, screenX - blobR, screenY - blobR, d, d);
                 }
             }
 
-            p.vx *= 0.82;
-            p.vy *= 0.82;
-            p.offX += p.vx;
-            p.offY += p.vy;
-            p.offX += (0 - p.offX) * 0.08;
-            p.offY += (0 - p.offY) * 0.08;
-
-            const particleAlpha = p.baseAlpha * twinkleBrightness * Math.min(1, assemblyProgress * 2.0);
-
-            if (particleAlpha > 0.02 && screenY >= -20 && screenY <= cHeight + 20 && screenX >= -20 && screenX <= cWidth + 20) {
-                const blobR = p.size * (p.isEdge ? 2.6 : (p.isCore ? 2.3 : 2.0));
-                const d = blobR * 2;
-                cCtx.globalAlpha = Math.min(1, particleAlpha);
-                cCtx.drawImage(p.sprite, screenX - blobR, screenY - blobR, d, d);
-            }
+            cCtx.restore();
         }
-
-        cCtx.restore();
         cubeAnimationFrameId = requestAnimationFrame(renderCube);
     }
 
@@ -753,13 +808,13 @@ function initCircularGalleryEngine() {
 
     let rotation = 0;
     let targetRotation = 0;
-    let radius = window.innerWidth < 768 ? 240 : 380;
-    let autoRotateSpeed = 0.07;
+    let radius = window.innerWidth < 768 ? 220 : 340;
+    let autoRotateSpeed = 0.022;
     let isUserInteracting = false;
     let interactionTimeout = null;
 
     window.addEventListener('resize', () => {
-        radius = window.innerWidth < 768 ? 240 : 380;
+        radius = window.innerWidth < 768 ? 220 : 340;
         updateCardOffsets();
     });
 
@@ -810,8 +865,8 @@ function initCircularGalleryEngine() {
     // Set card center offsets ONCE to prevent per-frame DOM layout thrashing
     function updateCardOffsets() {
         cards.forEach(card => {
-            const cardWidth = card.offsetWidth || 280;
-            const cardHeight = card.offsetHeight || 160;
+            const cardWidth = card.offsetWidth || 170;
+            const cardHeight = card.offsetHeight || 130;
             card.style.marginLeft = `-${cardWidth / 2}px`;
             card.style.marginTop = `-${cardHeight / 2}px`;
         });
@@ -825,7 +880,8 @@ function initCircularGalleryEngine() {
             return;
         }
 
-        if (!isUserInteracting && !isDragging) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!isUserInteracting && !isDragging && !prefersReducedMotion) {
             targetRotation -= autoRotateSpeed;
         }
 
@@ -841,24 +897,25 @@ function initCircularGalleryEngine() {
             const relativeAngle = (itemAngle + totalRotation + 360) % 360;
             const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
 
-            const opacity = Math.max(0.24, 1 - (normalizedAngle / 160));
+            const opacity = Math.max(0.20, 1 - (normalizedAngle / 150));
             card.style.opacity = opacity.toFixed(2);
             card.style.zIndex = Math.round(100 - (normalizedAngle / 180) * 80);
 
-            // Dynamic glow matching each card's data-glow RGB
+            // Dynamic glow on the floating logo icon matching data-glow RGB
             const glowRgb = card.getAttribute('data-glow') || '99, 102, 241';
-            const glowFactor = Math.max(0, 1 - (normalizedAngle / 30));
+            const glowFactor = Math.max(0, 1 - (normalizedAngle / 32));
+            const logoImg = card.querySelector('.circular-logo');
 
-            if (glowFactor > 0.01) {
-                const borderAlpha = (0.35 + glowFactor * 0.55).toFixed(2);
-                const shadowAlpha = (glowFactor * 0.45).toFixed(2);
-                const shadowRadius = (12 + glowFactor * 24).toFixed(1);
-
-                card.style.borderColor = `rgba(${glowRgb}, ${borderAlpha})`;
-                card.style.boxShadow = `0 0 ${shadowRadius}px rgba(${glowRgb}, ${shadowAlpha})`;
-            } else {
-                card.style.borderColor = `rgba(${glowRgb}, 0.20)`;
-                card.style.boxShadow = 'none';
+            if (logoImg) {
+                if (glowFactor > 0.01) {
+                    const glowRadius = (12 + glowFactor * 22).toFixed(1);
+                    const glowAlpha = (0.50 + glowFactor * 0.50).toFixed(2);
+                    logoImg.style.filter = `drop-shadow(0 0 ${glowRadius}px rgba(${glowRgb}, ${glowAlpha}))`;
+                    logoImg.style.transform = `scale(${(1 + glowFactor * 0.12).toFixed(2)})`;
+                } else {
+                    logoImg.style.filter = 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45))';
+                    logoImg.style.transform = 'scale(1)';
+                }
             }
         });
 
