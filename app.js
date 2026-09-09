@@ -1,1469 +1,223 @@
-// Global helper for letter-by-letter splitting (with word-wrapper & <br> line break protection)
-function splitTextToSpans(el) {
-    if (!el) return [];
-
-    // Avoid double splitting
-    const existing = el.querySelectorAll('.char-span');
-    if (existing.length > 0) return Array.from(existing);
-
-    // Store any inner icon elements (like <i>) if present
-    const icon = el.querySelector('i');
-    const iconClone = icon ? icon.cloneNode(true) : null;
-
-    const hasBr = el.querySelector('br') !== null || el.innerHTML.includes('<br');
-    
-    if (hasBr) {
-        const lineParts = el.innerHTML.split(/<br\s*\/?>/i);
-        el.innerHTML = '';
-        if (iconClone) {
-            el.appendChild(iconClone);
-            el.appendChild(document.createTextNode(' '));
-        }
-
-        const spans = [];
-        lineParts.forEach((partText, pIndex) => {
-            const temp = document.createElement('div');
-            temp.innerHTML = partText;
-            const cleanText = (temp.textContent || '').replace(/\s+/g, ' ').trim();
-            if (cleanText) {
-                const words = cleanText.split(' ');
-                words.forEach((wordText, wIndex) => {
-                    const wordWrapper = document.createElement('span');
-                    wordWrapper.className = 'inline-block whitespace-nowrap';
-
-                    for (let i = 0; i < wordText.length; i++) {
-                        const span = document.createElement('span');
-                        span.className = 'char-span';
-                        span.textContent = wordText[i];
-                        wordWrapper.appendChild(span);
-                        spans.push(span);
-                    }
-
-                    el.appendChild(wordWrapper);
-
-                    if (wIndex < words.length - 1) {
-                        const spaceSpan = document.createElement('span');
-                        spaceSpan.className = 'inline-block';
-                        spaceSpan.innerHTML = '&nbsp;';
-                        el.appendChild(spaceSpan);
-                    }
-                });
-            }
-
-            if (pIndex < lineParts.length - 1) {
-                el.appendChild(document.createElement('br'));
-            }
-        });
-        return spans;
-    }
-
-    // Standard non-BR text splitting
-    const rawText = el.textContent || '';
-    const cleanText = rawText.replace(/\s+/g, ' ').trim();
-    if (!cleanText) return [];
-
-    el.innerHTML = '';
-
-    if (iconClone) {
-        el.appendChild(iconClone);
-        el.appendChild(document.createTextNode(' '));
-    }
-
-    const words = cleanText.split(' ');
-    const spans = [];
-
-    words.forEach((wordText, wIndex) => {
-        const wordWrapper = document.createElement('span');
-        wordWrapper.className = 'inline-block whitespace-nowrap';
-
-        for (let i = 0; i < wordText.length; i++) {
-            const span = document.createElement('span');
-            span.className = 'char-span';
-            span.textContent = wordText[i];
-            wordWrapper.appendChild(span);
-            spans.push(span);
-        }
-
-        el.appendChild(wordWrapper);
-
-        if (wIndex < words.length - 1) {
-            const spaceSpan = document.createElement('span');
-            spaceSpan.className = 'inline-block';
-            spaceSpan.innerHTML = '&nbsp;';
-            el.appendChild(spaceSpan);
-        }
-    });
-
-    return spans;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Safety Fallback: Ensure intro-loader is ALWAYS removed after 7 seconds
-    setTimeout(() => {
-        const loader = document.getElementById('intro-loader');
-        if (loader && loader.style.display !== 'none') {
-            loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 400);
-        }
-    }, 7000);
-
-    // 1. Prepare Letter-by-Letter Hero Spans
-    const line1 = document.getElementById('title-line-1');
-    const line2 = document.getElementById('title-line-2');
-    const line3 = document.getElementById('title-line-3');
-
-    const spans1 = splitTextToSpans(line1);
-    const spans2 = splitTextToSpans(line2);
-    const spans3 = splitTextToSpans(line3);
-
-    // 2. Preloader & Sequential Timed Animation Engine
-    const introLoader = document.getElementById('intro-loader');
-    const curtainLeft = document.getElementById('curtain-left');
-    const curtainRight = document.getElementById('curtain-right');
-    const introTextBox = document.getElementById('intro-text-box');
-
-    const heroRole = document.getElementById('hero-role');
-    const heroDesc = document.getElementById('hero-desc');
-    const heroButtons = document.getElementById('hero-buttons');
-
-    let assemblyProgress = 0; // 0 = dispersed, 1 = solid cube
-    let isAssemblyRunning = false;
-    let assemblyStartTime = 0;
-    const assemblyDuration = 1800; // 1.8s live particle implosion
-
-    function updateAssembly() {
-        if (!isAssemblyRunning) return;
-
-        const elapsed = performance.now() - assemblyStartTime;
-        const rawProgress = Math.min(1, elapsed / assemblyDuration);
-        
-        // Smooth ease-out cubic curve
-        assemblyProgress = 1 - Math.pow(1 - rawProgress, 3);
-
-        if (rawProgress < 1) {
-            requestAnimationFrame(updateAssembly);
-        } else {
-            assemblyProgress = 1;
-            isAssemblyRunning = false;
-        }
-    }
-
-    // CINEMATIC PRELOADER & SEQUENTIAL STEP-BY-STEP ELEMENT REVEAL PIPELINE
-    const INTRO_PRELOADER_HOLD = 2400; // Longer preloader window (2.4s)
-
-    setTimeout(() => {
-        // STEP 0: Fade out intro text & split curtains open sideways
-        if (introTextBox) introTextBox.style.opacity = '0';
-        if (curtainLeft) curtainLeft.style.transform = 'translateX(-100%)';
-        if (curtainRight) curtainRight.style.transform = 'translateX(100%)';
-
-        // STEP 1: HEADING APPEARS FIRST (Role badge + Letter-by-letter Title lines 1 & 2)
-        setTimeout(() => {
-            if (heroRole) {
-                heroRole.classList.remove('seq-hidden');
-                heroRole.classList.add('seq-visible');
-            }
-
-            const line1 = document.getElementById('title-line-1');
-            const line2 = document.getElementById('title-line-2');
-
-            if (line1) {
-                line1.classList.remove('seq-hidden');
-                line1.classList.add('seq-visible');
-                const spans1 = splitTextToSpans(line1);
-                spans1.forEach((span, i) => {
-                    setTimeout(() => span.classList.add('visible'), i * 50);
-                });
-            }
-
-            const line1Delay = line1 ? (line1.textContent.trim().length * 50 + 150) : 400;
-
-            setTimeout(() => {
-                if (line2) {
-                    line2.classList.remove('seq-hidden');
-                    line2.classList.add('seq-visible');
-                    const spans2 = splitTextToSpans(line2);
-                    spans2.forEach((span, i) => {
-                        setTimeout(() => span.classList.add('visible'), i * 35);
-                    });
-                }
-
-                const line2Delay = line2 ? (line2.textContent.trim().length * 35 + 400) : 600;
-
-                // STEP 2: BUTTONS APPEAR SECOND (CTA Buttons: Telegram, GitHub, Resume staggered smoothly)
-                setTimeout(() => {
-                    const btnElements = document.querySelectorAll('#hero-buttons a');
-                    btnElements.forEach((btn, index) => {
-                        setTimeout(() => {
-                            btn.classList.remove('seq-hidden');
-                            btn.classList.add('seq-visible');
-                        }, index * 160);
-                    });
-
-                    // STEP 3: TEXT DESCRIPTION APPEARS THIRD (Hero description paragraph typed character-by-character)
-                    setTimeout(() => {
-
-                        const descEls = document.querySelectorAll('#hero-desc, #hero-desc-desktop');
-                        let maxDescTime = 0;
-
-                        descEls.forEach(heroDescEl => {
-                            heroDescEl.classList.remove('seq-hidden');
-                            heroDescEl.classList.add('seq-visible');
-                            const descSpans = splitTextToSpans(heroDescEl);
-                            descSpans.forEach((span, i) => {
-                                setTimeout(() => span.classList.add('visible'), i * 12);
-                            });
-                            const totalT = descSpans.length * 12;
-                            if (totalT > maxDescTime) maxDescTime = totalT;
-                        });
-
-                        const descDelay = Math.max(500, maxDescTime + 250);
-
-                        // STEP 4: PRELOADER COMPLETE (Dock remains hidden until user's first scroll)
-                        setTimeout(() => {
-                            updateDockVisibility();
-
-                            // 3D Particle cube implosion begins
-                            assemblyStartTime = performance.now();
-                            isAssemblyRunning = true;
-                            requestAnimationFrame(updateAssembly);
-
-                            setTimeout(() => {
-                                if (introLoader) introLoader.style.display = 'none';
-                            }, 500);
-
-                        }, descDelay);
-
-                    }, 650);
-
-                }, line2Delay);
-
-            }, line1Delay);
-
-        }, 400);
-
-    }, INTRO_PRELOADER_HOLD);
-
-
-    // 3. Mobile Menu Toggle
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    // 4. Custom 3-State Crosshair Target Reticle & Glass Lens Cursor Logic
-    const crosshair = document.getElementById('crosshair-cursor');
-    const cursorLens = document.getElementById('cursor-lens');
-    const cursorCross = document.getElementById('cursor-cross');
-    const tickTop = document.getElementById('tick-top');
-    const tickBottom = document.getElementById('tick-bottom');
-    const tickLeft = document.getElementById('tick-left');
-    const tickRight = document.getElementById('tick-right');
-
-    let mouseX = -9999;
-    let mouseY = -9999;
-    let isHovering = false;
-    let isMouseDown = false;
-
-    let lastScrollY = window.scrollY;
-    let rawScrollVelocity = 0;
-    let smoothScrollVelocity = 0;
-
-    const heroContentWrapper = document.getElementById('hero-content-wrapper');
-    const desktopDock = document.getElementById('macos-dock-container');
-    const mobileDock = document.getElementById('mobile-dock-wrapper');
-
-    function updateDockVisibility() {
-        const desktopDockEl = document.getElementById('macos-dock-container');
-        const mobileDockEl = document.getElementById('mobile-dock-wrapper');
-        const currentScrollY = window.scrollY;
-
-        // Navigation dock stays HIDDEN at top of page until user's first scroll!
-        if (currentScrollY > 15) {
-            if (desktopDockEl) {
-                desktopDockEl.classList.remove('dock-hidden');
-                desktopDockEl.classList.add('dock-visible');
-            }
-            if (mobileDockEl) {
-                mobileDockEl.classList.remove('dock-hidden');
-                mobileDockEl.classList.add('dock-visible');
-            }
-        } else {
-            if (desktopDockEl) {
-                desktopDockEl.classList.remove('dock-visible');
-                desktopDockEl.classList.add('dock-hidden');
-            }
-            if (mobileDockEl) {
-                mobileDockEl.classList.remove('dock-visible');
-                mobileDockEl.classList.add('dock-hidden');
-            }
-        }
-    }
-
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        rawScrollVelocity = currentScrollY - lastScrollY;
-        lastScrollY = currentScrollY;
-
-
-
-        // Smooth scroll fade-out for Hero content on deep scroll down
-        if (heroContentWrapper) {
-            if (currentScrollY > 220) {
-                const fadeDistance = 750;
-                const heroOpacity = Math.max(0, 1 - ((currentScrollY - 220) / fadeDistance));
-                const translateY = Math.min(45, ((currentScrollY - 220) / fadeDistance) * 28);
-                heroContentWrapper.style.opacity = heroOpacity.toFixed(2);
-                heroContentWrapper.style.transform = `translateY(-${translateY.toFixed(1)}px)`;
-                heroContentWrapper.style.pointerEvents = heroOpacity < 0.05 ? 'none' : 'auto';
-            } else {
-                heroContentWrapper.style.opacity = '1';
-                heroContentWrapper.style.transform = 'translateY(0px)';
-                heroContentWrapper.style.pointerEvents = 'auto';
-            }
-        }
-
-        updateDockVisibility();
-    });
-
-    updateDockVisibility();
-
-    function setCursorState(state) {
-        if (!tickTop || !tickBottom || !tickLeft || !tickRight) return;
-
-        if (state === 'click') {
-            tickTop.style.transform = 'translateY(-2px)';
-            tickBottom.style.transform = 'translateY(2px)';
-            tickLeft.style.transform = 'translateX(-2px)';
-            tickRight.style.transform = 'translateX(2px)';
-            if (cursorCross) cursorCross.style.transform = 'scale(0.85)';
-        } else if (state === 'hover') {
-            tickTop.style.transform = 'translateY(-10px)';
-            tickBottom.style.transform = 'translateY(10px)';
-            tickLeft.style.transform = 'translateX(-10px)';
-            tickRight.style.transform = 'translateX(10px)';
-            if (cursorCross) cursorCross.style.transform = 'scale(1)';
-            if (cursorLens) {
-                cursorLens.style.opacity = '0.8';
-                cursorLens.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            }
-        } else {
-            tickTop.style.transform = 'translateY(-6px)';
-            tickBottom.style.transform = 'translateY(6px)';
-            tickLeft.style.transform = 'translateX(-6px)';
-            tickRight.style.transform = 'translateX(6px)';
-            if (cursorCross) cursorCross.style.transform = 'scale(1)';
-            if (cursorLens) {
-                cursorLens.style.opacity = '0';
-                cursorLens.style.transform = 'translate(-50%, -50%) scale(0.5)';
-            }
-        }
-    }
-
-    if (crosshair) {
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            crosshair.style.left = `${mouseX}px`;
-            crosshair.style.top = `${mouseY}px`;
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches && e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches && e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        window.addEventListener('mousedown', () => {
-            isMouseDown = true;
-            setCursorState('click');
-        });
-
-        window.addEventListener('mouseup', () => {
-            isMouseDown = false;
-            setCursorState(isHovering ? 'hover' : 'default');
-        });
-
-        const interactiveEls = document.querySelectorAll('a, button, .container-scroll-card, .dock-item');
-        interactiveEls.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                isHovering = true;
-                if (!isMouseDown) setCursorState('hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                isHovering = false;
-                if (!isMouseDown) setCursorState('default');
-            });
-        });
-    }
-
-
-    // ==========================================================================
-    // 5. BEAMS BACKGROUND CANVAS ENGINE
-    // ==========================================================================
-    const beamsCanvas = document.getElementById('beams-canvas');
-    if (beamsCanvas) {
-        const bCtx = beamsCanvas.getContext('2d');
-        let bWidth = beamsCanvas.width = window.innerWidth;
-        let bHeight = beamsCanvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            bWidth = beamsCanvas.width = window.innerWidth;
-            bHeight = beamsCanvas.height = window.innerHeight;
-        });
-
-        const numBeams = 24;
-        const beams = [];
-
-        function createBeam(w, h) {
-            const angle = -35 + Math.random() * 10;
-            return {
-                x: Math.random() * w * 1.5 - w * 0.25,
-                y: Math.random() * h * 1.5 - h * 0.25,
-                width: 40 + Math.random() * 80,
-                length: h * 2.5,
-                angle: angle,
-                speed: 0.6 + Math.random() * 1.2,
-                opacity: 0.14 + Math.random() * 0.16,
-                hue: 220 + Math.random() * 60,
-                pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.02 + Math.random() * 0.03
-            };
-        }
-
-        for (let i = 0; i < numBeams; i++) {
-            beams.push(createBeam(bWidth, bHeight));
-        }
-
-        function resetBeam(beam, index, total) {
-            const column = index % 3;
-            const spacing = bWidth / 3;
-            beam.y = bHeight + 100;
-            beam.x = column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
-            beam.width = 80 + Math.random() * 80;
-            beam.speed = 0.5 + Math.random() * 0.4;
-            beam.hue = 210 + (index * 60) / total;
-            beam.opacity = 0.15 + Math.random() * 0.12;
-        }
-
-        const fluidTrails = [];
-        let lastMouseX = -9000, lastMouseY = -9000;
-
-        window.addEventListener('mousemove', (e) => {
-            if (lastMouseX > -9000) {
-                const dx = e.clientX - lastMouseX;
-                const dy = e.clientY - lastMouseY;
-                const speed = Math.sqrt(dx * dx + dy * dy);
-                if (speed > 3) {
-                    fluidTrails.push({
-                        x: e.clientX,
-                        y: e.clientY,
-                        vx: dx * 0.15,
-                        vy: dy * 0.15,
-                        radius: 20,
-                        maxRadius: 120 + Math.min(100, speed * 2),
-                        alpha: 0.35,
-                        life: 1.0
-                    });
-                }
-            }
-            lastMouseX = e.clientX;
-            lastMouseY = e.clientY;
-        });
-
-        let isBeamsVisible = true;
-        let beamsAnimationFrameId = null;
-
-        function renderBeams() {
-            if (!isBeamsVisible || document.hidden) {
-                beamsAnimationFrameId = null;
-                return;
-            }
-
-            bCtx.clearRect(0, 0, bWidth, bHeight);
-
-            beams.forEach((beam, index) => {
-                beam.y -= beam.speed;
-                beam.pulse += beam.pulseSpeed;
-
-                if (beam.y + beam.length < -100) {
-                    resetBeam(beam, index, numBeams);
-                }
-
-                // Black Hole Gravitational Lens: Light beams bend around mouse singularity!
-                let bendX = 0;
-                if (mouseX > -9000) {
-                    const dx = beam.x - mouseX;
-                    const dy = beam.y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 260 && dist > 0) {
-                        // Gravitational lensing curvature formula around black hole
-                        const force = Math.pow((260 - dist) / 260, 1.6);
-                        bendX = (dx / dist) * force * 70;
-                    }
-                }
-
-                bCtx.save();
-                bCtx.translate(beam.x + bendX, beam.y);
-                bCtx.rotate((beam.angle * Math.PI) / 180);
-
-                const pulsingOpacity = beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2);
-                const gradient = bCtx.createLinearGradient(0, 0, 0, beam.length);
-
-                gradient.addColorStop(0, `hsla(${beam.hue}, 85%, 65%, 0)`);
-                gradient.addColorStop(0.1, `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`);
-                gradient.addColorStop(0.4, `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`);
-                gradient.addColorStop(0.6, `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity})`);
-                gradient.addColorStop(0.9, `hsla(${beam.hue}, 85%, 65%, ${pulsingOpacity * 0.5})`);
-                gradient.addColorStop(1, `hsla(${beam.hue}, 85%, 65%, 0)`);
-
-                bCtx.fillStyle = gradient;
-                bCtx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
-                bCtx.restore();
-            });
-
-            beamsAnimationFrameId = requestAnimationFrame(renderBeams);
-        }
-
-        function startBeamsLoop() {
-            if (!beamsAnimationFrameId && isBeamsVisible && !document.hidden) {
-                beamsAnimationFrameId = requestAnimationFrame(renderBeams);
-            }
-        }
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                isBeamsVisible = entries[0].isIntersecting;
-                if (isBeamsVisible) startBeamsLoop();
-            }, { threshold: 0 });
-            observer.observe(beamsCanvas);
-        }
-
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && isBeamsVisible) startBeamsLoop();
-        });
-
-        startBeamsLoop();
-    }
-
-
-    // ==========================================================================
-    // 6. DYNAMIC HIGH-BRIGHTNESS 3D WARP STARFIELD TUNNEL ENGINE
-    // ==========================================================================
-    const starfieldCanvas = document.getElementById('starfield');
-    if (starfieldCanvas) {
-        const sCtx = starfieldCanvas.getContext('2d');
-        let sWidth = starfieldCanvas.width = window.innerWidth;
-        let sHeight = starfieldCanvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            sWidth = starfieldCanvas.width = window.innerWidth;
-            sHeight = starfieldCanvas.height = window.innerHeight;
-        });
-
-        const isMobileScreen = window.innerWidth < 768;
-        const numDust = isMobileScreen ? 180 : 550; // Dynamic particle scaling for smooth mobile performance
-        const dustParticles = [];
-
-        for (let i = 0; i < numDust; i++) {
-            const isHighlight = Math.random() > 0.88; // 12% bright glowing superstars!
-            dustParticles.push({
-                x: (Math.random() - 0.5) * sWidth * 2.4,
-                y: (Math.random() - 0.5) * sHeight * 2.4,
-                z: Math.random() * 1000 + 1,
-                baseSpeed: Math.random() * 2.0 + 1.0,
-                size: isHighlight ? (Math.random() * 1.4 + 1.8) : (Math.random() * 0.9 + 0.7),
-                color: isHighlight 
-                    ? '#ffffff' 
-                    : (Math.random() > 0.5 ? '#ffffff' : (Math.random() > 0.5 ? '#93c5fd' : '#e9d5ff')),
-                baseAlpha: isHighlight ? (Math.random() * 0.2 + 0.80) : (Math.random() * 0.35 + 0.65),
-                twinklePhase: Math.random() * Math.PI * 2,
-                twinkleSpeed: 0.02 + Math.random() * 0.04,
-                isHighlight
-            });
-        }
-
-        let smoothMouseX = sWidth / 2;
-        let smoothMouseY = sHeight / 2;
-
-        let isStarfieldVisible = true;
-        let starfieldAnimationFrameId = null;
-
-        function renderMicroDustWarp() {
-            if (!isStarfieldVisible || document.hidden) {
-                starfieldAnimationFrameId = null;
-                return;
-            }
-
-            sCtx.clearRect(0, 0, sWidth, sHeight);
-
-            if (mouseX > -9000) {
-                smoothMouseX += (mouseX - smoothMouseX) * 0.06;
-                smoothMouseY += (mouseY - smoothMouseY) * 0.06;
-            } else {
-                smoothMouseX += ((sWidth / 2) - smoothMouseX) * 0.06;
-                smoothMouseY += ((sHeight / 2) - smoothMouseY) * 0.06;
-            }
-
-            // Ricardo Chance 3D Camera Shift: Vanishing point tilts dynamically with mouse movement!
-            const mouseShiftX = ((smoothMouseX / sWidth) - 0.5) * 180;
-            const mouseShiftY = ((smoothMouseY / sHeight) - 0.5) * 180;
-
-            const cx = (sWidth / 2) + mouseShiftX;
-            const cy = (sHeight / 2) + mouseShiftY;
-            const focalLength = 360;
-
-            // High-inertia liquid smooth velocity decay (prevents sudden jerks or stops!)
-            smoothScrollVelocity += (rawScrollVelocity - smoothScrollVelocity) * 0.045;
-            rawScrollVelocity *= 0.94;
-
-            // Continuous non-linear speed multiplier:
-            const absVel = Math.abs(smoothScrollVelocity);
-            const velEffect = Math.sign(smoothScrollVelocity) * Math.pow(absVel * 0.06, 0.78);
-            const warpMultiplier = Math.max(0.48, 1.0 + velEffect);
-
-            sCtx.save();
-            sCtx.globalCompositeOperation = 'lighter'; // Vivid additive star brightness!
-
-            dustParticles.forEach(p => {
-                p.twinklePhase += p.twinkleSpeed;
-                const twinkleAlpha = 0.85 + Math.sin(p.twinklePhase) * 0.15; // Keeps stars bright and vivid!
-
-                const currentSpeed = p.baseSpeed * warpMultiplier;
-
-                // 3D Forward Warp Motion along Z-axis!
-                p.z -= currentSpeed;
-
-                if (p.z <= 1) {
-                    p.z = 1000;
-                    p.x = (Math.random() - 0.5) * sWidth * 2.4;
-                    p.y = (Math.random() - 0.5) * sHeight * 2.4;
-                }
-
-                // 3D Perspective Projection with Camera Tilt
-                const baseScreenX = cx + (p.x / p.z) * focalLength;
-                const baseScreenY = cy + (p.y / p.z) * focalLength;
-                const depthProgress = (1000 - p.z) / 1000;
-                const currentSize = p.size * Math.max(0.5, depthProgress * 1.35);
-
-                // Black Hole Gravitational Lensing Engine: Relativistic star curvature around cursor singularity
-                let screenX = baseScreenX;
-                let screenY = baseScreenY;
-
-                if (mouseX > -9000) {
-                    const dx = baseScreenX - mouseX;
-                    const dy = baseScreenY - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    const lensRadius = 180;
-
-                    if (dist < lensRadius && dist > 0) {
-                        const angle = Math.atan2(dy, dx);
-                        const force = Math.pow((lensRadius - dist) / lensRadius, 1.4);
-                        
-                        // Gravitational Deflection & Relativistic Swirl (Einstein Lensing Arc)
-                        const swirlAngle = angle + force * 0.75;
-                        const lensedDist = dist + force * 45;
-
-                        screenX = mouseX + Math.cos(swirlAngle) * lensedDist;
-                        screenY = mouseY + Math.sin(swirlAngle) * lensedDist;
-                    }
-                }
-
-                let alpha = Math.min(1, p.baseAlpha * twinkleAlpha * Math.min(1, depthProgress * 2.2));
-
-                if (alpha > 0.04 && screenX >= -60 && screenX <= sWidth + 60 && screenY >= -60 && screenY <= sHeight + 60) {
-                    
-                    if (p.isHighlight) {
-                        // Vivid glowing lens halo for superstars flying past
-                        const glowR = currentSize * 4.2;
-                        const grad = sCtx.createRadialGradient(screenX, screenY, 0, screenX, screenY, glowR);
-                        grad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-                        grad.addColorStop(0.35, `rgba(192, 132, 252, ${alpha * 0.6})`);
-                        grad.addColorStop(1, 'rgba(192, 132, 252, 0)');
-                        sCtx.fillStyle = grad;
-                        sCtx.beginPath();
-                        sCtx.arc(screenX, screenY, glowR, 0, Math.PI * 2);
-                        sCtx.fill();
-                    }
-
-                    // Bright core star dot
-                    const coreGrad = sCtx.createRadialGradient(screenX, screenY, 0, screenX, screenY, currentSize * 1.8);
-                    coreGrad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-                    coreGrad.addColorStop(0.5, `${p.color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`);
-                    coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-                    sCtx.fillStyle = coreGrad;
-                    sCtx.beginPath();
-                    sCtx.arc(screenX, screenY, currentSize * 1.8, 0, Math.PI * 2);
-                    sCtx.fill();
-                }
-            });
-
-            sCtx.restore();
-
-            starfieldAnimationFrameId = requestAnimationFrame(renderMicroDustWarp);
-        }
-
-        function startStarfieldLoop() {
-            if (!starfieldAnimationFrameId && isStarfieldVisible && !document.hidden) {
-                starfieldAnimationFrameId = requestAnimationFrame(renderMicroDustWarp);
-            }
-        }
-
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                isStarfieldVisible = entries[0].isIntersecting;
-                if (isStarfieldVisible) startStarfieldLoop();
-            }, { threshold: 0 });
-            observer.observe(starfieldCanvas);
-        }
-
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && isStarfieldVisible) startStarfieldLoop();
-        });
-
-        startStarfieldLoop();
-    }
-
-
-    // ==========================================================================
-    // 7. ULTRA-OPTIMIZED 120+ FPS RICARDO CHANCE STARDUST CUBE (High-DPI Retina Support)
-    // ==========================================================================
-    const cubeCanvas = document.getElementById('particle-star-canvas');
-    if (cubeCanvas) {
-        const cCtx = cubeCanvas.getContext('2d');
-        let cWidth = window.innerWidth;
-        let cHeight = window.innerHeight;
-
-        function resizeCubeCanvas() {
-            const dpr = Math.min(window.devicePixelRatio || 1, 3);
-            cWidth = window.innerWidth;
-            cHeight = window.innerHeight;
-            
-            cubeCanvas.width = Math.floor(cWidth * dpr);
-            cubeCanvas.height = Math.floor(cHeight * dpr);
-            cubeCanvas.style.width = cWidth + 'px';
-            cubeCanvas.style.height = cHeight + 'px';
-            
-            cCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            cCtx.imageSmoothingEnabled = true;
-            cCtx.imageSmoothingQuality = 'high';
-        }
-
-        resizeCubeCanvas();
-        window.addEventListener('resize', resizeCubeCanvas);
-
-        // ----------------------------------------------------------------------
-        // PRE-RENDERED HIGH-OPACITY SPHERICAL BOKEH ORB SPRITES (128x128 High-Res)
-        // ----------------------------------------------------------------------
-        function createParticleSprite(coreR, coreG, coreB, haloR, haloG, haloB) {
-            const sprCanvas = document.createElement('canvas');
-            const size = 128; // High-res 128px sprite for crisp Retina rendering
-            sprCanvas.width = size;
-            sprCanvas.height = size;
-            const sprCtx = sprCanvas.getContext('2d');
-            const center = size / 2;
-
-            const grad = sprCtx.createRadialGradient(center, center, 0, center, center, center);
-            // 1. Opaque Solid Pearl-Silver Core
-            grad.addColorStop(0,    `rgba(${coreR}, ${coreG}, ${coreB}, 1.0)`);
-            grad.addColorStop(0.32, `rgba(${coreR}, ${coreG}, ${coreB}, 0.95)`);
-            // 2. Rich High-Contrast Violet Body
-            grad.addColorStop(0.68, `rgba(${haloR}, ${haloG}, ${haloB}, 0.85)`);
-            // 3. Deep Indigo Outer Rim
-            grad.addColorStop(0.88, `rgba(88, 28, 135, 0.55)`);
-            grad.addColorStop(1.0,  `rgba(30, 10, 60, 0)`);
-
-            sprCtx.fillStyle = grad;
-            sprCtx.beginPath();
-            sprCtx.arc(center, center, center, 0, Math.PI * 2);
-            sprCtx.fill();
-
-            return sprCanvas;
-        }
-
-        // High-Contrast Spherical Bokeh Orbs (Solid Pearl Center + Deep Violet Rim)
-        const spriteCore = createParticleSprite(238, 242, 255, 192, 132, 252);
-        const spriteAmbient = createParticleSprite(226, 232, 240, 168, 85, 247);
-        const spriteEdge = createParticleSprite(241, 245, 249, 147, 51, 234);
-
-        const isMobileDevice = window.innerWidth < 768;
-        const cubeSize = isMobileDevice ? 110 : 135; // Boosted 3D scale on mobile for crisp prominence
-        const numCubeParticles = isMobileDevice ? 2200 : 3000; // Increased particle budget on iOS Retina!
-        const cubeParticles = [];
-
-        function isCubeEdgePoint(x, y, z, s) {
-            const threshold = s * 0.84;
-            let count = 0;
-            if (Math.abs(x) >= threshold) count++;
-            if (Math.abs(y) >= threshold) count++;
-            if (Math.abs(z) >= threshold) count++;
-            return count >= 2;
-        }
-
-        function generateRicardoChanceCubePoint(halfSize) {
-            const mode = Math.random();
-            if (mode < 0.45) {
-                // 45% HIGH-ACCURACY 12 WIREFRAME EDGES (Sharp 3D edge definition!)
-                const edgeIndex = Math.floor(Math.random() * 12);
-                const t = (Math.random() - 0.5) * 2 * halfSize;
-                const s = halfSize;
-                let x = 0, y = 0, z = 0;
-
-                switch (edgeIndex) {
-                    case 0: x = t; y = s; z = s; break;
-                    case 1: x = t; y = -s; z = s; break;
-                    case 2: x = t; y = s; z = -s; break;
-                    case 3: x = t; y = -s; z = -s; break;
-                    case 4: x = s; y = t; z = s; break;
-                    case 5: x = -s; y = t; z = s; break;
-                    case 6: x = s; y = t; z = -s; break;
-                    case 7: x = -s; y = t; z = -s; break;
-                    case 8: x = s; y = s; z = t; break;
-                    case 9: x = -s; y = s; z = t; break;
-                    case 10: x = s; y = -s; z = t; break;
-                    default: x = -s; y = -s; z = t; break;
-                }
-
-                return { x, y, z, isCore: false, isEdge: true, isStardust: false };
-
-            } else if (mode < 0.85) {
-                // 40% OUTER 6 FACES
-                const face = Math.floor(Math.random() * 6);
-                const u = (Math.random() - 0.5) * 2 * halfSize;
-                const v = (Math.random() - 0.5) * 2 * halfSize;
-                const s = halfSize;
-                let pt;
-                switch (face) {
-                    case 0: pt = { x: s, y: u, z: v }; break;
-                    case 1: pt = { x: -s, y: u, z: v }; break;
-                    case 2: pt = { x: u, y: s, z: v }; break;
-                    case 3: pt = { x: u, y: -s, z: v }; break;
-                    case 4: pt = { x: u, y: v, z: s }; break;
-                    default: pt = { x: u, y: v, z: -s }; break;
-                }
-                const isEdge = isCubeEdgePoint(pt.x, pt.y, pt.z, halfSize);
-                return { ...pt, isCore: false, isEdge, isStardust: false };
-
-            } else {
-                // 15% INNER CORE & VOLUME DUST
-                return {
-                    x: (Math.random() - 0.5) * 1.8 * halfSize,
-                    y: (Math.random() - 0.5) * 1.8 * halfSize,
-                    z: (Math.random() - 0.5) * 1.8 * halfSize,
-                    isCore: true,
-                    isEdge: false,
-                    isStardust: false
-                };
-            }
-        }
-
-        for (let i = 0; i < numCubeParticles; i++) {
-            const pt = generateRicardoChanceCubePoint(cubeSize);
-
-            const dist = Math.sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z) || 1;
-            const dirX = (pt.x / dist) + (Math.random() - 0.5) * 0.35;
-            const dirY = (pt.y / dist) + (Math.random() - 0.5) * 0.35;
-            const dirZ = (pt.z / dist) + (Math.random() - 0.5) * 0.35;
-
-            let sprite, pSize, baseAlpha;
-
-            if (pt.isEdge) {
-                sprite = spriteEdge;
-                baseAlpha = 1.0;
-                pSize = Math.random() * 0.8 + 1.5;
-            } else if (pt.isStardust) {
-                sprite = spriteAmbient;
-                baseAlpha = Math.random() * 0.20 + 0.60;
-                pSize = Math.random() * 0.6 + 0.8;
-            } else {
-                sprite = spriteCore;
-                baseAlpha = Math.random() * 0.15 + 0.85;
-                pSize = Math.random() * 0.9 + 1.1;
-            }
-
-            // Widen detachment threshold to 0.06 - 0.88 for a much longer, multi-stage disintegration sequence
-            const detachThreshold = 0.06 + Math.random() * 0.82;
-            const detachSpeed = Math.max(cWidth, cHeight) * (0.65 + Math.random() * 0.60);
-            const swirlDir = Math.random() > 0.5 ? 1 : -1;
-            const swirlFreq = 0.012 + Math.random() * 0.02;
-
-            const noiseSpeedX = 0.0012 + Math.random() * 0.0015;
-            const noiseSpeedY = 0.0015 + Math.random() * 0.0015;
-            const noiseAmp = 3.5 + Math.random() * 4.5;
-
-            cubeParticles.push({
-                hx: pt.x, hy: pt.y, hz: pt.z,
-                dirX, dirY, dirZ,
-                isEdge: pt.isEdge,
-                isCore: pt.isCore,
-                isStardust: pt.isStardust,
-                offX: 0, offY: 0, offZ: 0,
-                vx: 0, vy: 0, vz: 0,
-                detachThreshold,
-                detachSpeed,
-                swirlDir,
-                swirlFreq,
-                noiseSpeedX,
-                noiseSpeedY,
-                noiseAmp,
-                size: pSize,
-                sprite,
-                baseAlpha,
-                pulsePhase: Math.random() * Math.PI * 2,
-                pulseSpeed: pt.isCore ? (0.04 + Math.random() * 0.06) : (0.02 + Math.random() * 0.04)
-            });
-        }
-
-        let currRotX = 0;
-        let currRotY = 0;
-        let smoothScrollProgress = 0;
-        let animTime = 0;
-        let autoRotateAngle = 0;
-
-        let isCubeVisible = true;
-        let cubeAnimationFrameId = null;
-
-        function renderStorylineParticleCube() {
-            if (!isCubeVisible || document.hidden) {
-                cubeAnimationFrameId = null;
-                return;
-            }
-
-            cCtx.clearRect(0, 0, cWidth, cHeight);
-            const isDesktopScreen = cWidth >= 1024;
-            const cx = isDesktopScreen ? cWidth * 0.52 : cWidth / 2;
-            const cy = isDesktopScreen ? cHeight * 0.44 : cHeight / 2;
-
-            animTime += 1;
-            autoRotateAngle += 0.008;
-
-            const heroSection = document.getElementById('hero-sky');
-            let rawScrollProgress = 0;
-            if (heroSection) {
-                const heroHeight = heroSection.offsetHeight - window.innerHeight;
-                if (heroHeight > 0) {
-                    rawScrollProgress = Math.min(1, Math.max(0, window.scrollY / heroHeight));
-                }
-            }
-
-            let targetProgress = Math.min(1, Math.max(0, rawScrollProgress));
-
-            // Silky smooth scroll lerp factor (0.055) eliminates wheel step micro-stutters
-            smoothScrollProgress += (targetProgress - smoothScrollProgress) * 0.055;
-            const scrollProgress = smoothScrollProgress;
-
-            let mouseNormX = 0, mouseNormY = 0;
-            if (mouseX > -9000) {
-                mouseNormX = (mouseX / window.innerWidth - 0.5);
-                mouseNormY = (mouseY / window.innerHeight - 0.5);
-            }
-
-            // Gyro Mouse & Touch Rigging
-            const targetRotX = mouseNormY * 0.45;
-            const targetRotY = mouseNormX * 0.55;
-
-            currRotX += (targetRotX - currRotX) * 0.08;
-            currRotY += (targetRotY - currRotY) * 0.08;
-
-            // Perfect 3D Isometric Pitch Angle (0.42 rad ~24deg) keeps cube top & front faces proportioned
-            const idlePitchX = 0.42 + Math.sin(autoRotateAngle * 0.4) * 0.08;
-            const scrollRotY = scrollProgress * Math.PI * 0.75;
-            const finalRotX = idlePitchX + currRotX;
-            const finalRotY = autoRotateAngle + currRotY + scrollRotY;
-
-            const cosX = Math.cos(finalRotX), sinX = Math.sin(finalRotX);
-            const cosY = Math.cos(finalRotY), sinY = Math.sin(finalRotY);
-
-            const currentAssembly = Math.min(1, Math.max(0, assemblyProgress));
-            // Slower, smoother alpha decay across longer scroll
-            const activeAlpha = Math.cos(Math.min(1, scrollProgress * 0.72) * (Math.PI / 2));
-
-            if (activeAlpha > 0.005 && currentAssembly > 0.001) {
-                cCtx.save();
-                cCtx.globalCompositeOperation = 'screen'; // Smooth screen blending preserves orb shapes!
-
-                for (let i = 0; i < numCubeParticles; i++) {
-                    const p = cubeParticles[i];
-                    p.pulsePhase += p.pulseSpeed;
-                    const twinkleBrightness = 0.75 + Math.sin(p.pulsePhase) * 0.25;
-                    const twinkleScale = 0.90 + Math.sin(p.pulsePhase * 0.7) * 0.20;
-
-                    const noiseWaveX = Math.sin(animTime * p.noiseSpeedX + p.hy * 0.05) * p.noiseAmp;
-                    const noiseWaveY = Math.cos(animTime * p.noiseSpeedY + p.hx * 0.05) * p.noiseAmp;
-                    const noiseWaveZ = Math.sin(animTime * 0.002 + p.hz * 0.05) * (p.noiseAmp * 0.8);
-
-                    let explodeDist = 0;
-                    let swirlX = 0, swirlY = 0;
-                    if (scrollProgress > p.detachThreshold) {
-                        const progressDelta = (scrollProgress - p.detachThreshold) / (1 - p.detachThreshold);
-                        // Fast quadratic multiplication instead of Math.pow for 10x faster particle math
-                        explodeDist = progressDelta * progressDelta * (p.detachSpeed * 0.85);
-                        
-                        const swirlAngle = explodeDist * p.swirlFreq * p.swirlDir;
-                        swirlX = Math.sin(swirlAngle) * 55;
-                        swirlY = Math.cos(swirlAngle) * 35;
-                    }
-
-                    let targetX = p.hx + noiseWaveX + p.dirX * explodeDist + swirlX + p.offX;
-                    let targetY = p.hy + noiseWaveY + p.dirY * explodeDist + swirlY + p.offY;
-                    let targetZ = p.hz + noiseWaveZ + p.dirZ * explodeDist + p.offZ;
-
-                    let outerX = p.dirX * 380;
-                    let outerY = p.dirY * 380;
-                    let outerZ = p.dirZ * 380;
-
-                    let px = outerX * (1 - currentAssembly) + targetX * currentAssembly;
-                    let py = outerY * (1 - currentAssembly) + targetY * currentAssembly;
-                    let pz = outerZ * (1 - currentAssembly) + targetZ * currentAssembly;
-
-                    let y1 = py * cosX - pz * sinX;
-                    let z1 = py * sinX + pz * cosX;
-
-                    let rx = px * cosY + z1 * sinY;
-                    let rz = -px * sinY + z1 * cosY;
-                    let ry = y1;
-
-                    const fov = 480;
-                    const perspectiveScale = fov / (fov + rz + 100);
-
-                    const screenX = cx + rx * perspectiveScale;
-                    const screenY = cy + ry * perspectiveScale;
-
-                    if (mouseX > -9000) {
-                        const dx = screenX - mouseX;
-                        const dy = screenY - mouseY;
-                        // Fast bounding box check eliminates 95%+ of Math.sqrt calls for locked 60-120 FPS
-                        if (Math.abs(dx) < 45 && Math.abs(dy) < 45) {
-                            const dist = Math.sqrt(dx * dx + dy * dy);
-                            if (dist < 45 && dist > 0) {
-                                const force = (45 - dist) / 45;
-                                p.vx += (dx / dist) * force * 12;
-                                p.vy += (dy / dist) * force * 12;
-                            }
-                        }
-                    }
-
-                    p.vx *= 0.80;
-                    p.vy *= 0.80;
-                    p.offX += p.vx;
-                    p.offY += p.vy;
-                    p.offX += (0 - p.offX) * 0.08;
-                    p.offY += (0 - p.offY) * 0.08;
-
-                    let detachFade = 1;
-                    if (explodeDist > 0) {
-                        const fadeRatio = Math.max(0, 1 - explodeDist / (p.detachSpeed * 2.5));
-                        detachFade = fadeRatio * fadeRatio;
-                    }
-
-                    const particleAlpha = p.baseAlpha * activeAlpha * twinkleBrightness * detachFade * Math.max(0.3, perspectiveScale) * Math.min(1, currentAssembly * 2.0);
-
-                    if (particleAlpha > 0.02 && screenY >= -50 && screenY <= cHeight + 50 && screenX >= -50 && screenX <= cWidth + 50) {
-                        const blobR = p.size * twinkleScale * (p.isEdge ? 2.9 : (p.isCore ? 2.6 : 2.2));
-                        const d = blobR * 2;
-
-                        cCtx.globalAlpha = Math.min(1, particleAlpha);
-                        cCtx.drawImage(p.sprite, screenX - blobR, screenY - blobR, d, d);
-                    }
-                }
-                cCtx.restore();
-            }
-
-            cubeAnimationFrameId = requestAnimationFrame(renderStorylineParticleCube);
-        }
-
-        function startCubeLoop() {
-            if (!cubeAnimationFrameId && isCubeVisible && !document.hidden) {
-                cubeAnimationFrameId = requestAnimationFrame(renderStorylineParticleCube);
-            }
-        }
-
-        if ('IntersectionObserver' in window) {
-            const heroSection = document.getElementById('hero-sky');
-            const target = heroSection || cubeCanvas;
-            const observer = new IntersectionObserver((entries) => {
-                isCubeVisible = entries[0].isIntersecting;
-                if (isCubeVisible) startCubeLoop();
-            }, { threshold: 0 });
-            observer.observe(target);
-        }
-
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && isCubeVisible) startCubeLoop();
-        });
-
-        startCubeLoop();
-    }
-
-
-    // 8. macOS Dock Magnification Physics
-    const dock = document.getElementById('macos-dock');
-    if (dock) {
-        const dockItems = dock.querySelectorAll('.dock-item');
-        dock.addEventListener('mousemove', (e) => {
-            dockItems.forEach(item => {
-                const itemRect = item.getBoundingClientRect();
-                const itemCenter = itemRect.left + itemRect.width / 2;
-                const distance = Math.abs(e.clientX - itemCenter);
-                
-                const maxDistance = 120;
-                let scale = 1;
-                if (distance < maxDistance) {
-                    scale = 1 + 0.35 * Math.cos((distance / maxDistance) * (Math.PI / 2));
-                }
-                item.style.transform = `scale(${scale}) translateY(-${(scale - 1) * 12}px)`;
-            });
-        });
-
-        dock.addEventListener('mouseleave', () => {
-            dockItems.forEach(item => {
-                item.style.transform = 'scale(1) translateY(0px)';
-            });
-        });
-    }
-
-    // 9. Aceternity UI 3D Container Scroll Perspective + Global Liquid Smooth Scroll Engine
-    const orbitTrack = document.getElementById('orbit-track');
-    const orbitSection = document.getElementById('orbit-showcase');
-    const containerHeader = document.querySelector('.container-header');
-    const containerCards = document.querySelectorAll('.container-scroll-card');
-
-    let currentSmoothY = window.scrollY;
-    let targetSmoothY = window.scrollY;
-    let isScrollLoopActive = false;
-
-    // Dynamic Hold Plateau Distribution: Every card gets equal hold delay + 18% End Buffer for final card readability
-    function applyCardHoldPlateau(progress, numCards) {
-        if (numCards <= 1) return 0;
-        
-        // Reserve the final 18% of scroll progress as an End-Buffer for Card 4 staying pinned & readable!
-        const activeProgress = Math.min(1.0, progress / 0.82);
-        const maxIdx = numCards - 1;
-        const rawVal = activeProgress * maxIdx;
-        const currentIdx = Math.floor(rawVal);
-        if (currentIdx >= maxIdx) return maxIdx;
-
-        const frac = rawVal - currentIdx;
-        // 65% hold stationary on flat card, 35% smooth transition to next card
-        if (frac <= 0.65) {
-            return currentIdx;
-        } else {
-            const t = (frac - 0.65) / 0.35;
-            const easeT = t * t * (3 - 2 * t);
-            return currentIdx + easeT;
-        }
-    }
-
-    function updateOrbitContainerScroll() {
-        if (!orbitTrack || !orbitSection) return;
-
-        const scrollY = currentSmoothY;
-        const viewportHeight = window.innerHeight;
-        const sectionTop = orbitSection.offsetTop;
-        const sectionHeight = orbitSection.offsetHeight - viewportHeight;
-
-        if (sectionHeight <= 0) return;
-
-        // Entrance unroll physics: Card 1 unrolls from 20deg down to 0deg as section scrolls up into view
-        const entranceStart = sectionTop - viewportHeight * 0.5;
-        const entranceProgress = Math.max(0, Math.min(1, (scrollY - entranceStart) / (viewportHeight * 0.5)));
-        
-        // By the time section reaches top of screen (scrollY >= sectionTop), initialRotateX is ALREADY 0deg (100% straight!)
-        const initialRotateX = 20 * (1 - entranceProgress);
-
-        // Section horizontal scroll progress (0.0 to 1.0)
-        const rawProgress = (scrollY - sectionTop) / sectionHeight;
-        const currentProgress = Math.max(0, Math.min(1, rawProgress));
-        const isMobile = window.innerWidth <= 768;
-
-        // 3D CURVED PANORAMIC SCREEN ARC PHYSICS:
-        // Cards curve along a panoramic 3D screen arc around the viewer!
-        const numCards = containerCards.length;
-        const activeCardIdx = applyCardHoldPlateau(currentProgress, numCards);
-
-        // Compute exact horizontal translation to center each card precisely
-        if (numCards > 1 && containerCards[0] && containerCards[numCards - 1]) {
-            const firstCardOffset = containerCards[0].offsetLeft;
-            const lastCardOffset = containerCards[numCards - 1].offsetLeft;
-            const cardSpacing = (lastCardOffset - firstCardOffset) / (numCards - 1);
-            
-            const trackX = activeCardIdx * cardSpacing;
-            if (rawProgress >= 0) {
-                orbitTrack.style.transform = `translateX(-${trackX}px)`;
-            } else {
-                orbitTrack.style.transform = `translateX(0px)`;
-            }
-        }
-
-        containerCards.forEach((card, idx) => {
-            // Index-based fractional offset from current active focus [-1.0 ... 0.0 ... +1.0]
-            const cardOffset = idx - activeCardIdx;
-            const clampedOffset = Math.max(-1.5, Math.min(1.5, cardOffset));
-            const absOffset = Math.abs(clampedOffset);
-
-            // 3D Curved Ultrawide Display Geometry:
-            // Center card: rotY: 0deg, translateZ: 0px (Straight main display focus)
-            // Side cards: curve inward along a 1000R curved monitor arc (rotY: +/- 32deg, translateZ: -220px)
-            const cardRotY = -32 * clampedOffset;                     // Angles inward to face viewer like a curved monitor wing
-            const translateZ = -220 * Math.pow(absOffset, 1.2);        // Recedes back -220px along the curved monitor screen
-            
-            // Pitch angle (rotateX) & Scale: unrolls from entrance tilt (20deg -> 0deg) as section enters viewport
-            const cardRotX = initialRotateX + 3 * absOffset;
-            const baseScale = isMobile ? (0.78 + 0.07 * entranceProgress) : (1.04 - 0.04 * entranceProgress);
-            const cardScale = baseScale - (isMobile ? 0.10 : 0.05) * absOffset;
-
-            // 3D Perspective (900px) for realistic 1000R curved monitor radius
-            card.style.transform = `perspective(900px) translateZ(${translateZ.toFixed(1)}px) rotateX(${cardRotX.toFixed(2)}deg) rotateY(${cardRotY.toFixed(2)}deg) scale(${cardScale.toFixed(3)})`;
-            
-            // Dynamic lighting, opacity & border glow based on proximity to center
-            if (absOffset < 0.20 && initialRotateX < 2) {
-                card.style.boxShadow = "0 25px 60px rgba(168, 85, 247, 0.35), 0 35px 70px rgba(0, 0, 0, 0.7)";
-                card.style.borderColor = "rgba(192, 132, 252, 0.8)";
-                card.style.opacity = "1";
-            } else {
-                card.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.6)";
-                card.style.borderColor = "rgba(51, 65, 85, 0.6)";
-                card.style.opacity = `${Math.max(0.45, 1 - absOffset * 0.40).toFixed(2)}`;
-            }
-        });
-    }
-
-    function smoothScrollTickLoop() {
-        targetSmoothY = window.scrollY;
-        const diff = targetSmoothY - currentSmoothY;
-
-        if (Math.abs(diff) > 0.05) {
-            currentSmoothY += diff * 0.10; // Silk 60 FPS lerp interpolation factor
-            updateOrbitContainerScroll();
-            requestAnimationFrame(smoothScrollTickLoop);
-        } else {
-            currentSmoothY = targetSmoothY;
-            updateOrbitContainerScroll();
-            isScrollLoopActive = false;
-        }
-    }
-
-    window.addEventListener('scroll', () => {
-        if (!isScrollLoopActive) {
-            isScrollLoopActive = true;
-            requestAnimationFrame(smoothScrollTickLoop);
-        }
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-        targetSmoothY = window.scrollY;
-        currentSmoothY = window.scrollY;
-        updateOrbitContainerScroll();
-    });
-    
-    updateOrbitContainerScroll();
-    applyLanguage('EN');
-});
-
-
 // ==========================================================================
-// 11. INTERNATIONALIZATION (i18n) MULTI-LANGUAGE ENGINE
+// Linear / Vercel Dark Tech Portfolio Engine
+// Zero-Lag, Zero-Bloat, 120 FPS Interaction Architecture
 // ==========================================================================
-let currentLang = 'EN';
+
+let currentLang = 'RU';
 
 const translations = {
     RU: {
-        'intro.text': 'Интеллект во плоти кода.',
-        'dock.hero': 'Главная',
-        'dock.projects': 'Мои проекты',
-        'dock.bot': 'Демо ИИ-Бота',
-        'dock.terminal': 'Консоль Навыков',
-        'dock.cv': 'Открыть CV',
-        'dock.contact': 'Telegram',
-        'hero.role': 'Интерактивное Онлайн-Резюме',
-        'hero.line1': 'Валерий',
-        'hero.line2': 'Fullstack AI-Разработчик',
-        'hero.desc': 'Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.',
-        'hero.cta': '<i class="pixelarticons-message-text text-lg text-white"></i> Telegram',
-        'hero.github': '<i class="pixelarticons-code text-lg text-white"></i> GitHub',
-        'hero.cv': '<i class="pixelarticons-file-text text-lg text-amber-300"></i> Резюме',
-        'orbit.title': 'Мои проекты',
-        'card1.tag': 'Коммерческий MVP CRM',
-        'card1.title': 'Atlas CRM — Платформа автоматизации ниш',
-        'card1.desc': 'Полнофункциональная CRM-система на React + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.',
-        'card1.f1': 'Строгое разграничение доступов в СУБД.',
-        'card1.f2': 'GitHub Actions -> Linux Ubuntu.',
-        'card2.tag': 'AI Agent & Automation',
-        'card2.title': 'ИИ-Бот Онлайн-Записи & RAG Context',
-        'card2.desc': 'Умный бот, ведающий диалог от лица Telegram-аккаунта (Telepilot API). Сам извлекает правила и свободные слоты из БД, согласует время с клиентом и отправляет уведомления в мессенджеры.',
-        'card2.f1': 'Запрос правил и слотов из базы данных.',
-        'card2.f2': 'Интеграция с Google Календарем.',
-        'card3.tag': 'DevOps & SysAdmin',
-        'card3.title': 'Серверная Инфраструктура & Защита',
-        'card3.desc': 'Развертывание и обслуживание Linux Ubuntu серверов. Конфигурация Nginx Reverse Proxy, установка SSL (Certbot), проксирование Cloudflare WAF, Docker контейнеризация и VPN.',
-        'card3.f1': 'Защита от атак и управление DNS.',
-        'card3.f2': 'Управление процессами и сборкой.',
-        'card4.tag': 'Web Studio & Agency',
-        'card4.title': 'Atlas Studio — Веб-Разработка & Автоматизация',
-        'card4.desc': 'Студия веб-разработки и системных автоматизаций. Создание коммерческих сайтов, веб-сервисов, конверсионных лендингов и интеграция авто-сценариев продаж для бизнеса.',
-        'card4.f1': 'Разработка сайтов и веб-сервисов под ключ.',
-        'card4.f2': 'n8n пайплайны и интеграции мессенджеров.',
-        'metrics.v1': 'Fast Learner',
-        'metrics.experience': 'Адаптивность к новому стеку',
-        'metrics.v2': '15+',
-        'metrics.projects': 'Проектов & ИИ-ботов',
-        'metrics.v3': '100%',
-        'metrics.autotests': 'RLS & CI/CD Автотесты',
-        'metrics.v4': '3x',
-        'metrics.speed': 'Скорость с AI-стеком',
-        'metrics.v5': '24/7',
-        'metrics.v5desc': 'ИИ-Агенты & Автоматизация',
-        'metrics.v6': '<100ms',
-        'metrics.v6desc': 'Оптимизация & Скорость',
-        'metrics.swipe': 'Свайпайте карточки ⟵ ⟶',
-        'bot.title': 'Демо ИИ-Бота',
-        'bot.sub': 'Проверь работу агента — нажми на одну из кнопок ниже.',
-        'bot.reset': 'Сбросить',
-        'bot.welcome': 'Здравствуйте! Я ИИ-ассистент записи. У меня подгружены актуальные правила компании и свободные слоты из базы данных. Чем могу помочь?',
-        'bot.b1': '💬 "Хочу записаться на завтра"',
-        'bot.b2': '📅 "Свободные слоты на вечер?"',
-        'bot.b3': '⚡ "Подтвердить запись на 18:00"',
-        'term.title': 'Консоль Навыков',
-        'term.sub': 'Проверь стековые команды или введи <span class="text-brandAccent font-mono">skills</span>, <span class="text-brandPurple font-mono">devops</span>, <span class="text-brandPrimary font-mono">education</span>.',
-        'contact.badge': 'Открыт к предложениям & Вакансиям',
-        'contact.title': 'Давайте обсудим ваш проект',
-        'contact.sub': 'Я открыт к новым предложениям, фуллтайм-разработке и проектным задачам. Напишите мне в Telegram или посмотрите исходный код на GitHub — отвечу в течение 15 минут.',
-        'contact.tgdesc': 'Быстрый ответ в течение 15 минут.',
-        'contact.emaildesc': 'Прямая связь для офферов и контрактов.',
-        'contact.ghdesc': 'Исходный код, коммиты и коммерческие MVP.'
+        'nav.home': 'Главная',
+        'nav.projects': 'Проекты',
+        'nav.ecosystem': 'Инструменты',
+        'nav.architecture': 'Архитектура',
+        'nav.stack': 'Стек',
+        'nav.contact': 'Контакты',
+        'nav.cv': 'Открыть CV',
+
+        'hero.status': 'Открыт к предложениям & Вакансиям',
+        'hero.line1': 'Разработка полносистемных ИИ-сервисов',
+        'hero.line2': 'и защищенной серверной инфраструктуры',
+        'hero.sub': 'Архитектура коммерческих React + Supabase RLS платформ, автономных n8n-пайплайнов, E2E автотестов и защищенного Linux DevOps.',
+        'hero.cta.tg': 'Написать в Telegram',
+        'hero.cta.cv': 'Открыть Резюме (PDF)',
+
+        'metrics.m1': 'Проектов и ИИ-ботов',
+        'metrics.m2': 'СУБД-изоляция доступа',
+        'metrics.m3': 'Автодеплой на Linux',
+        'metrics.m4': 'Playwright & Vitest',
+
+        'projects.eyebrow': 'Selected Work & Production MVPs',
+        'projects.title': 'Реализованные проекты и сервисы',
+
+        'p1.badge': 'Коммерческий MVP CRM',
+        'p1.title': 'Atlas CRM: Мультитенантная платформа автоматизации',
+        'p1.desc': 'Полнофункциональная CRM-система на React 19 + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.',
+        'p1.f1': 'Изоляция тенантов и строгие политики доступа в БД.',
+        'p1.f2': 'GitHub Actions → Vitest & Playwright → Ubuntu Linux.',
+
+        'p2.badge': 'AI Agent & Automation',
+        'p2.title': 'ИИ-Ассистент Записи & RAG Context',
+        'p2.desc': 'Интеллектуальный бот для диалогов от лица Telegram-аккаунта. Динамически извлекает регламенты и слоты из PostgreSQL, согласует время и ставит запись в Google Calendar.',
+        'p2.f1': 'Точный поиск правил и свободных слотов.',
+        'p2.f2': 'Двустороннее обновление расписания в Google.',
+
+        'p3.badge': 'DevOps & Security',
+        'p3.title': 'Серверный контур & Cloudflare WAF',
+        'p3.desc': 'Развертывание и сопровождение Linux Ubuntu серверов. Настройка Nginx Reverse Proxy, Certbot SSL, защита Cloudflare WAF, изоляция в Docker и мониторинг PM2.',
+
+        'p4.badge': 'Web Studio & Solutions',
+        'p4.title': 'Atlas Studio: Разработка веб-сервисов и автоматизаций',
+        'p4.desc': 'Инженерная веб-студия и студия автоматизаций. Создание коммерческих лендингов, SPA-сервисов, интеграция сценариев продаж и CRM-пайплайнов для бизнеса под ключ.',
+        'p4.f1': 'Быстрый отклик, Core Web Vitals и конверсионная верстка.',
+        'p4.f2': 'Связка вебхуков форм с n8n, CRM и мессенджерами.',
+
+        'eco.eyebrow': 'Autonomous AI & Agent Ecosystem',
+        'eco.title': 'Экосистема ИИ-агентов и сред разработки',
+        'eco.sub': 'Автономные агенты, CLI-инструменты и оркестраторы (перетаскивайте или вращайте кольцо)',
+        'eco.c1.desc': 'Автономная среда агентной разработки и мультиагентных систем.',
+        'eco.c2.desc': 'Автоматизация рефакторинга, генерация тестов и терминальные пайплайны.',
+        'eco.c3.desc': 'Синтез программной логики, преобразование алгоритмов и интеграции.',
+        'eco.c4.desc': 'Исполнение многошаговых сценариев и автоматизированный веб-поиск.',
+        'eco.c5.desc': 'Собственный движок мультитенантной CRM с защитой Supabase RLS.',
+        'eco.c6.desc': 'Оркестрация очередей вебхуков, баз данных и мессенджеров на Linux.',
+
+        'arch.eyebrow': 'Systems Architecture & Real Engineering',
+        'arch.title': 'Инспектор системной архитектуры',
+        'arch.sub': 'Настоящие инженерные решения: от политик изоляции данных в СУБД до автоматизированных очередей и CI/CD деплоя.',
+        'arch.tab1': '1. Supabase RLS & Auth',
+        'arch.tab2': '2. n8n & Telepilot Pipeline',
+        'arch.tab3': '3. GitHub Actions CI/CD',
+
+        'arch.rls.h': 'Многоарендная безопасность на уровне строк (PostgreSQL RLS)',
+        'arch.rls.p': 'Клиент не может получить чужие данные даже при прямой компрометации фронтенда: доступ фильтруется СУБД по auth.uid().',
+        
+        'arch.n8n.h': 'Автономный пайплайн обработки лидов через n8n Webhook',
+        'arch.n8n.p': 'Входящее сообщение от Telepilot API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.',
+
+        'arch.cicd.h': 'Автоматизированный CI/CD пайплайн с блокировкой деплоя',
+        'arch.cicd.p': 'Сборка деплоится на Linux Ubuntu только после успешного прохождения 100% Vitest и Playwright тестов.',
+
+        'stack.eyebrow': 'Technologies & Architecture Stack',
+        'stack.title': 'Технологический стек и квалификация',
+        'stack.c1.title': 'Frontend Engineering',
+        'stack.c1.desc': 'Современные SPA и конверсионные интерфейсы.',
+        'stack.c2.title': 'Backend & Database',
+        'stack.c2.desc': 'Защита данных и СУБД-логика.',
+        'stack.c3.title': 'AI & Automation',
+        'stack.c3.desc': 'Автономные агенты и сценарии.',
+        'stack.c4.title': 'DevOps & Testing',
+        'stack.c4.desc': 'Инфраструктура и надежность.',
+
+        'contact.title': 'Связаться и обсудить проект',
+        'contact.sub': 'Открыт к предложениям по полной занятости, архитектурным контрактам и разработке ИИ-систем. Ответ в Telegram в течение 15 минут.',
+        'contact.tgdesc': 'Быстрая связь для вопросов и офферов.',
+        'contact.emaildesc': 'Прямая почта для документации и ТЗ.',
+        'contact.ghdesc': 'Исходный код, коммиты и архитектура.',
+
+        'footer.cv': 'Печатная версия резюме (PDF)'
     },
     EN: {
-        'intro.text': 'Where intelligence meets code.',
-        'dock.hero': 'Home',
-        'dock.projects': 'My Projects',
-        'dock.bot': 'AI Bot Demo',
-        'dock.terminal': 'Skills Console',
-        'dock.cv': 'Open CV',
-        'dock.contact': 'Telegram',
-        'hero.role': 'Interactive CV & Portfolio',
-        'hero.line1': 'Valerii',
-        'hero.line2': 'Fullstack AI<br>Developer',
-        'hero.desc': 'I architect full-stack AI services, commercial CRM platforms (React + Supabase RLS), n8n workflows, and server infrastructure.',
-        'hero.cta': '<i class="pixelarticons-message-text text-lg text-white"></i> Telegram',
-        'hero.github': '<i class="pixelarticons-code text-lg text-white"></i> GitHub',
-        'hero.cv': '<i class="pixelarticons-file-text text-lg text-amber-300"></i> Resume',
-        'orbit.title': 'My Projects',
-        'card1.tag': 'Commercial MVP CRM',
-        'card1.title': 'Atlas CRM — Multi-Tenant Automation Platform',
-        'card1.desc': 'Full-featured CRM platform on React + Vite + Supabase. Hardened with Row Level Security (RLS), covered with Playwright & Vitest automated suites, auto-deployed via GitHub Actions to Linux Ubuntu servers.',
-        'card1.f1': 'Strict database row security access.',
-        'card1.f2': 'GitHub Actions -> Linux Ubuntu.',
-        'card2.tag': 'AI Agent & Automation',
-        'card2.title': 'AI Booking Agent & RAG Context',
-        'card2.desc': 'Smart agent executing user dialogue on behalf of Telegram account (Telepilot API). Dynamically fetches slots & rules from DB, negotiates time, and dispatches notifications.',
-        'card2.f1': 'RAG DB rule and slot retrieval.',
-        'card2.f2': 'Two-way Google Calendar Sync.',
-        'card3.tag': 'DevOps & SysAdmin',
-        'card3.title': 'Server Infrastructure & Security Hardening',
-        'card3.desc': 'Deployment and management of Linux Ubuntu servers. Nginx Reverse Proxy configuration, Certbot SSL automation, Cloudflare WAF routing, Docker containers and VPN.',
-        'card3.f1': 'DDoS protection & DNS management.',
-        'card3.f2': 'Process management & Docker build.',
-        'card4.tag': 'Web Studio & Agency',
-        'card4.title': 'Atlas Studio — Web Development & Automations',
-        'card4.desc': 'Custom web development and business process automation studio. Engineering commercial websites, web applications, high-converting landing pages, and lead automations.',
-        'card4.f1': 'End-to-end custom web & SPA development.',
-        'card4.f2': 'n8n pipelines & messaging integrations.',
-        'metrics.v1': 'Fast Learner',
-        'metrics.experience': 'Adaptability to New Stack',
-        'metrics.v2': '15+',
-        'metrics.projects': 'Projects & AI Bots',
-        'metrics.v3': '100%',
-        'metrics.autotests': 'RLS & CI/CD Auto-tests',
-        'metrics.v4': '3x',
-        'metrics.speed': 'Speed with AI Stack',
-        'metrics.v5': '24/7',
-        'metrics.v5desc': 'AI Agents & Workflows',
-        'metrics.v6': '<100ms',
-        'metrics.v6desc': 'Optimized Performance',
-        'metrics.swipe': 'Swipe cards ⟵ ⟶',
-        'bot.title': 'AI Agent Demo',
-        'bot.sub': 'Test live agent responses — click any scenario button below.',
-        'bot.reset': 'Reset',
-        'bot.welcome': 'Hello! I am an AI Booking Assistant. I am connected to PostgreSQL DB & Google Calendars. How can I assist you?',
-        'bot.b1': '💬 "Book appointment for tomorrow"',
-        'bot.b2': '📅 "Any free evening slots?"',
-        'bot.b3': '⚡ "Confirm booking for 18:00"',
-        'term.title': 'Skills Console',
-        'term.sub': 'Test stack commands or type <span class="text-brandAccent font-mono">skills</span>, <span class="text-brandPurple font-mono">devops</span>, <span class="text-brandPrimary font-mono">education</span>.',
-        'contact.badge': 'Open for Opportunities & Contracts',
+        'nav.home': 'Home',
+        'nav.projects': 'Projects',
+        'nav.ecosystem': 'Tooling',
+        'nav.architecture': 'Architecture',
+        'nav.stack': 'Stack',
+        'nav.contact': 'Contact',
+        'nav.cv': 'Open CV',
+
+        'hero.status': 'Available for Fullstack AI & Architecture Roles',
+        'hero.line1': 'Engineering Autonomous AI Platforms',
+        'hero.line2': 'and Resilient Cloud Infrastructure',
+        'hero.sub': 'Architecting commercial React + Supabase RLS platforms, autonomous n8n workflows, E2E test suites, and hardened Linux DevOps.',
+        'hero.cta.tg': 'Message on Telegram',
+        'hero.cta.cv': 'Open Resume (PDF)',
+
+        'metrics.m1': 'Production MVPs & Bots',
+        'metrics.m2': 'Database RLS Isolation',
+        'metrics.m3': 'Linux Automated Deploy',
+        'metrics.m4': 'Playwright & Vitest',
+
+        'projects.eyebrow': 'Selected Work & Production MVPs',
+        'projects.title': 'Selected Projects & Solutions',
+
+        'p1.badge': 'Commercial MVP CRM',
+        'p1.title': 'Atlas CRM: Multi-Tenant Automation Platform',
+        'p1.desc': 'Full-featured CRM platform built on React 19 + Vite + Supabase. Hardened with Row Level Security (RLS), covered with Playwright & Vitest automated suites, auto-deployed via GitHub Actions to Linux Ubuntu.',
+        'p1.f1': 'Tenant isolation & strict database access policies.',
+        'p1.f2': 'GitHub Actions → Vitest & Playwright → Ubuntu Linux.',
+
+        'p2.badge': 'AI Agent & Automation',
+        'p2.title': 'AI Booking Agent & RAG Context',
+        'p2.desc': 'Smart agent executing user dialogue on behalf of Telegram account (Telepilot API). Dynamically fetches slots & rules from DB, negotiates time, and dispatches notifications.',
+        'p2.f1': 'Accurate database rule and slot retrieval.',
+        'p2.f2': 'Two-way Google Calendar synchronization.',
+
+        'p3.badge': 'DevOps & Security',
+        'p3.title': 'Server Infrastructure & Cloudflare WAF',
+        'p3.desc': 'Deployment and management of Linux Ubuntu servers. Nginx Reverse Proxy configuration, Certbot SSL automation, Cloudflare WAF routing, Docker containers and PM2.',
+
+        'p4.badge': 'Web Studio & Solutions',
+        'p4.title': 'Atlas Studio: Web Engineering & Automations',
+        'p4.desc': 'Custom web development and business automation studio. Engineering commercial websites, high-converting landing pages, sales workflows, and CRM pipelines.',
+        'p4.f1': 'Fast response, Core Web Vitals and high-converting UX.',
+        'p4.f2': 'Seamless webhook pipelines between forms and CRM.',
+
+        'eco.eyebrow': 'Autonomous AI & Agent Ecosystem',
+        'eco.title': 'AI Agent Ecosystem & Developer Tooling',
+        'eco.sub': 'Autonomous agents, CLI workflows, and orchestrators (drag or swipe to spin)',
+        'eco.c1.desc': 'Autonomous agentic development environment and multi-agent systems.',
+        'eco.c2.desc': 'Refactoring automation, test generation, and terminal pipelines.',
+        'eco.c3.desc': 'Code synthesis, algorithmic transformations, and integrations.',
+        'eco.c4.desc': 'Multi-step autonomous execution and web agent tasks.',
+        'eco.c5.desc': 'Proprietary multi-tenant CRM engine hardened with Supabase RLS.',
+        'eco.c6.desc': 'Orchestration of webhook queues, databases, and messaging on Linux.',
+
+        'arch.eyebrow': 'Systems Architecture & Real Engineering',
+        'arch.title': 'Systems Architecture Inspector',
+        'arch.sub': 'Real engineering solutions: from database row-level security to automated queues and CI/CD pipelines.',
+        'arch.tab1': '1. Supabase RLS & Auth',
+        'arch.tab2': '2. n8n & Telepilot Pipeline',
+        'arch.tab3': '3. GitHub Actions CI/CD',
+
+        'arch.rls.h': 'Multi-Tenant Row-Level Security (PostgreSQL RLS)',
+        'arch.rls.p': 'Clients cannot access unauthorized rows even if frontend is compromised: data access is strictly bounded in DB via auth.uid().',
+        
+        'arch.n8n.h': 'Autonomous Lead Orchestration via n8n Webhook',
+        'arch.n8n.p': 'Incoming message from Telepilot API is validated, enriched with PostgreSQL RAG context, and scheduled to calendar.',
+
+        'arch.cicd.h': 'Automated CI/CD Pipeline with Quality Gateways',
+        'arch.cicd.p': 'Production build deploys to Linux Ubuntu only after 100% test pass rate across Vitest and Playwright.',
+
+        'stack.eyebrow': 'Technologies & Architecture Stack',
+        'stack.title': 'Technical Stack & Qualifications',
+        'stack.c1.title': 'Frontend Engineering',
+        'stack.c1.desc': 'Modern SPAs and high-converting interfaces.',
+        'stack.c2.title': 'Backend & Database',
+        'stack.c2.desc': 'Data protection and database logic.',
+        'stack.c3.title': 'AI & Automation',
+        'stack.c3.desc': 'Autonomous agents and workflows.',
+        'stack.c4.title': 'DevOps & Testing',
+        'stack.c4.desc': 'Infrastructure reliability and security.',
+
         'contact.title': "Let's Discuss Your Project",
-        'contact.sub': 'I am open for new opportunities, full-time positions, and contract work. Message me on Telegram or check my GitHub — I reply within 15 minutes.',
-        'contact.tgdesc': 'Fast response within 15 minutes.',
-        'contact.emaildesc': 'Direct contact for offers & contracts.',
-        'contact.ghdesc': 'Source code, commits, and production MVPs.'
+        'contact.sub': 'Open for full-time opportunities, architectural contracts, and custom AI systems development. Reply on Telegram within 15 minutes.',
+        'contact.tgdesc': 'Fast direct communication for inquiries and offers.',
+        'contact.emaildesc': 'Direct inbox for contracts and specifications.',
+        'contact.ghdesc': 'Source code, commits, and system architecture.',
+
+        'footer.cv': 'Printable Resume (PDF)'
     }
 };
 
 function applyLanguage(lang) {
     currentLang = lang;
-    
-    // Update button text across desktop and mobile
-    const langBtnText = document.getElementById('lang-btn-text');
-    const mobileLangBadge = document.getElementById('mobile-menu-lang-badge');
-    const mobileDrawerLangText = document.getElementById('mobile-drawer-lang-text');
-    const mobileDrawerTitle = document.getElementById('mobile-drawer-title');
-    const mobileLangLabel = document.getElementById('mobile-lang-label');
 
-    if (currentLang === 'RU') {
-        if (langBtnText) langBtnText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
-        if (mobileLangBadge) mobileLangBadge.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
-        if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `RU / <span class="text-slate-400">EN</span>`;
-        if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Навигация по сайту`;
-        if (mobileLangLabel) mobileLangLabel.textContent = `Язык сайта / Language:`;
-    } else {
-        if (langBtnText) langBtnText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
-        if (mobileLangBadge) mobileLangBadge.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
-        if (mobileDrawerLangText) mobileDrawerLangText.innerHTML = `<span class="text-slate-400">RU</span> / EN`;
-        if (mobileDrawerTitle) mobileDrawerTitle.textContent = `Site Navigation`;
-        if (mobileLangLabel) mobileLangLabel.textContent = `Site Language:`;
+    // Update language toggle button label
+    const langBtnText = document.getElementById('lang-btn-text');
+    if (langBtnText) {
+        if (currentLang === 'RU') {
+            langBtnText.innerHTML = `RU / <span class="text-zinc-500">EN</span>`;
+        } else {
+            langBtnText.innerHTML = `<span class="text-zinc-500">RU</span> / EN`;
+        }
     }
 
-    // Translate all data-i18n elements
-    const i18nElements = document.querySelectorAll('[data-i18n]');
+    // Update all i18n text nodes
     const dict = translations[currentLang];
-
-    i18nElements.forEach(el => {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[key]) {
-            el.innerHTML = dict[key];
+        if (dict && dict[key]) {
+            el.textContent = dict[key];
         }
     });
 
-    // Update all PDF resume links to pass active language parameter (?lang=RU or ?lang=EN)
+    // Update PDF resume links to propagate current language
     const cvLinks = document.querySelectorAll('a[href*="resume_printable.html"]');
     cvLinks.forEach(link => {
         link.href = `resume_printable.html?lang=${currentLang}`;
     });
-
-    // Re-split all section headings & hero text for letter-by-letter animation
-    initScrollLetterAnimationEngine();
-
-    const revealedHeadings = document.querySelectorAll('#title-line-1.seq-visible, #title-line-2.seq-visible, #hero-desc.seq-visible, #hero-desc-desktop.seq-visible');
-    revealedHeadings.forEach(el => {
-        const spans = splitTextToSpans(el);
-        spans.forEach(span => span.classList.add('visible'));
-    });
-
-    // Reset bot demo message in new language
-    resetBotDemo();
 }
 
 function toggleLanguage() {
@@ -1471,260 +225,670 @@ function toggleLanguage() {
     applyLanguage(nextLang);
 }
 
-function toggleMobileMenu() {
-    const overlay = document.getElementById('mobile-menu-overlay');
-    const drawer = document.getElementById('mobile-menu-drawer');
-    const triggerPill = document.getElementById('mobile-trigger-pill');
-    if (!overlay || !drawer) return;
-
-    const isOpen = !overlay.classList.contains('opacity-0');
-    if (isOpen) {
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-        drawer.classList.add('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-4');
-        drawer.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
-        if (triggerPill) triggerPill.classList.remove('scale-90', 'opacity-40');
-    } else {
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        drawer.classList.remove('scale-90', 'opacity-0', 'pointer-events-none', 'translate-y-4');
-        drawer.classList.add('scale-100', 'opacity-100', 'translate-y-0');
-        if (triggerPill) triggerPill.classList.add('scale-90', 'opacity-40');
-    }
-}
-
-// Expose globally to window for onclick handlers
-window.toggleLanguage = toggleLanguage;
-window.applyLanguage = applyLanguage;
-window.toggleMobileMenu = toggleMobileMenu;
-
-
-// 12. Live AI Bot Simulation Demo
-function triggerBotDemo(scenario) {
-    const chatBody = document.getElementById('bot-chat-body');
-    if (!chatBody) return;
-
-    const isEn = currentLang === 'EN';
-
-    if (scenario === 1) {
-        appendUserMsg(chatBody, isEn ? 'Hello, I want to book an appointment for tomorrow' : 'Здравствуйте, хочу записаться на завтра');
-        setTimeout(() => {
-            appendSystemLog(chatBody, '⚡ n8n Webhook -> Querying PostgreSQL DB (RAG)...');
-        }, 400);
-        setTimeout(() => {
-            appendAiMsg(chatBody, isEn ? 'Great! Tomorrow we have open slots at 14:00 and 18:00. Which time works best for you?' : 'Отлично! Завтра на 14:00 и 18:00 есть свободные окна. Какое время вам удобнее?');
-        }, 1200);
-    } else if (scenario === 2) {
-        appendUserMsg(chatBody, isEn ? 'Which slots are available in the evening?' : 'Какие слоты свободны на вечер?');
-        setTimeout(() => {
-            appendSystemLog(chatBody, '⚡ Telepilot API -> Fetching Google Calendar Slots...');
-        }, 400);
-        setTimeout(() => {
-            appendAiMsg(chatBody, isEn ? 'Available evening slots: 17:30, 18:30, and 19:15. Which would you like to reserve?' : 'На вечер свободны слоты: 17:30, 18:30 и 19:15. На какой вас записать?');
-        }, 1200);
-    } else if (scenario === 3) {
-        appendUserMsg(chatBody, isEn ? 'Confirm booking for 18:00' : 'Подтвердить запись на 18:00');
-        setTimeout(() => {
-            appendSystemLog(chatBody, '✅ DB Booking Created -> Notification Dispatched to Owner Telegram');
-        }, 400);
-        setTimeout(() => {
-            appendAiMsg(chatBody, isEn ? 'Done! Your booking for tomorrow at 18:00 is confirmed. Notification sent to specialist.' : 'Готово! Вы успешно записаны на завтра в 18:00. Уведомление отправлено мастеру. Ждем вас!');
-        }, 1200);
-    }
-}
-
-function appendUserMsg(container, text) {
-    const msg = document.createElement('div');
-    msg.className = 'flex gap-3 items-start justify-end';
-    msg.innerHTML = `
-        <div class="p-3.5 rounded-2xl bg-brandPurple text-white font-medium max-w-md shadow-md">
-            ${text}
-        </div>
-        <div class="w-7 h-7 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">${currentLang === 'EN' ? 'You' : 'Вы'}</div>
-    `;
-    container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
-}
-
-function appendSystemLog(container, text) {
-    const log = document.createElement('div');
-    log.className = 'font-mono text-[11px] text-brandAccent text-center py-1 bg-emerald-950/40 border border-emerald-500/20 rounded-lg max-w-sm mx-auto';
-    log.innerHTML = text;
-    container.appendChild(log);
-    container.scrollTop = container.scrollHeight;
-}
-
-function appendAiMsg(container, text) {
-    const msg = document.createElement('div');
-    msg.className = 'flex gap-3 items-start';
-    msg.innerHTML = `
-        <div class="w-7 h-7 rounded-full bg-brandPurple/30 text-brandPurple flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">AI</div>
-        <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-glassBorder text-slate-200 max-w-md">
-            ${text}
-        </div>
-    `;
-    container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
-}
-
-function resetBotDemo() {
-    const chatBody = document.getElementById('bot-chat-body');
-    const isEn = currentLang === 'EN';
-    if (chatBody) {
-        chatBody.innerHTML = `
-            <div class="flex gap-3 items-start">
-                <div class="w-7 h-7 rounded-full bg-brandPurple/30 text-brandPurple flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">AI</div>
-                <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-glassBorder text-slate-200 max-w-md">
-                    ${isEn ? 'Hello! I am an AI Booking Assistant. I am connected to PostgreSQL DB & Google Calendars. How can I assist you?' : 'Здравствуйте! Я ИИ-ассистент записи. У меня подгружены актуальные правила компании и свободные слоты из базы данных. Чем могу помочь?'}
-                </div>
-            </div>
-        `;
-    }
-}
-
-// 13. Terminal CLI Logic
-const cmdOutputs = {
-    help: `
-Available Commands:
-- <span class="text-brandPrimary">skills</span>    : Display full technical skillset & stack
-- <span class="text-brandPurple">devops</span>    : Server, Docker, Nginx & Infrastructure details
-- <span class="text-brandAccent">education</span> : Degree credentials (MIREA Software Engineering)
-- <span class="text-slate-400">clear</span>     : Clear terminal output screen
-`,
-    skills: `
-<span class="text-brandPrimary font-bold">=== CORE SKILLSET & TECH STACK ===</span>
-• <span class="text-white">AI & Automation:</span> n8n Workflows, Telepilot (User-Bots), Google Gemini 1.5 API (Pro/Flash), RAG, MCP, Webhooks.
-• <span class="text-white">Frontend:</span> React, Vite, SPA Architecture, Tailwind CSS, Responsive & Motion Design.
-• <span class="text-white">Backend & Databases:</span> Supabase, PostgreSQL, Row Level Security (RLS), Triggers, Realtime.
-• <span class="text-white">Testing:</span> Playwright E2E Testing, Vitest.
-• <span class="text-white">GitHub:</span> <a href="https://github.com/Valerador" target="_blank" class="text-brandPrimary underline">github.com/Valerador</a>
-`,
-    devops: `
-<span class="text-brandPurple font-bold">=== DEVOPS & SYSADMIN INFRASTRUCTURE ===</span>
-• <span class="text-white">OS & Containers:</span> Linux Ubuntu, Docker, PM2 process manager, SSH administration.
-• <span class="text-white">Web Server:</span> Nginx Reverse Proxy, Certbot SSL automation.
-• <span class="text-white">Network & Security:</span> Cloudflare WAF/DNS, custom VPN server setups.
-• <span class="text-white">CI/CD:</span> GitHub Actions automated deployment pipelines.
-`,
-    education: `
-<span class="text-brandAccent font-bold">=== EDUCATION & ACADEMIC BACKGROUND ===</span>
-• <span class="text-white">B.S. Software Engineering:</span> MIREA – Russian Technological University.
-  <i>Specialization in software architecture, databases & algorithms.</i>
-
-• <span class="text-white">M.S. Archival Science:</span> Kalmyk State University.
-  <i>Data structuring & documentation management.</i>
-`
-};
-
-function runCmd(cmd) {
-    const termBody = document.getElementById('terminal-body');
-    const cleanCmd = cmd.trim().toLowerCase();
-
-    if (cleanCmd === 'clear') {
-        termBody.innerHTML = `
-            <div>Welcome to Valerii's Deep Space CLI Portal.</div>
-            <div>Type <span class="text-brandAccent">help</span> or click quick action buttons below.</div>
-            <div class="text-slate-500">----------------------------------------------------</div>
-        `;
-        return;
-    }
-
-    const cmdLineDiv = document.createElement('div');
-    const promptSpan = document.createElement('span');
-    promptSpan.className = 'text-brandAccent';
-    promptSpan.textContent = '$ ';
-
-    const cmdSpan = document.createElement('span');
-    cmdSpan.className = 'text-white font-bold';
-    cmdSpan.textContent = cleanCmd;
-
-    cmdLineDiv.appendChild(promptSpan);
-    cmdLineDiv.appendChild(cmdSpan);
-    termBody.appendChild(cmdLineDiv);
-
-    const resLine = document.createElement('div');
-    if (cmdOutputs[cmdOutputs[cleanCmd] ? cleanCmd : 'help']) {
-        resLine.innerHTML = cmdOutputs[cleanCmd];
-    } else {
-        const errSpan = document.createElement('span');
-        errSpan.className = 'text-red-400';
-        errSpan.textContent = `Command not found: "${cleanCmd}". Type help for list of commands.`;
-        resLine.appendChild(errSpan);
-    }
-    termBody.appendChild(resLine);
-    termBody.scrollTop = termBody.scrollHeight;
-}
-
-function handleCmdSubmit(event) {
-    event.preventDefault();
-    const input = document.getElementById('terminal-input');
-    if (input.value) {
-        runCmd(input.value);
-        input.value = '';
-    }
-}
-
 // ==========================================================================
-// 14. SMOOTH DYNAMIC SCROLL REVEAL OBSERVER ENGINE
+// Architecture Inspector Tab Switcher
 // ==========================================================================
-function initScrollRevealEngine() {
-    const revealTargets = document.querySelectorAll(
-        '.scroll-reveal, .scroll-reveal-card, #container-scroll-header, #metrics-section, #bot-simulation, #terminal-section, #contact-section, .container-scroll-card, #contact-section a'
-    );
-
-    revealTargets.forEach(el => {
-        if (!el.classList.contains('scroll-reveal') && !el.classList.contains('scroll-reveal-card')) {
-            el.classList.add('scroll-reveal');
+function switchArchTab(tabKey) {
+    const tabs = ['rls', 'n8n', 'cicd'];
+    
+    tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const pane = document.getElementById(`tab-pane-${t}`);
+        
+        if (t === tabKey) {
+            if (btn) btn.classList.add('active');
+            if (pane) pane.classList.remove('hidden');
+        } else {
+            if (btn) btn.classList.remove('active');
+            if (pane) pane.classList.add('hidden');
         }
     });
+}
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-active');
+// ==========================================================================
+// Global Mouse & Scroll Telemetry
+// ==========================================================================
+let mouseX = -9999;
+let mouseY = -9999;
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+}, { passive: true });
+
+let rawScrollVelocity = 0;
+let smoothScrollVelocity = 0;
+let lastScrollY = window.scrollY;
+let lastScrollTime = performance.now();
+window.addEventListener('scroll', () => {
+    const now = performance.now();
+    const dt = Math.max(1, now - lastScrollTime);
+    const delta = window.scrollY - lastScrollY;
+    rawScrollVelocity = (delta / dt) * 16;
+    lastScrollY = window.scrollY;
+    lastScrollTime = now;
+}, { passive: true });
+
+// ==========================================================================
+// 1. COSMIC STARFIELD ENGINE (Crisp High-DPI Depth, Lensing, Zero CPU Offscreen)
+// ==========================================================================
+function initStarfieldEngine() {
+    const starfieldCanvas = document.getElementById('starfield');
+    if (!starfieldCanvas) return;
+
+    const sCtx = starfieldCanvas.getContext('2d');
+    let sWidth = 0;
+    let sHeight = 0;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+    function resizeStarfield() {
+        sWidth = window.innerWidth;
+        sHeight = window.innerHeight;
+        starfieldCanvas.width = sWidth * dpr;
+        starfieldCanvas.height = sHeight * dpr;
+        starfieldCanvas.style.width = `${sWidth}px`;
+        starfieldCanvas.style.height = `${sHeight}px`;
+        sCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    resizeStarfield();
+    window.addEventListener('resize', resizeStarfield);
+
+    const isMobileScreen = window.innerWidth < 768;
+    const numDust = isMobileScreen ? 160 : 360;
+    const dustParticles = [];
+
+    for (let i = 0; i < numDust; i++) {
+        const isHighlight = Math.random() > 0.88;
+        dustParticles.push({
+            x: (Math.random() - 0.5) * sWidth * 2.2,
+            y: (Math.random() - 0.5) * sHeight * 2.2,
+            z: Math.random() * 1000 + 1,
+            baseSpeed: Math.random() * 1.5 + 0.8,
+            size: isHighlight ? (Math.random() * 1.4 + 2.0) : (Math.random() * 0.9 + 1.1),
+            color: isHighlight 
+                ? '#ffffff' 
+                : (Math.random() > 0.6 ? '#ffffff' : (Math.random() > 0.5 ? '#93c5fd' : '#c084fc')),
+            baseAlpha: isHighlight ? (Math.random() * 0.15 + 0.85) : (Math.random() * 0.3 + 0.55),
+            twinklePhase: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.02 + Math.random() * 0.03,
+            isHighlight
+        });
+    }
+
+    let smoothMouseX = sWidth / 2;
+    let smoothMouseY = sHeight / 2;
+    let isStarfieldVisible = true;
+    let starfieldAnimationFrameId = null;
+
+    function renderStarfield() {
+        if (!isStarfieldVisible || document.hidden) {
+            starfieldAnimationFrameId = null;
+            return;
+        }
+
+        sCtx.clearRect(0, 0, sWidth, sHeight);
+
+        if (mouseX > -9000) {
+            smoothMouseX += (mouseX - smoothMouseX) * 0.05;
+            smoothMouseY += (mouseY - smoothMouseY) * 0.05;
+        } else {
+            smoothMouseX += ((sWidth / 2) - smoothMouseX) * 0.05;
+            smoothMouseY += ((sHeight / 2) - smoothMouseY) * 0.05;
+        }
+
+        const mouseShiftX = ((smoothMouseX / sWidth) - 0.5) * 120;
+        const mouseShiftY = ((smoothMouseY / sHeight) - 0.5) * 120;
+        const cx = (sWidth / 2) + mouseShiftX;
+        const cy = (sHeight / 2) + mouseShiftY;
+        const focalLength = 360;
+
+        smoothScrollVelocity += (rawScrollVelocity - smoothScrollVelocity) * 0.045;
+        rawScrollVelocity *= 0.92;
+
+        const absVel = Math.abs(smoothScrollVelocity);
+        const velEffect = Math.sign(smoothScrollVelocity) * Math.pow(absVel * 0.05, 0.75);
+        const warpMultiplier = Math.max(0.4, 1.0 + velEffect);
+
+        dustParticles.forEach(p => {
+            p.twinklePhase += p.twinkleSpeed;
+            const twinkleAlpha = 0.85 + Math.sin(p.twinklePhase) * 0.15;
+            const currentSpeed = p.baseSpeed * warpMultiplier;
+
+            p.z -= currentSpeed;
+            if (p.z <= 1) {
+                p.z = 1000;
+                p.x = (Math.random() - 0.5) * sWidth * 2.2;
+                p.y = (Math.random() - 0.5) * sHeight * 2.2;
+            }
+
+            const baseScreenX = cx + (p.x / p.z) * focalLength;
+            const baseScreenY = cy + (p.y / p.z) * focalLength;
+            const depthProgress = (1000 - p.z) / 1000;
+            const currentSize = p.size * Math.max(0.6, depthProgress * 1.3);
+
+            let screenX = baseScreenX;
+            let screenY = baseScreenY;
+
+            if (mouseX > -9000) {
+                const dx = baseScreenX - mouseX;
+                const dy = baseScreenY - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const lensRadius = 140;
+
+                if (dist < lensRadius && dist > 0) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = Math.pow((lensRadius - dist) / lensRadius, 1.3);
+                    const swirlAngle = angle + force * 0.6;
+                    const lensedDist = dist + force * 35;
+                    screenX = mouseX + Math.cos(swirlAngle) * lensedDist;
+                    screenY = mouseY + Math.sin(swirlAngle) * lensedDist;
+                }
+            }
+
+            const alpha = Math.min(1, p.baseAlpha * twinkleAlpha * (0.35 + depthProgress * 0.65));
+
+            if (alpha > 0.05 && screenX >= -40 && screenX <= sWidth + 40 && screenY >= -40 && screenY <= sHeight + 40) {
+                if (p.isHighlight) {
+                    const glowR = currentSize * 3.8;
+                    const grad = sCtx.createRadialGradient(screenX, screenY, 0, screenX, screenY, glowR);
+                    grad.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+                    grad.addColorStop(0.35, `rgba(168, 85, 247, ${alpha * 0.7})`);
+                    grad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+                    sCtx.fillStyle = grad;
+                    sCtx.beginPath();
+                    sCtx.arc(screenX, screenY, glowR, 0, Math.PI * 2);
+                    sCtx.fill();
+                }
+
+                sCtx.fillStyle = p.isHighlight ? `rgba(255, 255, 255, ${alpha.toFixed(2)})` : p.color;
+                sCtx.globalAlpha = alpha;
+                sCtx.beginPath();
+                sCtx.arc(screenX, screenY, Math.max(0.85, currentSize), 0, Math.PI * 2);
+                sCtx.fill();
+                sCtx.globalAlpha = 1;
             }
         });
-    }, {
-        threshold: 0.05,
-        rootMargin: '0px 0px -30px 0px'
+
+        starfieldAnimationFrameId = requestAnimationFrame(renderStarfield);
+    }
+
+    function startStarfieldLoop() {
+        if (!starfieldAnimationFrameId && isStarfieldVisible && !document.hidden) {
+            starfieldAnimationFrameId = requestAnimationFrame(renderStarfield);
+        }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && isStarfieldVisible) startStarfieldLoop();
     });
 
-    revealTargets.forEach(el => {
-        revealObserver.observe(el);
-    });
+    startStarfieldLoop();
 }
 
 // ==========================================================================
-// 15. SCROLL-DRIVEN LETTER-BY-LETTER HEADING REVEAL ENGINE
+// 2. 3D RETINA PARTICLE CUBE (Hero Centerpiece, Behind Text with 3D Depth)
 // ==========================================================================
-function initScrollLetterAnimationEngine() {
-    const headings = document.querySelectorAll('h2[data-i18n], h2.font-heading');
+function initParticleCubeEngine() {
+    const cubeCanvas = document.getElementById('particle-star-canvas');
+    if (!cubeCanvas) return;
 
-    headings.forEach(h2 => {
-        if (h2.id === 'hero-title' || h2.closest('#hero-sky')) return;
+    const cCtx = cubeCanvas.getContext('2d');
+    let cWidth = 0;
+    let cHeight = 0;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
 
-        splitTextToSpans(h2);
+    function resizeCubeCanvas() {
+        const rect = cubeCanvas.parentElement.getBoundingClientRect();
+        cWidth = rect.width;
+        cHeight = rect.height;
 
-        const headingObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const chars = entry.target.querySelectorAll('.char-span');
-                if (entry.isIntersecting) {
-                    chars.forEach((span, index) => {
-                        setTimeout(() => {
-                            span.classList.add('visible');
-                        }, index * 25);
-                    });
+        cubeCanvas.width = cWidth * dpr;
+        cubeCanvas.height = cHeight * dpr;
+        cubeCanvas.style.width = `${cWidth}px`;
+        cubeCanvas.style.height = `${cHeight}px`;
+
+        cCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cCtx.imageSmoothingEnabled = true;
+    }
+
+    resizeCubeCanvas();
+    window.addEventListener('resize', resizeCubeCanvas);
+
+    // Pre-rendered High-Res Spherical Bokeh Orbs
+    function createParticleSprite(coreR, coreG, coreB, haloR, haloG, haloB) {
+        const sprCanvas = document.createElement('canvas');
+        const size = 96;
+        sprCanvas.width = size;
+        sprCanvas.height = size;
+        const sprCtx = sprCanvas.getContext('2d');
+        const center = size / 2;
+
+        const grad = sprCtx.createRadialGradient(center, center, 0, center, center, center);
+        grad.addColorStop(0,    `rgba(${coreR}, ${coreG}, ${coreB}, 1.0)`);
+        grad.addColorStop(0.35, `rgba(${coreR}, ${coreG}, ${coreB}, 0.9)`);
+        grad.addColorStop(0.70, `rgba(${haloR}, ${haloG}, ${haloB}, 0.75)`);
+        grad.addColorStop(0.90, `rgba(79, 70, 229, 0.4)`);
+        grad.addColorStop(1.0,  `rgba(15, 10, 30, 0)`);
+
+        sprCtx.fillStyle = grad;
+        sprCtx.beginPath();
+        sprCtx.arc(center, center, center, 0, Math.PI * 2);
+        sprCtx.fill();
+
+        return sprCanvas;
+    }
+
+    const spriteCore = createParticleSprite(245, 247, 255, 165, 180, 252);
+    const spriteEdge = createParticleSprite(255, 255, 255, 129, 140, 248);
+    const spriteAmbient = createParticleSprite(230, 235, 250, 192, 132, 252);
+
+    const isMobile = window.innerWidth < 768;
+    const cubeSize = isMobile ? 85 : 120;
+    const numCubeParticles = isMobile ? 1600 : 2500;
+    const cubeParticles = [];
+
+    function isCubeEdgePoint(x, y, z, s) {
+        const threshold = s * 0.84;
+        let count = 0;
+        if (Math.abs(x) >= threshold) count++;
+        if (Math.abs(y) >= threshold) count++;
+        if (Math.abs(z) >= threshold) count++;
+        return count >= 2;
+    }
+
+    function generateRicardoChanceCubePoint(halfSize) {
+        const mode = Math.random();
+        if (mode < 0.45) {
+            // 45% 12 Wireframe Edges
+            const edgeIndex = Math.floor(Math.random() * 12);
+            const t = (Math.random() - 0.5) * 2 * halfSize;
+            const s = halfSize;
+            let x = 0, y = 0, z = 0;
+
+            switch (edgeIndex) {
+                case 0: x = t; y = s; z = s; break;
+                case 1: x = t; y = -s; z = s; break;
+                case 2: x = t; y = s; z = -s; break;
+                case 3: x = t; y = -s; z = -s; break;
+                case 4: x = s; y = t; z = s; break;
+                case 5: x = -s; y = t; z = s; break;
+                case 6: x = s; y = t; z = -s; break;
+                case 7: x = -s; y = t; z = -s; break;
+                case 8: x = s; y = s; z = t; break;
+                case 9: x = -s; y = s; z = t; break;
+                case 10: x = s; y = -s; z = t; break;
+                default: x = -s; y = -s; z = t; break;
+            }
+            return { x, y, z, isCore: false, isEdge: true };
+
+        } else if (mode < 0.85) {
+            // 40% Outer 6 Faces
+            const face = Math.floor(Math.random() * 6);
+            const u = (Math.random() - 0.5) * 2 * halfSize;
+            const v = (Math.random() - 0.5) * 2 * halfSize;
+            const s = halfSize;
+            let pt;
+            switch (face) {
+                case 0: pt = { x: s, y: u, z: v }; break;
+                case 1: pt = { x: -s, y: u, z: v }; break;
+                case 2: pt = { x: u, y: s, z: v }; break;
+                case 3: pt = { x: u, y: -s, z: v }; break;
+                case 4: pt = { x: u, y: v, z: s }; break;
+                default: pt = { x: u, y: v, z: -s }; break;
+            }
+            const isEdge = isCubeEdgePoint(pt.x, pt.y, pt.z, halfSize);
+            return { ...pt, isCore: false, isEdge };
+
+        } else {
+            // 15% Inner Volume & Core
+            return {
+                x: (Math.random() - 0.5) * 1.6 * halfSize,
+                y: (Math.random() - 0.5) * 1.6 * halfSize,
+                z: (Math.random() - 0.5) * 1.6 * halfSize,
+                isCore: true,
+                isEdge: false
+            };
+        }
+    }
+
+    for (let i = 0; i < numCubeParticles; i++) {
+        const pt = generateRicardoChanceCubePoint(cubeSize);
+        const dist = Math.sqrt(pt.x * pt.x + pt.y * pt.y + pt.z * pt.z) || 1;
+        const dirX = (pt.x / dist) + (Math.random() - 0.5) * 0.3;
+        const dirY = (pt.y / dist) + (Math.random() - 0.5) * 0.3;
+        const dirZ = (pt.z / dist) + (Math.random() - 0.5) * 0.3;
+
+        let sprite, pSize, baseAlpha;
+        if (pt.isEdge) {
+            sprite = spriteEdge;
+            baseAlpha = 0.95;
+            pSize = Math.random() * 0.7 + 1.4;
+        } else if (pt.isCore) {
+            sprite = spriteCore;
+            baseAlpha = Math.random() * 0.2 + 0.8;
+            pSize = Math.random() * 0.7 + 1.1;
+        } else {
+            sprite = spriteAmbient;
+            baseAlpha = Math.random() * 0.2 + 0.65;
+            pSize = Math.random() * 0.5 + 0.9;
+        }
+
+        cubeParticles.push({
+            hx: pt.x, hy: pt.y, hz: pt.z,
+            dirX, dirY, dirZ,
+            isEdge: pt.isEdge,
+            isCore: pt.isCore,
+            offX: 0, offY: 0, offZ: 0,
+            vx: 0, vy: 0,
+            size: pSize,
+            sprite,
+            baseAlpha,
+            pulsePhase: Math.random() * Math.PI * 2,
+            pulseSpeed: 0.02 + Math.random() * 0.04
+        });
+    }
+
+    let currRotX = 0;
+    let currRotY = 0;
+    let autoRotateAngle = 0;
+    let animTime = 0;
+    const startTime = performance.now();
+    const assemblyDuration = 1800; // 1.8s live particle implosion curve
+
+    let isCubeVisible = true;
+    let cubeAnimationFrameId = null;
+
+    function renderCube() {
+        if (!isCubeVisible || document.hidden) {
+            cubeAnimationFrameId = null;
+            return;
+        }
+
+        cCtx.clearRect(0, 0, cWidth, cHeight);
+        const cx = cWidth / 2;
+        const cy = cHeight / 2;
+
+        animTime += 1;
+        autoRotateAngle += 0.007;
+
+        // Assembly easing calculation
+        const elapsed = performance.now() - startTime;
+        const rawAssembly = Math.min(1, elapsed / assemblyDuration);
+        const assemblyProgress = 1 - Math.pow(1 - rawAssembly, 3); // Cubic ease-out
+
+        // Gyro Parallax tracking
+        let mouseNormX = 0, mouseNormY = 0;
+        if (mouseX > -9000) {
+            const rect = cubeCanvas.getBoundingClientRect();
+            const relX = mouseX - (rect.left + rect.width / 2);
+            const relY = mouseY - (rect.top + rect.height / 2);
+            mouseNormX = Math.max(-1, Math.min(1, relX / 450));
+            mouseNormY = Math.max(-1, Math.min(1, relY / 450));
+        }
+
+        const targetRotX = mouseNormY * 0.42;
+        const targetRotY = mouseNormX * 0.52;
+
+        currRotX += (targetRotX - currRotX) * 0.08;
+        currRotY += (targetRotY - currRotY) * 0.08;
+
+        // Isometric pitch (0.42 rad ~24deg) keeps cube top and front faces proportioned
+        const idlePitchX = 0.42 + Math.sin(autoRotateAngle * 0.4) * 0.06;
+        const finalRotX = idlePitchX + currRotX;
+        const finalRotY = autoRotateAngle + currRotY;
+
+        const cosX = Math.cos(finalRotX), sinX = Math.sin(finalRotX);
+        const cosY = Math.cos(finalRotY), sinY = Math.sin(finalRotY);
+
+        cCtx.save();
+        cCtx.globalCompositeOperation = 'screen';
+
+        for (let i = 0; i < numCubeParticles; i++) {
+            const p = cubeParticles[i];
+            p.pulsePhase += p.pulseSpeed;
+            const twinkleBrightness = 0.80 + Math.sin(p.pulsePhase) * 0.20;
+
+            const noiseWaveX = Math.sin(animTime * 0.002 + p.hy * 0.05) * 3;
+            const noiseWaveY = Math.cos(animTime * 0.002 + p.hx * 0.05) * 3;
+
+            const targetX = p.hx + noiseWaveX + p.offX;
+            const targetY = p.hy + noiseWaveY + p.offY;
+            const targetZ = p.hz;
+
+            const outerX = p.dirX * 320;
+            const outerY = p.dirY * 320;
+            const outerZ = p.dirZ * 320;
+
+            const px = outerX * (1 - assemblyProgress) + targetX * assemblyProgress;
+            const py = outerY * (1 - assemblyProgress) + targetY * assemblyProgress;
+            const pz = outerZ * (1 - assemblyProgress) + targetZ * assemblyProgress;
+
+            let y1 = py * cosX - pz * sinX;
+            let z1 = py * sinX + pz * cosX;
+
+            let rx = px * cosY + z1 * sinY;
+            let rz = -px * sinY + z1 * cosY;
+            let ry = y1;
+
+            const fov = 450;
+            const perspectiveScale = fov / (fov + rz + 100);
+
+            const screenX = cx + rx * perspectiveScale;
+            const screenY = cy + ry * perspectiveScale;
+
+            // Mouse particle repulsion directly through text
+            if (mouseX > -9000) {
+                const rect = cubeCanvas.getBoundingClientRect();
+                const canvasMouseX = mouseX - rect.left;
+                const canvasMouseY = mouseY - rect.top;
+                const dx = screenX - canvasMouseX;
+                const dy = screenY - canvasMouseY;
+
+                if (Math.abs(dx) < 45 && Math.abs(dy) < 45) {
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 45 && dist > 0) {
+                        const force = (45 - dist) / 45;
+                        p.vx += (dx / dist) * force * 10;
+                        p.vy += (dy / dist) * force * 10;
+                    }
                 }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -20px 0px'
+            }
+
+            p.vx *= 0.82;
+            p.vy *= 0.82;
+            p.offX += p.vx;
+            p.offY += p.vy;
+            p.offX += (0 - p.offX) * 0.08;
+            p.offY += (0 - p.offY) * 0.08;
+
+            const particleAlpha = p.baseAlpha * twinkleBrightness * Math.min(1, assemblyProgress * 2.0);
+
+            if (particleAlpha > 0.02 && screenY >= -20 && screenY <= cHeight + 20 && screenX >= -20 && screenX <= cWidth + 20) {
+                const blobR = p.size * (p.isEdge ? 2.6 : (p.isCore ? 2.3 : 2.0));
+                const d = blobR * 2;
+                cCtx.globalAlpha = Math.min(1, particleAlpha);
+                cCtx.drawImage(p.sprite, screenX - blobR, screenY - blobR, d, d);
+            }
+        }
+
+        cCtx.restore();
+        cubeAnimationFrameId = requestAnimationFrame(renderCube);
+    }
+
+    function startCubeLoop() {
+        if (!cubeAnimationFrameId && isCubeVisible && !document.hidden) {
+            cubeAnimationFrameId = requestAnimationFrame(renderCube);
+        }
+    }
+
+    if ('IntersectionObserver' in window) {
+        const heroSection = document.getElementById('hero');
+        const observer = new IntersectionObserver((entries) => {
+            isCubeVisible = entries[0].isIntersecting;
+            if (isCubeVisible) startCubeLoop();
+        }, { threshold: 0 });
+        if (heroSection) observer.observe(heroSection);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && isCubeVisible) startCubeLoop();
+    });
+
+    startCubeLoop();
+}
+
+// ==========================================================================
+// 3. 3D CIRCULAR CYLINDER GALLERY (120 FPS Drag & Auto-Rotation Ring)
+// ==========================================================================
+function initCircularGalleryEngine() {
+    const stage = document.getElementById('circular-gallery-stage');
+    const ring = document.getElementById('circular-gallery-ring');
+    if (!stage || !ring) return;
+
+    const cards = Array.from(ring.querySelectorAll('.circular-card'));
+    if (cards.length === 0) return;
+
+    const numItems = cards.length;
+    const anglePerItem = 360 / numItems;
+
+    let rotation = 0;
+    let targetRotation = 0;
+    let radius = window.innerWidth < 768 ? 240 : 380;
+    let autoRotateSpeed = 0.07;
+    let isUserInteracting = false;
+    let interactionTimeout = null;
+
+    window.addEventListener('resize', () => {
+        radius = window.innerWidth < 768 ? 240 : 380;
+        updateCardOffsets();
+    });
+
+    // Pointer Drag & Touch Swipe support
+    let isDragging = false;
+    let startX = 0;
+    let startRotation = 0;
+
+    function onPointerDown(e) {
+        isDragging = true;
+        isUserInteracting = true;
+        startX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+        startRotation = targetRotation;
+    }
+
+    function onPointerMove(e) {
+        if (!isDragging) return;
+        const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
+        const deltaX = x - startX;
+        targetRotation = startRotation + (deltaX * 0.42);
+    }
+
+    function onPointerUp() {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // Smoothly snap to nearest card
+        const nearestIndex = Math.round(-targetRotation / anglePerItem);
+        targetRotation = -nearestIndex * anglePerItem;
+
+        clearTimeout(interactionTimeout);
+        interactionTimeout = setTimeout(() => {
+            isUserInteracting = false;
+        }, 3500);
+    }
+
+    stage.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    stage.addEventListener('touchstart', onPointerDown, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('touchend', onPointerUp);
+
+    let isGalleryVisible = true;
+    let galleryAnimationFrameId = null;
+
+    // Set card center offsets ONCE to prevent per-frame DOM layout thrashing
+    function updateCardOffsets() {
+        cards.forEach(card => {
+            const cardWidth = card.offsetWidth || 280;
+            const cardHeight = card.offsetHeight || 160;
+            card.style.marginLeft = `-${cardWidth / 2}px`;
+            card.style.marginTop = `-${cardHeight / 2}px`;
+        });
+    }
+
+    updateCardOffsets();
+
+    function animate() {
+        if (!isGalleryVisible || document.hidden) {
+            galleryAnimationFrameId = null;
+            return;
+        }
+
+        if (!isUserInteracting && !isDragging) {
+            targetRotation -= autoRotateSpeed;
+        }
+
+        // Smooth Lerp
+        rotation += (targetRotation - rotation) * 0.08;
+        ring.style.transform = `rotateY(${rotation.toFixed(2)}deg)`;
+
+        cards.forEach((card, i) => {
+            const itemAngle = i * anglePerItem;
+            card.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
+
+            const totalRotation = rotation % 360;
+            const relativeAngle = (itemAngle + totalRotation + 360) % 360;
+            const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
+
+            const opacity = Math.max(0.24, 1 - (normalizedAngle / 160));
+            card.style.opacity = opacity.toFixed(2);
+            card.style.zIndex = Math.round(100 - (normalizedAngle / 180) * 80);
+
+            // Dynamic glow matching each card's data-glow RGB
+            const glowRgb = card.getAttribute('data-glow') || '99, 102, 241';
+            const glowFactor = Math.max(0, 1 - (normalizedAngle / 30));
+
+            if (glowFactor > 0.01) {
+                const borderAlpha = (0.35 + glowFactor * 0.55).toFixed(2);
+                const shadowAlpha = (glowFactor * 0.45).toFixed(2);
+                const shadowRadius = (12 + glowFactor * 24).toFixed(1);
+
+                card.style.borderColor = `rgba(${glowRgb}, ${borderAlpha})`;
+                card.style.boxShadow = `0 0 ${shadowRadius}px rgba(${glowRgb}, ${shadowAlpha})`;
+            } else {
+                card.style.borderColor = `rgba(${glowRgb}, 0.20)`;
+                card.style.boxShadow = 'none';
+            }
         });
 
-        headingObserver.observe(h2);
+        galleryAnimationFrameId = requestAnimationFrame(animate);
+    }
+
+    function startGalleryLoop() {
+        if (!galleryAnimationFrameId && isGalleryVisible && !document.hidden) {
+            galleryAnimationFrameId = requestAnimationFrame(animate);
+        }
+    }
+
+    if ('IntersectionObserver' in window) {
+        const ecoSection = document.getElementById('ecosystem');
+        const observer = new IntersectionObserver((entries) => {
+            isGalleryVisible = entries[0].isIntersecting;
+            if (isGalleryVisible) startGalleryLoop();
+        }, { threshold: 0 });
+        if (ecoSection) observer.observe(ecoSection);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && isGalleryVisible) startGalleryLoop();
     });
+
+    startGalleryLoop();
 }
 
 // ==========================================================================
-// 16. MOTIQ BORDER BEAM PHYSICS & ORBIT ENGINE
+// 4. BORDER BEAM PHYSICS ENGINE (Smooth Spring Physics on Contact Cards)
 // ==========================================================================
 function initBorderBeamEngine() {
     const panels = document.querySelectorAll('.border-beam-panel');
@@ -1771,219 +935,119 @@ function initBorderBeamEngine() {
 }
 
 // ==========================================================================
-// 17. CIRCULAR 3D GALLERY CYLINDER ENGINE (120 FPS SILKY 3D ROTATION)
+// Smooth Hardware-Accelerated Reveal Observer
 // ==========================================================================
-function initCircularGalleryEngine() {
-    const stage = document.getElementById('circular-gallery-stage');
-    const ring = document.getElementById('circular-gallery-ring');
-    if (!stage || !ring) return;
+function initScrollObserver() {
+    const targets = document.querySelectorAll('.reveal-init');
+    if (!targets.length) return;
 
-    const cards = Array.from(ring.querySelectorAll('.circular-card'));
-    if (cards.length === 0) return;
+    if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('reveal-visible'));
+        return;
+    }
 
-    const numItems = cards.length;
-    const anglePerItem = 360 / numItems;
-
-    let rotation = 0;
-    let targetRotation = 0;
-    let radius = window.innerWidth < 768 ? 260 : 420;
-    let autoRotateSpeed = 0.08;
-    let isUserInteracting = false;
-    let scrollTimeout = null;
-
-    window.addEventListener('resize', () => {
-        radius = window.innerWidth < 768 ? 260 : 420;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
     });
 
-    // Pointer Drag & Touch Swipe support
-    let isDragging = false;
-    let startX = 0;
-    let startRotation = 0;
+    targets.forEach(el => observer.observe(el));
+}
 
-    function onPointerDown(e) {
-        isDragging = true;
-        isUserInteracting = true;
-        startX = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
-        startRotation = targetRotation;
-    }
+// ==========================================================================
+// Active Dock Link Highlight Observer
+// ==========================================================================
+function initDockHighlight() {
+    const sections = document.querySelectorAll('header[id], section[id]');
+    const dockLinks = document.querySelectorAll('.dock-btn[href^="#"]');
+    if (!sections.length || !dockLinks.length) return;
 
-    function onPointerMove(e) {
-        if (!isDragging) return;
-        const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX) || 0;
-        const deltaX = x - startX;
-        targetRotation = startRotation + (deltaX * 0.45);
-    }
+    window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY + 200;
 
-    function onPointerUp() {
-        if (!isDragging) return;
-        isDragging = false;
-
-        // Snap smoothly to nearest card angle
-        const nearestIndex = Math.round(-targetRotation / anglePerItem);
-        targetRotation = -nearestIndex * anglePerItem;
-
-        scrollTimeout = setTimeout(() => { isUserInteracting = false; }, 4000);
-    }
-
-    stage.addEventListener('mousedown', onPointerDown);
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerUp);
-
-    stage.addEventListener('touchstart', onPointerDown, { passive: true });
-    window.addEventListener('touchmove', onPointerMove, { passive: true });
-    window.addEventListener('touchend', onPointerUp);
-
-    let isGalleryVisible = true;
-    let galleryAnimationFrameId = null;
-
-    // Set card center offsets ONCE to prevent per-frame DOM layout thrashing
-    function updateCardOffsets() {
-        cards.forEach(card => {
-            const cardWidth = card.offsetWidth || 280;
-            const cardHeight = card.offsetHeight || 160;
-            card.style.marginLeft = `-${cardWidth / 2}px`;
-            card.style.marginTop = `-${cardHeight / 2}px`;
-        });
-    }
-
-    updateCardOffsets();
-    window.addEventListener('resize', updateCardOffsets);
-
-    // 60-120 FPS animation loop with offscreen observer
-    function animate() {
-        if (!isGalleryVisible || document.hidden) {
-            galleryAnimationFrameId = null;
-            return;
-        }
-
-        if (!isUserInteracting && !isDragging) {
-            targetRotation -= autoRotateSpeed;
-        }
-
-        // Smooth Lerp Interpolation
-        rotation += (targetRotation - rotation) * 0.08;
-
-        ring.style.transform = `rotateY(${rotation.toFixed(2)}deg)`;
-
-        cards.forEach((card, i) => {
-            const itemAngle = i * anglePerItem;
-
-            card.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px)`;
-
-            const totalRotation = rotation % 360;
-            const relativeAngle = (itemAngle + totalRotation + 360) % 360;
-            const normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
-
-            const opacity = Math.max(0.28, 1 - (normalizedAngle / 180));
-            card.style.opacity = opacity.toFixed(2);
-            card.style.zIndex = Math.round(100 - (normalizedAngle / 180) * 80);
-
-            // Dynamic multi-color theme glow matching each card's text color
-            const glowRgb = card.getAttribute('data-glow') || '168, 85, 247';
-            const glowFactor = Math.max(0, 1 - (normalizedAngle / 32));
-
-            if (glowFactor > 0.01) {
-                const borderAlpha = (0.35 + glowFactor * 0.55).toFixed(2);
-                const shadowAlpha = (glowFactor * 0.45).toFixed(2);
-                const shadowRadius = (12 + glowFactor * 24).toFixed(1);
-
-                card.style.borderColor = `rgba(${glowRgb}, ${borderAlpha})`;
-                card.style.boxShadow = `0 0 ${shadowRadius}px rgba(${glowRgb}, ${shadowAlpha})`;
-            } else {
-                card.style.borderColor = `rgba(${glowRgb}, 0.20)`;
-                card.style.boxShadow = 'none';
+        sections.forEach(sec => {
+            const top = sec.offsetTop;
+            const height = sec.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+                currentSectionId = sec.getAttribute('id');
             }
         });
 
-        galleryAnimationFrameId = requestAnimationFrame(animate);
-    }
-
-    function startGalleryLoop() {
-        if (!galleryAnimationFrameId && isGalleryVisible && !document.hidden) {
-            galleryAnimationFrameId = requestAnimationFrame(animate);
-        }
-    }
-
-    if ('IntersectionObserver' in window) {
-        const metricsObserver = new IntersectionObserver((entries) => {
-            isGalleryVisible = entries[0].isIntersecting;
-            if (isGalleryVisible) startGalleryLoop();
-        }, { threshold: 0 });
-        const metricsSec = document.getElementById('metrics-section');
-        if (metricsSec) metricsObserver.observe(metricsSec);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && isGalleryVisible) startGalleryLoop();
-    });
-
-    startGalleryLoop();
-}
-
-// 100% Scroll-Linked Character-by-Character Scrubbing Engine
-function initScrollLinkedCharScrubEngine() {
-    const rawTargets = document.querySelectorAll(
-        '.scroll-char-scrub, section h2, .container-scroll-card h3, #bot-simulation p, #terminal-section p, #contact-section p'
-    );
-
-    const scrubTargets = Array.from(rawTargets).filter(el => {
-        // Exclude hero title and description elements which are animated by load sequence
-        return !el.closest('#hero-sky') && el.id !== 'title-line-1' && el.id !== 'title-line-2' && el.id !== 'hero-desc' && el.id !== 'hero-desc-desktop';
-    });
-
-    scrubTargets.forEach(target => {
-        splitTextToSpans(target);
-    });
-
-    function updateCharScrub() {
-        const viewH = window.innerHeight;
-
-        scrubTargets.forEach(target => {
-            const spans = target.querySelectorAll('.char-span');
-            if (!spans || !spans.length) return;
-
-            const rect = target.getBoundingClientRect();
-            
-            // Section elements scrub character by character as they move into viewport (from 90% to 35% screen height)
-            const startPos = viewH * 0.90;
-            const endPos = viewH * 0.35;
-            let rawProgress = (startPos - rect.top) / (startPos - endPos);
-            let progress = Math.max(0, Math.min(1, rawProgress));
-
-            const totalN = spans.length;
-            spans.forEach((span, idx) => {
-                const charStart = (idx / totalN) * 0.70;
-                const charEnd = charStart + 0.30;
-                let charProgress = (progress - charStart) / (charEnd - charStart);
-                charProgress = Math.max(0, Math.min(1, charProgress));
-
-                const opacity = 0.20 + (charProgress * 0.80);
-                const translateY = (1 - charProgress) * 12;
-                const blur = (1 - charProgress) * 3;
-
-                span.style.opacity = opacity.toFixed(2);
-                span.style.transform = `translateY(${translateY.toFixed(1)}px)`;
-                span.style.filter = `blur(${blur.toFixed(1)}px)`;
-
-                if (charProgress >= 0.5) {
-                    span.style.color = '#ffffff';
-                    span.style.textShadow = '0 0 16px rgba(168, 85, 247, 0.6)';
+        if (currentSectionId) {
+            dockLinks.forEach(link => {
+                const href = link.getAttribute('href').replace('#', '');
+                if (href === currentSectionId) {
+                    link.classList.add('active');
                 } else {
-                    span.style.color = 'rgba(255, 255, 255, 0.3)';
-                    span.style.textShadow = 'none';
+                    link.classList.remove('active');
                 }
             });
-        });
-    }
-
-    window.addEventListener('scroll', updateCharScrub, { passive: true });
-    window.addEventListener('resize', updateCharScrub, { passive: true });
-    updateCharScrub();
+        }
+    }, { passive: true });
 }
 
-// Initialize Scroll Animations after DOM loaded
-initScrollRevealEngine();
-initScrollLetterAnimationEngine();
-initBorderBeamEngine();
-initCircularGalleryEngine();
-initScrollLinkedCharScrubEngine();
+// ==========================================================================
+// Silky Smooth Momentum Scroll Engine (Lenis + 120 FPS Native Anchors)
+// ==========================================================================
+let lenis = null;
+
+function initSmoothScrollEngine() {
+    if (typeof Lenis === 'undefined') return;
+
+    lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.95,
+        touchMultiplier: 1.0,
+        infinite: false
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Silky Smooth Anchor Navigation from floating dock & CTAs
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                const targetEl = document.querySelector(targetId);
+                if (targetEl && lenis) {
+                    e.preventDefault();
+                    lenis.scrollTo(targetEl, { offset: -30, duration: 1.1 });
+                }
+            }
+        });
+    });
+}
+
+// Initialize on DOM Ready
+document.addEventListener('DOMContentLoaded', () => {
+    applyLanguage('RU');
+    initSmoothScrollEngine();
+    initScrollObserver();
+    initDockHighlight();
+    initStarfieldEngine();
+    initParticleCubeEngine();
+    initCircularGalleryEngine();
+    initBorderBeamEngine();
+});
+
+// Expose handlers to global window
+window.toggleLanguage = toggleLanguage;
+window.applyLanguage = applyLanguage;
+window.switchArchTab = switchArchTab;
+window.lenis = lenis;

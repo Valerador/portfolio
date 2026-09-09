@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#06030E">
-    <meta name="theme-color" content="#06030E" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#09090b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Valerii | Fullstack AI Developer & Systems Architect</title>
-    <meta name="description" content="Портфолио Валерия — Fullstack AI-Разработчик и Архитектор систем. Разработка ИИ-сервисов, CRM на React + Supabase RLS, n8n пайплайнов и Linux инфраструктуры.">
+    <meta name="description" content="Портфолио Валерия: Fullstack AI-Разработчик и Архитектор систем. Разработка ИИ-сервисов, CRM на React + Supabase RLS, n8n пайплайнов и Linux инфраструктуры.">
     <meta name="author" content="Valerii">
 
-    <!-- Open Graph / Facebook / Telegram -->
+    <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Valerii Portfolio">
     <meta property="og:locale" content="ru_RU">
@@ -19,15 +18,10 @@
     <meta property="og:description" content="Разработка полносистемных ИИ-сервисов, CRM-платформ (React + Supabase RLS), n8n-пайплайнов и серверной инфраструктуры.">
     <meta property="og:url" content="https://valerador.github.io/">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Valerii | Fullstack AI Developer & Systems Architect">
-    <meta name="twitter:description" content="Разработка полносистемных ИИ-сервисов, CRM-платформ (React + Supabase RLS), n8n-пайплайнов и серверной инфраструктуры.">
-
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%23080314'/%3E%3Cpath d='M30 70 L50 25 L70 70 Z' fill='none' stroke='%23a855f7' stroke-width='8' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='52' r='8' fill='%2334d399'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%2309090b'/%3E%3Cpath d='M30 70 L50 25 L70 70 Z' fill='none' stroke='%23818cf8' stroke-width='8' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='52' r='8' fill='%2310b981'/%3E%3C/svg%3E">
 
-    <!-- Schema.org JSON-LD Structured Data -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,31 +32,18 @@
       "sameAs": [
         "https://t.me/Easyvaleriy",
         "https://github.com/Valerador"
-      ],
-      "knowsAbout": [
-        "React",
-        "Vite",
-        "TypeScript",
-        "Supabase",
-        "PostgreSQL",
-        "Row Level Security",
-        "n8n",
-        "AI Agents",
-        "Docker",
-        "Linux",
-        "Nginx",
-        "Playwright"
       ]
     }
     </script>
 
-    <!-- Google Fonts (Cyrillic + Latin Hacker & Retro Fonts) -->
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Outfit:wght@600;800;900&family=Fira+Code:wght@500;700&family=JetBrains+Mono:wght@500;700;800&family=Pixelify+Sans:wght@500;700&family=Press+Start+2P&family=Anonymous+Pro:wght@400;700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
-    <!-- Phosphor Icons & PixelArtIcons (8-Bit Retro Icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixelarticons@1.8.1/font/pixelarticons.css">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -71,17 +52,18 @@
             theme: {
                 extend: {
                     colors: {
-                        darkSpace: '#06030E',
-                        darkCard: 'rgba(15, 8, 30, 0.85)',
+                        canvas: '#09090b',
+                        surface: '#121215',
+                        surfaceElevated: '#18181b',
                         brandPrimary: '#818cf8',
-                        brandAccent: '#34d399',
-                        brandPurple: '#a855f7',
-                        glassBorder: 'rgba(255, 255, 255, 0.12)',
+                        brandPrimaryHover: '#6366f1',
+                        brandEmerald: '#10b981',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
                     },
                     fontFamily: {
-                        sans: ['Anonymous Pro', 'monospace', 'sans-serif'],
-                        heading: ['Anonymous Pro', 'monospace', 'sans-serif'],
-                        mono: ['Anonymous Pro', 'monospace', 'monospace'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
                     }
                 }
             }
@@ -89,844 +71,816 @@
     </script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-darkSpace text-slate-200 font-sans antialiased selection:bg-brandPurple selection:text-white relative overflow-x-hidden cursor-none">
+<body class="bg-canvas text-zinc-300 font-sans antialiased relative selection:bg-indigo-500/30 selection:text-white">
 
-    <!-- RICARDO CHANCE STYLE NOISE OVERLAY -->
-    <div class="fixed inset-0 z-[150] pointer-events-none opacity-20 mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); background-repeat: repeat;"></div>
+    <!-- Fixed Ambient Noise Texture -->
+    <div class="noise-overlay"></div>
 
-    <!-- PRELOADER ENTRANCE OVERLAY (Split Curtains & Simple Text Assembly Sequence) -->
-    <div id="intro-loader" class="fixed inset-0 z-[200] pointer-events-none flex items-center justify-center overflow-hidden">
-        <!-- Left Split Curtain -->
-        <div id="curtain-left" class="absolute top-0 left-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
-        <!-- Right Split Curtain -->
-        <div id="curtain-right" class="absolute top-0 right-0 w-1/2 h-full bg-[#070314] transition-transform duration-1000 ease-in-out"></div>
+    <!-- Ambient Subtle Radial Background -->
+    <div class="fixed inset-0 bg-ambient-grid pointer-events-none z-0"></div>
 
-        <!-- Centered Simple Intro Text -->
-        <div id="intro-text-box" class="relative z-10 text-center px-4 transition-all duration-700">
-            <h1 class="font-heading font-extrabold text-2xl sm:text-4xl tracking-wider uppercase text-white animate-pulse" data-i18n="intro.text">Where intelligence meets code.</h1>
-        </div>
-    </div>
+    <!-- 3D Cosmic Starfield Canvas (Subtle, high-perf micro-stars) -->
+    <canvas id="starfield" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Custom 3-State Crosshair Target Reticle Cursor -->
-    <div id="crosshair-cursor" class="fixed pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 hidden md:block">
-        <div id="cursor-cross" class="relative w-8 h-8 flex items-center justify-center transition-transform duration-150">
-            <div id="tick-top" class="cursor-tick absolute w-[2px] h-[8px] bg-slate-100 rounded-sm transform -translate-y-[6px] transition-all duration-150"></div>
-            <div id="tick-bottom" class="cursor-tick absolute w-[2px] h-[8px] bg-slate-100 rounded-sm transform translate-y-[6px] transition-all duration-150"></div>
-            <div id="tick-left" class="cursor-tick absolute w-[8px] h-[2px] bg-slate-100 rounded-sm transform -translate-x-[6px] transition-all duration-150"></div>
-            <div id="tick-right" class="cursor-tick absolute w-[8px] h-[2px] bg-slate-100 rounded-sm transform translate-x-[6px] transition-all duration-150"></div>
-        </div>
-    </div>
+    <!-- ==========================================================================
+         FLOATING LINEAR DOCK (Persistent, Accessible, Fast)
+         ========================================================================== -->
+    <nav class="linear-dock" aria-label="Main Navigation">
+        <a href="#hero" class="dock-btn active" aria-label="Главная" title="Главная">
+            <i class="ph ph-house text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.home">Главная</span>
+        </a>
 
-    <!-- BEAMS BACKGROUND CANVAS -->
-    <canvas id="beams-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-70" style="filter: blur(25px);"></canvas>
+        <a href="#projects" class="dock-btn" aria-label="Проекты" title="Проекты">
+            <i class="ph ph-folder text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.projects">Проекты</span>
+        </a>
 
-    <!-- Background 3D Micro-Dust Canvas -->
-    <canvas id="starfield" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+        <a href="#ecosystem" class="dock-btn" aria-label="ИИ-Экосистема" title="ИИ-Экосистема">
+            <i class="ph ph-circles-three-plus text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.ecosystem">Инструменты</span>
+        </a>
 
-    <!-- FLOATING NAVIGATION (DESKTOP DOCK & MOBILE BOTTOM SHEET) -->
-    
-    <!-- DESKTOP MACOS DOCK (Visible on Desktop md:block) -->
-    <div id="macos-dock-container" class="hidden md:block fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 dock-hidden">
-        <div id="macos-dock" class="backdrop-blur-2xl bg-[#090518]/85 border border-white/15 rounded-3xl px-4 py-2.5 flex items-center gap-4 shadow-2xl shadow-black/90">
-            
-            <!-- DOCK ITEM 1: ГЛАВНАЯ (CUBE) -->
-            <a href="#hero-sky" aria-label="Главная - Вернуться наверх" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPurple transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <i class="ph-bold ph-cube text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
-                <span class="dock-tooltip">Главная</span>
-            </a>
+        <a href="#architecture" class="dock-btn" aria-label="Архитектура" title="Архитектура">
+            <i class="ph ph-cpu text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.architecture">Архитектура</span>
+        </a>
 
-            <!-- DOCK ITEM 2: МОИ ПРОЕКТЫ -->
-            <a href="#orbit-showcase" aria-label="Мои проекты - Просмотр портфолио" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-white hover:bg-brandPrimary transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <i class="ph-bold ph-planet text-2xl text-indigo-300 group-hover:text-white transition-colors"></i>
-                <span class="dock-tooltip">Мои проекты</span>
-            </a>
+        <a href="#stack" class="dock-btn" aria-label="Стек навыков" title="Стек">
+            <i class="ph ph-stack text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.stack">Стек</span>
+        </a>
 
-            <!-- DOCK ITEM 3: AI BOT DEMO -->
-            <a href="#bot-simulation" aria-label="AI Bot Demo - Демо симуляция ИИ-бота" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandPurple hover:bg-brandPurple hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <i class="ph-bold ph-robot text-2xl text-purple-300 group-hover:text-white transition-colors"></i>
-                <span class="dock-tooltip" data-i18n="dock.bot">AI Bot Demo</span>
-            </a>
+        <a href="#contact" class="dock-btn" aria-label="Контакты" title="Контакты">
+            <i class="ph ph-chat-circle text-xl"></i>
+            <span class="dock-tooltip" data-i18n="nav.contact">Контакты</span>
+        </a>
 
-            <!-- DOCK ITEM 4: CLI TERMINAL -->
-            <a href="#terminal-section" aria-label="CLI Terminal - Консоль навыков" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-white/10 text-brandAccent hover:bg-brandAccent hover:text-white transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <i class="ph-bold ph-terminal-window text-2xl text-emerald-400 group-hover:text-white transition-colors"></i>
-                <span class="dock-tooltip" data-i18n="dock.terminal">CLI Terminal</span>
-            </a>
+        <div class="w-px h-5 bg-white/10 mx-1"></div>
 
-            <div class="w-px h-6 bg-white/20"></div>
+        <a href="resume_printable.html" target="_blank" class="dock-btn" aria-label="Открыть CV" title="CV PDF">
+            <i class="ph ph-file-pdf text-xl text-amber-400"></i>
+            <span class="dock-tooltip" data-i18n="nav.cv">Открыть CV</span>
+        </a>
 
-            <!-- DOCK ITEM 5: CV DOWNLOAD -->
-            <a href="resume_printable.html" target="_blank" aria-label="Download CV - Открыть и скачать резюме в PDF" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-900 text-brandAccent hover:bg-slate-800 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <i class="ph-bold ph-file-pdf text-2xl text-amber-400 group-hover:text-white transition-colors"></i>
-                <span class="dock-tooltip" data-i18n="dock.cv">Download CV</span>
-            </a>
-
-            <!-- DOCK ITEM 6: TELEGRAM CONTACT -->
-            <a href="https://t.me/Easyvaleriy" target="_blank" aria-label="Telegram - Написать в Telegram @Easyvaleriy" class="dock-item group relative w-12 h-12 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-brandPurple to-brandPrimary text-white shadow-lg shadow-brandPurple/40 transition-all duration-200 transform hover:scale-125 hover:-translate-y-2">
-                <svg class="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
-                </svg>
-                <span class="dock-tooltip" data-i18n="dock.contact">Telegram @Easyvaleriy</span>
-            </a>
-
-            <div class="w-px h-6 bg-white/20"></div>
-
-            <!-- RU / EN LANGUAGE SWITCHER BUTTON -->
-            <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык (RU/EN)" class="dock-item group relative px-3 py-1.5 rounded-xl bg-purple-950/80 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white font-mono text-xs font-bold transition-all duration-200 transform hover:scale-110 hover:-translate-y-1">
-                <span id="lang-btn-text">RU / <span class="text-slate-400">EN</span></span>
-                <span class="dock-tooltip">Switch Language</span>
-            </button>
-
-        </div>
-    </div>
-
-    <!-- MOBILE COMPACT MENU TRIGGER BUTTON (Visible on Mobile md:hidden) -->
-    <div id="mobile-dock-wrapper" class="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 dock-hidden">
-        <button id="mobile-trigger-pill" onclick="toggleMobileMenu()" aria-label="Открыть меню навигации" class="backdrop-blur-2xl bg-[#090518]/95 border border-brandPurple/50 rounded-full px-3.5 py-2 flex items-center gap-2.5 shadow-2xl shadow-purple-950/90 text-white font-medium text-xs active:scale-95 transition-all whitespace-nowrap">
-            <i class="ph-bold ph-compass text-lg text-brandPurple animate-pulse shrink-0"></i>
-            <span class="w-px h-3.5 bg-white/20 mx-0.5 shrink-0"></span>
-            <span onclick="event.stopPropagation(); toggleLanguage();" id="mobile-menu-lang-badge" class="text-[11px] font-mono font-bold text-brandAccent px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 whitespace-nowrap inline-flex items-center shrink-0">RU / <span class="text-slate-400">EN</span></span>
+        <!-- RU / EN Language Toggle -->
+        <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono font-medium text-zinc-300 transition-colors ml-0.5">
+            <span id="lang-btn-text">RU / <span class="text-zinc-500">EN</span></span>
         </button>
-    </div>
+    </nav>
 
-    <!-- MOBILE NATIVE POP-UP MENU DRAWER (Expands from Trigger Pill) -->
-    <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="md:hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[100] opacity-0 pointer-events-none transition-opacity duration-300 flex items-end justify-center pb-3 px-3">
-        <div onclick="event.stopPropagation()" id="mobile-menu-drawer" class="w-full max-w-md bg-[#0C0721]/95 border border-brandPurple/50 rounded-3xl p-5 shadow-2xl backdrop-blur-2xl origin-bottom transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform scale-90 opacity-0 pointer-events-none translate-y-4 space-y-4">
-            
-            <!-- Drawer Header -->
-            <div class="flex items-center justify-between pb-3 border-b border-glassBorder">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-brandPurple animate-ping"></span>
-                    <span class="text-white font-bold text-base tracking-wide" id="mobile-drawer-title">Навигация по сайту</span>
-                </div>
-                <button onclick="toggleMobileMenu()" aria-label="Закрыть меню" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white">
-                    <i class="ph-bold ph-x text-lg"></i>
-                </button>
-            </div>
 
-            <!-- Navigation Links List -->
-            <div class="space-y-2 font-medium text-sm pt-1">
-                <a href="#hero-sky" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPurple/20 text-white transition-colors">
-                    <i class="ph-bold ph-cube text-xl text-purple-400"></i>
-                    <span data-i18n="dock.hero">Главная</span>
-                </a>
-                <a href="#orbit-showcase" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPrimary/20 text-white transition-colors">
-                    <i class="ph-bold ph-planet text-xl text-indigo-400"></i>
-                    <span data-i18n="dock.projects">Мои проекты</span>
-                </a>
-                <a href="#bot-simulation" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandPurple/20 text-white transition-colors">
-                    <i class="ph-bold ph-robot text-xl text-purple-400"></i>
-                    <span data-i18n="dock.bot">Демо ИИ-Бота</span>
-                </a>
-                <a href="#terminal-section" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-brandAccent/20 text-white transition-colors">
-                    <i class="ph-bold ph-terminal-window text-xl text-emerald-400"></i>
-                    <span data-i18n="dock.terminal">CLI Terminal</span>
-                </a>
-                <a href="resume_printable.html" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900 border border-amber-500/30 text-amber-300 transition-colors">
-                    <i class="ph-bold ph-file-pdf text-xl text-amber-400"></i>
-                    <span data-i18n="dock.cv">Открыть Резюме (PDF)</span>
-                </a>
-                <a href="https://t.me/Easyvaleriy" target="_blank" onclick="toggleMobileMenu()" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-sky-500/20 text-white transition-colors">
-                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="#38BDF8"/>
-                    </svg>
-                    <span>Telegram</span>
-                </a>
-            </div>
-
-            <!-- Drawer Footer Language Switch -->
-            <div class="pt-3 flex items-center justify-between text-xs border-t border-glassBorder">
-                <span class="text-slate-400" id="mobile-lang-label">Язык сайта / Language:</span>
-                <button onclick="toggleLanguage()" class="px-3.5 py-1.5 rounded-xl bg-brandPurple/30 border border-brandPurple/50 text-brandPurple font-mono font-bold">
-                    <span id="mobile-drawer-lang-text">RU / EN</span>
-                </button>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- HERO STORYLINE SECTION -->
-    <section id="hero-sky" class="relative min-h-[280vh] z-10">
+    <!-- ==========================================================================
+         HERO SECTION (High-Status Linear Aesthetic with 3D Ambient Particle Cube)
+         ========================================================================== -->
+    <header id="hero" class="relative z-10 pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center text-center overflow-visible">
         
-        <!-- Pinned Sticky 3D Particle Canvas Frame -->
-        <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden pointer-events-none">
-            <canvas id="particle-star-canvas" class="absolute inset-0 w-full h-full z-10 pointer-events-none"></canvas>
+        <!-- Ambient 3D Retina Particle Cube (Framing Headline from Background) -->
+        <div class="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] sm:w-[620px] md:w-[760px] h-[380px] sm:h-[460px] md:h-[520px] pointer-events-none z-0 flex items-center justify-center opacity-85">
+            <canvas id="particle-star-canvas" class="w-full h-full"></canvas>
         </div>
 
-        <!-- Scrolling Hero Text Elements -->
-        <div id="hero-content-wrapper" class="relative -mt-[100vh] z-20 pointer-events-auto">
+        <!-- Live Status Pill -->
+        <div class="reveal-init relative z-10 mb-6">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span data-i18n="hero.status">Открыт к предложениям & Вакансиям</span>
+            </div>
+        </div>
+
+        <!-- Main Headline (Linear Display Discipline: Max 2 lines) -->
+        <h1 class="reveal-init relative z-10 text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] max-w-4xl mb-6">
+            <span class="block" data-i18n="hero.line1">Разработка полносистемных ИИ-сервисов</span>
+            <span class="block text-zinc-400 font-semibold mt-1" data-i18n="hero.line2">и защищенной серверной инфраструктуры</span>
+        </h1>
+
+        <!-- Value Proposition Subtext (<= 25 words per taste-skill rules) -->
+        <p class="reveal-init relative z-10 text-zinc-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-6" data-i18n="hero.sub">
+            Архитектура коммерческих React + Supabase RLS платформ, автономных n8n-пайплайнов, E2E автотестов и защищенного Linux DevOps.
+        </p>
+
+        <!-- Primary Action CTAs -->
+        <div class="reveal-init relative z-10 flex flex-wrap items-center justify-center gap-3.5 mb-8">
+            <a href="https://t.me/Easyvaleriy" target="_blank" class="btn-primary">
+                <i class="ph ph-telegram-logo text-lg text-indigo-600"></i>
+                <span data-i18n="hero.cta.tg">Написать в Telegram</span>
+            </a>
             
-            <!-- Reference Layout: Left Column (Headline & Mobile Description) & Right Column (Desktop Description) -->
-            <div class="w-full px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-screen py-8">
-                
-                <!-- Left Column (Role + Letter-by-letter Headline + Lower Scroll Sub-block) -->
-                <div class="lg:col-span-6 flex flex-col justify-between h-auto lg:h-[82vh] pl-0 pt-2 lg:pt-6">
-                    <!-- Top Headline Block (Visible Immediately) -->
-                    <div class="space-y-3 sm:space-y-4 pt-4 lg:pt-10">
-                        <div id="hero-role" class="seq-hidden inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-xs font-semibold">
-                            <span class="w-2 h-2 rounded-full bg-brandPurple animate-pulse"></span>
-                            <span data-i18n="hero.role">Interactive CV & Portfolio</span>
+            <a href="resume_printable.html" target="_blank" class="btn-secondary">
+                <i class="ph ph-file-text text-base text-amber-400"></i>
+                <span data-i18n="hero.cta.cv">Открыть Резюме (PDF)</span>
+            </a>
+
+            <a href="https://github.com/Valerador" target="_blank" class="btn-secondary">
+                <i class="ph ph-github-logo text-base"></i>
+                <span>GitHub ↗</span>
+            </a>
+        </div>
+
+        <!-- Engineering Reality Metrics Strip (Clean, Honest, No Fake Percentages) -->
+        <div class="reveal-init relative z-10 w-full max-w-3xl grid grid-cols-2 sm:grid-cols-4 gap-3 p-2 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm mt-4">
+            <div class="p-4 text-center">
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-white">15+</div>
+                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m1">Проектов и ИИ-ботов</div>
+            </div>
+            <div class="p-4 text-center border-l border-white/[0.06]">
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">RLS</div>
+                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m2">СУБД-изоляция доступа</div>
+            </div>
+            <div class="p-4 text-center border-l border-white/[0.06]">
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400">CI/CD</div>
+                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m3">Автодеплой на Linux</div>
+            </div>
+            <div class="p-4 text-center border-l border-white/[0.06]">
+                <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-400">E2E</div>
+                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m4">Playwright & Vitest</div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================================================
+         PROJECTS SECTION (Asymmetric Bento Grid with Doppelrand Architecture)
+         ========================================================================== -->
+    <section id="projects" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="reveal-init mb-12 text-left">
+            <div class="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider mb-2" data-i18n="projects.eyebrow">
+                Selected Work & Production MVPs
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight" data-i18n="projects.title">
+                Реализованные проекты и сервисы
+            </h2>
+        </div>
+
+        <!-- 12-Column Asymmetric Bento Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            
+            <!-- TILE 1: Atlas CRM (Primary Flagship - 8 Columns) -->
+            <div class="reveal-init bento-card lg:col-span-8">
+                <div class="bento-core">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-mono font-medium" data-i18n="p1.badge">
+                                Коммерческий MVP CRM
+                            </span>
+                            <a href="https://crm.atlasauto.space" target="_blank" class="text-xs font-mono text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 transition-colors">
+                                <span>crm.atlasauto.space</span>
+                                <i class="ph ph-arrow-up-right text-sm"></i>
+                            </a>
                         </div>
 
-                        <!-- Headline for Sequential Staggered Animation -->
-                        <h1 id="hero-title" class="font-heading text-3xl xs:text-4xl sm:text-6xl lg:text-6xl font-black text-white tracking-tight leading-[1.15]">
-                            <span id="title-line-1" class="block seq-hidden" data-i18n="hero.line1">Валерий</span>
-                            <span id="title-line-2" class="text-purple-300 block seq-hidden" data-i18n="hero.line2">Fullstack AI-Разработчик</span>
-                        </h1>
-                    </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3" data-i18n="p1.title">
+                            Atlas CRM: Мультитенантная платформа автоматизации
+                        </h3>
 
-                    <!-- LOWER SCROLL SUB-BLOCK -->
-                    <div id="hero-sub-block" class="mt-6 sm:mt-8 lg:mt-6 space-y-4">
-                        <!-- Mobile Description -->
-                        <p id="hero-desc" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-md lg:hidden" data-i18n="hero.desc">
-                            Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed mb-6" data-i18n="p1.desc">
+                            Полнофункциональная CRM-система на React 19 + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.
                         </p>
 
-                        <!-- Dynamic Glowing Buttons (Uniform Equal-Sized Buttons) -->
-                        <div id="hero-buttons" class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                            <a href="https://t.me/Easyvaleriy" target="_blank" class="seq-hidden shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
-                                <span data-i18n="hero.cta" class="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold w-full text-center">
-                                    <i class="pixelarticons-message-text text-base text-white shrink-0"></i>
-                                    <span>Telegram</span>
-                                </span>
-                            </a>
-                            <a href="https://github.com/Valerador" target="_blank" class="seq-hidden shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
-                                <span data-i18n="hero.github" class="flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold w-full text-center">
-                                    <i class="pixelarticons-code text-base text-white shrink-0"></i>
-                                    <span>GitHub</span>
-                                </span>
-                            </a>
-                            <a href="resume_printable.html" target="_blank" class="seq-hidden shiny-cta min-w-[130px] flex-1 sm:flex-initial text-center justify-center !px-5 !py-2.5">
-                                <span data-i18n="hero.cv" class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm font-semibold w-full text-center">
-                                    <i class="pixelarticons-file-text text-base text-amber-300 shrink-0"></i>
-                                    <span>Резюме</span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column (Desktop Description) -->
-                <div class="hidden lg:flex lg:col-span-6 flex-col justify-end h-[84vh] text-left pr-0 items-end">
-                    <p id="hero-desc-desktop" class="seq-hidden text-slate-300 text-xs sm:text-sm leading-relaxed font-sans max-w-xs sm:max-w-sm mr-0 ml-auto pb-6 text-left" data-i18n="hero.desc">
-                        Я разрабатываю полносистемные ИИ-сервисы, CRM-платформы (React + Supabase RLS), n8n-пайплайны и серверную инфраструктуру.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- SCENE 2: ACETERNETY UI 3D CONTAINER SCROLL SHOWCASE -->
-    <section id="orbit-showcase" class="relative min-h-[580vh] -mt-[40vh] sm:-mt-[80vh] lg:-mt-[110vh] z-20">
-        
-        <!-- Pinned Sticky Container Scroll Frame with Top Title Clearance & Dock Clearance -->
-        <div class="sticky top-0 h-screen flex flex-col justify-between overflow-hidden pt-4 sm:pt-6 pb-28 sm:pb-32">
-            
-            <div class="w-full space-y-2 sm:space-y-3">
-                <!-- Section Header (Container Scroll Title Component) -->
-                <div id="container-scroll-header" class="scroll-reveal text-center space-y-1 sm:space-y-2 transition-transform duration-200 px-4">
-                    <h2 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="orbit.title">
-                        Мои работы
-                    </h2>
-                </div>
-
-                <!-- Horizontal Track of 3D Tablet Cards -->
-                <div id="orbit-track-wrapper" class="w-full overflow-hidden py-12 -my-12">
-                    <div id="orbit-track" class="flex gap-8 sm:gap-12 lg:gap-16 transition-all duration-300 ease-out items-center pt-2 pb-10 sm:pt-4 sm:pb-14 px-[calc(50vw-min(475px,44vw))]">
-                    
-                    <!-- ACETERNETY 3D TABLET CARD 1: Atlas CRM -->
-                    <div class="container-scroll-card w-[92vw] sm:w-[90vw] max-w-[950px] h-[66vh] min-h-[480px] max-h-[580px] sm:h-[52vh] sm:min-h-[460px] sm:max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-slate-700/80 bg-[#120826]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#080314]/95 p-4 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-purple-600/15 rounded-full blur-2xl pointer-events-none"></div>
-
-                            <!-- Header Info -->
-                            <div class="space-y-2.5 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between gap-1.5">
-                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card1.tag">
-                                        Коммерческий MVP CRM
-                                    </span>
-                                    <a href="https://crm.atlasauto.space" target="_blank" class="px-2.5 py-1 rounded-lg bg-brandPurple/30 border border-brandPurple/60 text-purple-200 hover:bg-brandPurple hover:text-white font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 shrink-0">
-                                        <i class="ph ph-arrow-square-out text-sm text-brandAccent"></i> crm.atlasauto.space ↗
-                                    </a>
+                        <!-- Architectural Features Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                                <div class="text-xs font-mono font-semibold text-white flex items-center gap-2 mb-1">
+                                    <i class="ph-bold ph-shield-check text-indigo-400 text-base"></i>
+                                    <span>Supabase Row Level Security</span>
                                 </div>
-
-                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card1.title">Atlas CRM — Платформа автоматизации ниш</h3>
-
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card1.desc">
-                                    Полнофункциональная CRM-система на React + Vite + Supabase. Защищена Row Level Security (RLS) на уровне СУБД, покрыта автотестами Playwright & Vitest, автоматический деплой через GitHub Actions на Linux-сервер.
-                                </p>
+                                <div class="text-xs text-zinc-400" data-i18n="p1.f1">Изоляция тенантов и строгие политики доступа в БД.</div>
                             </div>
-
-                            <!-- Feature Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 my-auto py-2 text-xs sm:text-sm relative z-10">
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandPrimary font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-4 h-4 object-contain" alt="Supabase"> 
-                                        <span>Supabase RLS</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card1.f1">Строгое разграничение доступов в СУБД.</div>
+                            
+                            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                                <div class="text-xs font-mono font-semibold text-white flex items-center gap-2 mb-1">
+                                    <i class="ph-bold ph-git-branch text-emerald-400 text-base"></i>
+                                    <span>Automated CI/CD Pipeline</span>
                                 </div>
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandAccent font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.simpleicons.org/githubactions/2088FF" class="w-4 h-4 object-contain" alt="GitHub Actions">
-                                        <span>CI/CD Pipeline</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card1.f2">GitHub Actions -> Linux Ubuntu.</div>
-                                </div>
-                            </div>
-
-                            <!-- Footer Tech Badges -->
-                            <div class="pt-2.5 sm:pt-2.5 border-t border-glassBorder flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
-                                    <span class="text-slate-400 hidden sm:inline">Стек:</span>
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="React">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Supabase">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Playwright">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Vitest">
-                                    <span class="text-slate-300 ml-0.5 truncate">React, Supabase, Vitest</span>
-                                </div>
-                                <a href="https://crm.atlasauto.space" target="_blank" class="text-brandAccent hover:text-white flex items-center gap-1 font-bold shrink-0 transition-colors">
-                                    <i class="ph ph-planet text-sm sm:text-base"></i> crm.atlasauto.space ↗
-                                </a>
+                                <div class="text-xs text-zinc-400" data-i18n="p1.f2">GitHub Actions → Vitest & Playwright → Ubuntu Linux.</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ACETERNETY 3D TABLET CARD 2: AI Telepilot Assistant -->
-                    <div class="container-scroll-card w-[92vw] sm:w-[90vw] max-w-[950px] h-[66vh] min-h-[480px] max-h-[580px] sm:h-[52vh] sm:min-h-[460px] sm:max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-purple-800/80 bg-[#14082c]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#080314]/95 p-4 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-indigo-600/15 rounded-full blur-2xl pointer-events-none"></div>
-
-                            <div class="space-y-2.5 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between gap-1.5">
-                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-brandPurple/20 text-brandPurple border border-brandPurple/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card2.tag">
-                                        AI Agent & Automation
-                                    </span>
-                                    <span class="text-slate-400 font-mono text-[11px] sm:text-xs flex items-center gap-1.5 shrink-0">
-                                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain" alt="Telegram"> Telepilot API
-                                    </span>
-                                </div>
-
-                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card2.title">ИИ-Бот Онлайн-Записи & RAG Context</h3>
-
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card2.desc">
-                                    Умный бот, ведающий диалог от лица Telegram-аккаунта (Telepilot API). Сам извлекает правила и свободные слоты из БД, согласует время с клиентом и отправляет уведомления в мессенджеры.
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 my-auto py-2 text-xs sm:text-sm relative z-10">
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandPurple font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" class="w-4 h-4 object-contain" alt="PostgreSQL">
-                                        <span>RAG DB Context</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card2.f1">Запрос правил и слотов из базы данных.</div>
-                                </div>
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandAccent font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.simpleicons.org/google/4285F4" class="w-4 h-4 object-contain" alt="Google">
-                                        <span>Google Sync</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card2.f2">Интеграция с Google Календарем.</div>
-                                </div>
-                            </div>
-
-                            <div class="pt-2.5 sm:pt-2.5 border-t border-glassBorder flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
-                                    <span class="text-slate-400 hidden sm:inline">Стек:</span>
-                                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="n8n">
-                                    <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Telegram">
-                                    <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Google Gemini API">
-                                    <span class="text-slate-300 ml-0.5 truncate">n8n, Telepilot, Gemini</span>
-                                </div>
-                                <span class="text-emerald-400 flex items-center gap-1 font-bold shrink-0"><i class="ph ph-check-circle text-sm sm:text-base"></i> Active Agent</span>
-                            </div>
-                        </div>
+                    <!-- Tech Stack Pills Footer -->
+                    <div class="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"> React 19</span>
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase"> Supabase</span>
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TS"> TypeScript</span>
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="Playwright"> Playwright</span>
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" alt="Vitest"> Vitest</span>
                     </div>
-
-                    <!-- ACETERNETY 3D TABLET CARD 3: DevOps & SysAdmin -->
-                    <div class="container-scroll-card w-[92vw] sm:w-[90vw] max-w-[950px] h-[66vh] min-h-[480px] max-h-[580px] sm:h-[52vh] sm:min-h-[460px] sm:max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-emerald-800/80 bg-[#081816]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#03120e]/95 p-4 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-emerald-600/15 rounded-full blur-2xl pointer-events-none"></div>
-
-                            <div class="space-y-2.5 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between gap-1.5">
-                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card3.tag">
-                                        DevOps & SysAdmin
-                                    </span>
-                                    <span class="text-slate-400 font-mono text-[11px] sm:text-xs flex items-center gap-1.5 shrink-0">
-                                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain" alt="Ubuntu"> Infrastructure
-                                    </span>
-                                </div>
-
-                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card3.title">Серверная Инфраструктура & Защита</h3>
-
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card3.desc">
-                                    Развертывание и обслуживание Linux Ubuntu серверов. Конфигурация Nginx Reverse Proxy, установка SSL (Certbot), проксирование Cloudflare WAF, Docker контейнеризация и VPN.
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 my-auto py-2 text-xs sm:text-sm relative z-10">
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-emerald-400 font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 object-contain" alt="Cloudflare">
-                                        <span>Cloudflare WAF</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card3.f1">Защита от атак и управление DNS.</div>
-                                </div>
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandPrimary font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 object-contain" alt="Docker">
-                                        <span>PM2 & Docker</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card3.f2">Управление процессами и сборкой.</div>
-                                </div>
-                            </div>
-
-                            <div class="pt-2.5 sm:pt-2.5 border-t border-glassBorder flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
-                                    <span class="text-slate-400 hidden sm:inline">ОС:</span>
-                                    <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Ubuntu">
-                                    <img src="https://cdn.simpleicons.org/nginx/009639" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Nginx">
-                                    <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Docker">
-                                    <span class="text-slate-300 ml-0.5 truncate">Linux, Nginx, SSL</span>
-                                </div>
-                                <span class="text-emerald-400 flex items-center gap-1 font-bold shrink-0"><i class="ph ph-check-circle text-sm sm:text-base"></i> Hardened</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ACETERNETY 3D TABLET CARD 4: Atlas Web & Automation Studio -->
-                    <div class="container-scroll-card w-[92vw] sm:w-[90vw] max-w-[950px] h-[66vh] min-h-[480px] max-h-[580px] sm:h-[52vh] sm:min-h-[460px] sm:max-h-[520px] shrink-0 rounded-3xl sm:rounded-[32px] border-2 sm:border-4 border-sky-800/80 bg-[#081528]/90 p-3 sm:p-4 shadow-2xl backdrop-blur-2xl transition-all duration-300">
-                        <div class="h-full w-full rounded-2xl bg-[#030b18]/95 p-4 sm:p-6 border border-glassBorder flex flex-col justify-between overflow-hidden relative group">
-                            <div class="absolute -top-16 -right-16 w-36 h-36 bg-sky-600/15 rounded-full blur-2xl pointer-events-none"></div>
-
-                            <div class="space-y-2.5 sm:space-y-3 relative z-10">
-                                <div class="flex items-center justify-between gap-1.5">
-                                    <span class="px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 font-mono text-[11px] sm:text-xs font-bold" data-i18n="card4.tag">
-                                        Web Studio & Agency
-                                    </span>
-                                    <a href="https://atlasauto.space" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-950/80 border border-sky-500/50 text-sky-300 hover:bg-sky-500 hover:text-white font-mono text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 shrink-0">
-                                        <i class="ph ph-globe text-sm text-sky-400"></i> atlasauto.space ↗
-                                    </a>
-                                </div>
-
-                                <h3 class="font-heading text-base xs:text-lg sm:text-3xl font-extrabold text-white leading-snug" data-i18n="card4.title">Atlas Studio — Веб-Разработка & Автоматизация</h3>
-
-                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl" data-i18n="card4.desc">
-                                    Студия веб-разработки и системных автоматизаций. Создание коммерческих сайтов, веб-сервисов, конверсионных лендингов и интеграция авто-сценариев продаж для бизнеса.
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 my-auto py-2 text-xs sm:text-sm relative z-10">
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-sky-400 font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <i class="ph ph-layout text-base"></i>
-                                        <span>Custom Web Dev</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card4.f1">Разработка сайтов и веб-сервисов под ключ.</div>
-                                </div>
-                                <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-black/60 border border-glassBorder shadow-inner flex flex-col justify-center">
-                                    <div class="text-brandPurple font-bold text-xs sm:text-sm flex items-center gap-2">
-                                        <i class="ph ph-lightning text-base"></i>
-                                        <span>Business Automation</span>
-                                    </div>
-                                    <div class="text-slate-400 text-[11px] sm:text-xs mt-1" data-i18n="card4.f2">n8n пайплайны и интеграции мессенджеров.</div>
-                                </div>
-                            </div>
-
-                            <div class="pt-2.5 sm:pt-2.5 border-t border-glassBorder flex items-center justify-between text-[11px] sm:text-xs font-mono relative z-10">
-                                <div class="flex items-center gap-1.5 sm:gap-2 overflow-hidden pr-2">
-                                    <span class="text-slate-400 hidden sm:inline">Стек:</span>
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="React">
-                                    <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="Tailwind CSS">
-                                    <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0" title="n8n">
-                                    <span class="text-slate-300 ml-0.5 truncate">React, Tailwind, n8n</span>
-                                </div>
-                                <a href="https://atlasauto.space" target="_blank" class="text-sky-400 hover:text-white flex items-center gap-1 font-bold shrink-0 transition-colors">
-                                    <i class="ph ph-arrow-square-out text-sm sm:text-base"></i> atlasauto.space ↗
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </div>
 
-    </section>
-
-    <!-- INFINITE SKILLS TICKER MARQUEE RIBBON -->
-    <section id="skills-marquee" class="relative z-20 py-3 sm:py-3.5 overflow-hidden bg-spaceDark/80 backdrop-blur-2xl">
-        <!-- Left & Right Gradient Fade Masks for Premium Look -->
-        <div class="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-spaceDark to-transparent z-10"></div>
-        <div class="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-spaceDark to-transparent z-10"></div>
-
-        <div class="marquee-container overflow-hidden w-full">
-            <div class="animate-marquee-infinite gap-6 sm:gap-10 items-center">
-                
-                <!-- LOOP SET 1 -->
-                <div class="flex gap-6 sm:gap-10 items-center shrink-0">
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/react/61DAFB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="React"> React 19 & Vite
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/supabase/3ECF8E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Supabase"> Supabase RLS & Auth
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/typescript/3178C6" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="TypeScript"> TypeScript
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Tailwind CSS"> Tailwind CSS
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/nodedotjs/5FA04E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Node.js"> Node.js & Fastify
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/python/3776AB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Python"> Python & FastAPI
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="n8n"> n8n Workflows
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Telegram"> Telepilot API
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Google Gemini"> Gemini API
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Docker"> Docker & Containers
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Ubuntu"> Linux Ubuntu & Nginx
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Cloudflare"> Cloudflare WAF
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Playwright">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Vitest">
-                        Playwright & Vitest
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-                </div>
-
-                <!-- LOOP SET 2 (DUPLICATED FOR 100% SEAMLESS LOOP) -->
-                <div class="flex gap-6 sm:gap-10 items-center shrink-0" aria-hidden="true">
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/react/61DAFB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="React"> React 19 & Vite
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/supabase/3ECF8E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Supabase"> Supabase RLS & Auth
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/typescript/3178C6" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="TypeScript"> TypeScript
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Tailwind CSS"> Tailwind CSS
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/nodedotjs/5FA04E" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Node.js"> Node.js & Fastify
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/python/3776AB" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Python"> Python & FastAPI
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="n8n"> n8n Workflows
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/telegram/26A5E4" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Telegram"> Telepilot API
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/googlegemini/8E75FF" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Google Gemini"> Gemini API
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Docker"> Docker & Containers
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/ubuntu/E95420" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Ubuntu"> Linux Ubuntu & Nginx
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.simpleicons.org/cloudflare/F38020" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Cloudflare"> Cloudflare WAF
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-
-                    <div class="flex items-center gap-2.5 text-white font-mono text-xs sm:text-sm font-semibold">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Playwright">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitest/vitest-original.svg" class="w-4 h-4 sm:w-5 sm:h-5 object-contain" alt="Vitest">
-                        Playwright & Vitest
-                    </div>
-                    <span class="text-purple-500/50 font-mono select-none">•</span>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SCENE 2.5: KEY METRICS - CIRCULAR 3D GALLERY SHOWCASE -->
-    <section id="metrics-section" class="py-8 sm:py-12 max-w-full overflow-hidden relative z-20">
-        
-        <!-- 3D Circular Cylinder Gallery Container (Overflow Visible to prevent glow clipping) -->
-        <div id="circular-gallery-stage" class="relative w-full h-[300px] sm:h-[350px] mx-auto flex items-center justify-center select-none" style="perspective: 1200px;">
-            <div id="circular-gallery-ring" class="relative w-full h-full" style="transform-style: preserve-3d;">
-                
-                <!-- CARD 1: FAST LEARNER (PURPLE) -->
-                <div data-glow="168, 85, 247" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-purple-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-3xl sm:text-4xl font-black font-heading text-brandPurple whitespace-nowrap" data-i18n="metrics.v1">Fast Learner</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.experience">Adaptability to New Stack</div>
-                </div>
-
-                <!-- CARD 2: 15+ PROJECTS (INDIGO) -->
-                <div data-glow="99, 102, 241" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-indigo-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-4xl sm:text-5xl font-black font-heading text-brandPrimary" data-i18n="metrics.v2">15+</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.projects">Projects & AI Bots</div>
-                </div>
-
-                <!-- CARD 3: 100% AUTOTESTS (EMERALD) -->
-                <div data-glow="52, 211, 153" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-emerald-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-4xl sm:text-5xl font-black font-heading text-emerald-400" data-i18n="metrics.v3">100%</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.autotests">RLS & CI/CD Auto-tests</div>
-                </div>
-
-                <!-- CARD 4: 3X SPEED (AMBER) -->
-                <div data-glow="251, 191, 36" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-amber-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-4xl sm:text-5xl font-black font-heading text-amber-400" data-i18n="metrics.v4">3x</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.speed">Speed with AI Stack</div>
-                </div>
-
-                <!-- CARD 5: 24/7 AI AGENTS (CYAN) -->
-                <div data-glow="34, 211, 238" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-4xl sm:text-5xl font-black font-heading text-cyan-400" data-i18n="metrics.v5">24/7</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v5desc">AI Agents & Workflows</div>
-                </div>
-
-                <!-- CARD 6: OPTIMIZED PERFORMANCE (ROSE) -->
-                <div data-glow="251, 113, 133" class="circular-card absolute w-[260px] sm:w-[300px] h-[160px] sm:h-[180px] p-6 rounded-3xl bg-[#0d061f]/95 border border-rose-500/40 backdrop-blur-2xl shadow-2xl flex flex-col justify-center items-center text-center space-y-2 cursor-grab active:cursor-grabbing">
-                    <div class="text-4xl sm:text-5xl font-black font-heading text-rose-400" data-i18n="metrics.v6">&lt;100ms</div>
-                    <div class="text-xs sm:text-sm text-slate-300 font-mono uppercase tracking-wider leading-relaxed" data-i18n="metrics.v6desc">Optimized Performance</div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="bot-simulation" class="py-20 px-4 max-w-4xl mx-auto relative z-20">
-        <div class="scroll-reveal text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="bot.title">Демо ИИ-Бота</h2>
-            <p class="text-slate-400 text-sm" data-i18n="bot.sub">Проверь работу агента — нажми на одну из кнопок ниже.</p>
-        </div>
-
-        <div class="scroll-reveal-card rounded-3xl bg-darkCard border border-glassBorder p-6 shadow-2xl backdrop-blur-xl" style="transition-delay: 200ms">
-            <div class="flex items-center justify-between pb-4 border-b border-glassBorder">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brandPurple to-brandPrimary flex items-center justify-center text-white font-bold">
-                        <i class="ph ph-robot text-xl"></i>
-                    </div>
+            <!-- TILE 2: AI Telepilot Agent (4 Columns) -->
+            <div class="reveal-init bento-card lg:col-span-4">
+                <div class="bento-core">
                     <div>
-                        <div class="text-white font-bold text-sm">AI Agent</div>
-                        <div class="text-emerald-400 text-xs flex items-center gap-1 font-mono">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online • RAG Context Active
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium" data-i18n="p2.badge">
+                                AI Agent & Automation
+                            </span>
+                            <span class="text-xs font-mono text-zinc-400">Telepilot API</span>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-white mb-3" data-i18n="p2.title">
+                            ИИ-Ассистент Записи & RAG Context
+                        </h3>
+
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-6" data-i18n="p2.desc">
+                            Интеллектуальный бот для диалогов от лица Telegram-аккаунта. Динамически извлекает регламенты и слоты из PostgreSQL, согласует время и ставит запись в Google Calendar.
+                        </p>
+
+                        <div class="space-y-2.5 mb-6">
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs">
+                                <span class="font-mono text-emerald-400 font-semibold">PostgreSQL RAG:</span>
+                                <span class="text-zinc-400 block mt-0.5" data-i18n="p2.f1">Точный поиск правил и свободных слотов.</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs">
+                                <span class="font-mono text-indigo-400 font-semibold">Calendar Sync:</span>
+                                <span class="text-zinc-400 block mt-0.5" data-i18n="p2.f2">Двустороннее обновление расписания в Google.</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <button onclick="resetBotDemo()" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-mono hover:text-white transition-colors flex items-center gap-1">
-                    <i class="ph ph-arrow-counter-clockwise"></i> <span data-i18n="bot.reset">Сбросить</span>
-                </button>
-            </div>
 
-            <div id="bot-chat-body" class="py-6 space-y-4 h-72 overflow-y-auto font-sans text-xs sm:text-sm">
-                <div class="flex gap-3 items-start">
-                    <div class="w-7 h-7 rounded-full bg-brandPurple/30 text-brandPurple flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">AI</div>
-                    <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-glassBorder text-slate-200 max-w-md" data-i18n="bot.welcome">
-                        Здравствуйте! Я ИИ-ассистент записи. Я подключен к СУБД и Google Календарям. Чем могу помочь?
+                    <div class="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/n8n/FF6D5A" alt="n8n"> n8n</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"> Telegram</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/googlegemini/8E75FF" alt="Gemini"> Gemini API</span>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-4 border-t border-glassBorder flex flex-wrap gap-2">
-                <button onclick="triggerBotDemo(1)" class="px-4 py-2 rounded-xl bg-brandPrimary/20 border border-brandPrimary/40 text-brandPrimary hover:bg-brandPrimary hover:text-white transition-all text-xs font-medium" data-i18n="bot.b1">
-                    💬 "Хочу записаться на завтра"
-                </button>
-                <button onclick="triggerBotDemo(2)" class="px-4 py-2 rounded-xl bg-brandPurple/20 border border-brandPurple/40 text-brandPurple hover:bg-brandPurple hover:text-white transition-all text-xs font-medium" data-i18n="bot.b2">
-                    📅 "Свободные слоты на вечер?"
-                </button>
-                <button onclick="triggerBotDemo(3)" class="px-4 py-2 rounded-xl bg-brandAccent/20 border border-brandAccent/40 text-brandAccent hover:bg-brandAccent hover:text-white transition-all text-xs font-medium" data-i18n="bot.b3">
-                    ⚡ "Подтвердить запись на 18:00"
-                </button>
-            </div>
-        </div>
-    </section>
+            <!-- TILE 3: Linux & Cloud Infrastructure (4 Columns) -->
+            <div class="reveal-init bento-card lg:col-span-4">
+                <div class="bento-core">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono font-medium" data-i18n="p3.badge">
+                                DevOps & Security
+                            </span>
+                            <span class="text-xs font-mono text-zinc-400">Ubuntu 24.04</span>
+                        </div>
 
+                        <h3 class="text-xl font-bold text-white mb-3" data-i18n="p3.title">
+                            Серверный контур & Cloudflare WAF
+                        </h3>
 
-    <!-- SCENE 4: INTERACTIVE CLI TERMINAL -->
-    <section id="terminal-section" class="py-20 px-4 max-w-5xl mx-auto relative z-20 mb-20">
-        <div class="scroll-reveal text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <h2 class="font-heading text-3xl sm:text-5xl lg:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="term.title">Консоль Навыков</h2>
-            <p class="text-slate-400 text-sm" data-i18n="term.sub">Проверь стековые команды или введи <span class="text-brandAccent font-mono">skills</span>, <span class="text-brandPurple font-mono">devops</span>, <span class="text-brandPrimary font-mono">education</span>.</p>
-        </div>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-6" data-i18n="p3.desc">
+                            Развертывание и сопровождение Linux Ubuntu серверов. Настройка Nginx Reverse Proxy, Certbot SSL, защита Cloudflare WAF, изоляция в Docker и мониторинг PM2.
+                        </p>
 
-        <div class="scroll-reveal-card rounded-2xl bg-[#090C16] border border-glassBorder shadow-2xl overflow-hidden font-mono text-xs sm:text-sm" style="transition-delay: 200ms">
-            <div class="bg-black/60 px-4 py-3 border-b border-glassBorder flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-                    <span class="ml-2 text-slate-400 text-xs">root@valerii: ~</span>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex items-center gap-2 text-xs text-zinc-300 font-mono">
+                                <i class="ph-bold ph-check text-emerald-400"></i>
+                                <span>Cloudflare WAF / Anti-DDoS</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-zinc-300 font-mono">
+                                <i class="ph-bold ph-check text-emerald-400"></i>
+                                <span>Automated Certbot SSL Renewal</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-zinc-300 font-mono">
+                                <i class="ph-bold ph-check text-emerald-400"></i>
+                                <span>Docker Container Isolation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/ubuntu/E95420" alt="Ubuntu"> Ubuntu</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx"> Nginx</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare"> Cloudflare</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"> Docker</span>
+                    </div>
                 </div>
-                <div class="text-slate-500 text-xs">Web Terminal</div>
             </div>
 
-            <div id="terminal-body" class="p-6 space-y-3 h-80 overflow-y-auto text-slate-300 leading-relaxed">
-                <div>Welcome to Valerii's Web Terminal.</div>
-                <div>Type <span class="text-brandAccent">help</span> or click quick action buttons below.</div>
-                <div class="text-slate-500">----------------------------------------------------</div>
+            <!-- TILE 4: Atlas Studio & Commercial Web (8 Columns) -->
+            <div class="reveal-init bento-card lg:col-span-8">
+                <div class="bento-core">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-mono font-medium" data-i18n="p4.badge">
+                                Web Studio & Solutions
+                            </span>
+                            <a href="https://atlasauto.space" target="_blank" class="text-xs font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1.5 transition-colors">
+                                <span>atlasauto.space</span>
+                                <i class="ph ph-arrow-up-right text-sm"></i>
+                            </a>
+                        </div>
+
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3" data-i18n="p4.title">
+                            Atlas Studio: Разработка веб-сервисов и автоматизаций
+                        </h3>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed mb-6" data-i18n="p4.desc">
+                            Инженерная веб-студия и студия автоматизаций. Создание коммерческих лендингов, SPA-сервисов, интеграция сценариев продаж и CRM-пайплайнов для бизнеса под ключ.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                                <div class="text-xs font-mono font-semibold text-white flex items-center gap-2 mb-1">
+                                    <i class="ph-bold ph-code text-sky-400 text-base"></i>
+                                    <span>High-Converting Architecture</span>
+                                </div>
+                                <div class="text-xs text-zinc-400" data-i18n="p4.f1">Быстрый отклик, Core Web Vitals и конверсионная верстка.</div>
+                            </div>
+                            
+                            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                                <div class="text-xs font-mono font-semibold text-white flex items-center gap-2 mb-1">
+                                    <i class="ph-bold ph-plugs-connected text-indigo-400 text-base"></i>
+                                    <span>Business Automation</span>
+                                </div>
+                                <div class="text-xs text-zinc-400" data-i18n="p4.f2">Связка вебхуков форм с n8n, CRM и мессенджерами.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+                        <span class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"> React</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind"> Tailwind CSS</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/n8n/FF6D5A" alt="n8n"> n8n Workflows</span>
+                        <span class="tech-pill"><img src="https://cdn.simpleicons.org/fastify/000000" alt="Fastify" class="invert"> Fastify API</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="bg-black/40 p-3 border-t border-glassBorder flex flex-wrap gap-2">
-                <button onclick="runCmd('skills')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandPrimary hover:text-white transition-colors text-xs font-mono">skills</button>
-                <button onclick="runCmd('devops')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandPurple hover:text-white transition-colors text-xs font-mono">devops</button>
-                <button onclick="runCmd('education')" class="px-3 py-1 rounded bg-slate-800 text-slate-200 hover:bg-brandAccent hover:text-white transition-colors text-xs font-mono">education</button>
-                <button onclick="runCmd('clear')" class="px-3 py-1 rounded bg-slate-800 text-slate-400 hover:text-white transition-colors text-xs font-mono">clear</button>
-            </div>
-
-            <form id="terminal-form" onsubmit="handleCmdSubmit(event)" class="bg-black/80 px-4 py-3 border-t border-glassBorder flex items-center gap-2">
-                <span class="text-brandAccent font-bold">$</span>
-                <input id="terminal-input" type="text" placeholder="Введите команду (skills, devops, education, clear)..." class="bg-transparent border-none outline-none text-white w-full font-mono text-xs sm:text-sm">
-            </form>
         </div>
+
     </section>
 
 
-    <!-- SCENE 5: CONTACT & GET IN TOUCH SECTION -->
-    <section id="contact-section" class="py-20 px-4 max-w-4xl mx-auto relative z-20 mb-32 text-center space-y-8">
+    <!-- ==========================================================================
+         AI AGENT TOOLING & ECOSYSTEM (3D Circular Ring Carousel with Codex, Claude, Antigravity)
+         ========================================================================== -->
+    <section id="ecosystem" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
         
-        <div class="scroll-reveal max-w-2xl mx-auto space-y-4">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-semibold">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span data-i18n="contact.badge">Открыт к предложениям & Вакансиям</span>
+        <div class="reveal-init mb-10 text-center max-w-2xl mx-auto">
+            <div class="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider mb-2" data-i18n="eco.eyebrow">
+                Autonomous AI & Agent Ecosystem
             </div>
-
-            <h2 class="font-heading text-3xl sm:text-5xl font-black text-white tracking-tight scroll-char-scrub" data-i18n="contact.title">
-                Давайте обсудим ваш проект
+            <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3" data-i18n="eco.title">
+                Экосистема ИИ-агентов и сред разработки
             </h2>
-
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="contact.sub">
-                Я открыт к новым предложениям, фуллтайм-разработке и проектным задачам. Напишите мне в Telegram или посмотрите исходный код на GitHub — отвечу в течение 15 минут.
+            <p class="text-zinc-400 text-xs sm:text-sm" data-i18n="eco.sub">
+                Автономные агенты, CLI-инструменты и оркестраторы (перетаскивайте или вращайте кольцо)
             </p>
         </div>
 
-        <!-- Contact Options Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
+        <!-- 3D Circular Cylinder Gallery Stage -->
+        <div id="circular-gallery-stage" class="relative w-full h-[320px] sm:h-[360px] mx-auto flex items-center justify-center select-none" style="perspective: 1200px;">
+            <div id="circular-gallery-ring" class="relative w-full h-full" style="transform-style: preserve-3d;">
+                
+                <!-- Card 1: Google Antigravity -->
+                <div data-glow="99, 102, 241" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-indigo-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="icons/google-antigravity.png" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Antigravity">
+                        <div>
+                            <div class="text-sm font-bold text-white">Google Antigravity</div>
+                            <div class="text-[11px] font-mono text-indigo-400">Agentic IDE & SDK</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c1.desc">Автономная среда агентной разработки и мультиагентных систем.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Active Environment</div>
+                </div>
+
+                <!-- Card 2: Claude Code -->
+                <div data-glow="217, 119, 6" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-amber-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="icons/claude-code.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Claude Code">
+                        <div>
+                            <div class="text-sm font-bold text-white">Claude Code</div>
+                            <div class="text-[11px] font-mono text-amber-400">Agentic CLI Workflows</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c2.desc">Автоматизация рефакторинга, генерация тестов и терминальные пайплайны.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Core CLI</div>
+                </div>
+
+                <!-- Card 3: OpenAI Codex -->
+                <div data-glow="16, 185, 129" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-emerald-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="icons/codex.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Codex">
+                        <div>
+                            <div class="text-sm font-bold text-white">OpenAI Codex</div>
+                            <div class="text-[11px] font-mono text-emerald-400">Code Synthesis</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c3.desc">Синтез программной логики, преобразование алгоритмов и интеграции.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Neural Engine</div>
+                </div>
+
+                <!-- Card 4: Hermes Agent -->
+                <div data-glow="168, 85, 247" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-purple-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="icons/hermes-agent.png" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Hermes Agent">
+                        <div>
+                            <div class="text-sm font-bold text-white">Hermes Agent</div>
+                            <div class="text-[11px] font-mono text-purple-400">Autonomous Tasks</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c4.desc">Исполнение многошаговых сценариев и автоматизированный веб-поиск.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Task Runner</div>
+                </div>
+
+                <!-- Card 5: Atlas Core -->
+                <div data-glow="56, 189, 248" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-sky-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="icons/atlasapp.svg" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="Atlas">
+                        <div>
+                            <div class="text-sm font-bold text-white">Atlas Core</div>
+                            <div class="text-[11px] font-mono text-sky-400">Enterprise CRM Engine</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c5.desc">Собственный движок мультитенантной CRM с защитой Supabase RLS.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Proprietary MVP</div>
+                </div>
+
+                <!-- Card 6: n8n Platform -->
+                <div data-glow="244, 63, 94" class="circular-card w-[260px] sm:w-[290px] h-[170px] p-5 rounded-2xl bg-[#121215]/95 border border-rose-500/30 backdrop-blur-xl shadow-2xl flex flex-col justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="https://cdn.simpleicons.org/n8n/FF6D5A" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/5 border border-white/10" alt="n8n">
+                        <div>
+                            <div class="text-sm font-bold text-white">n8n Orchestrator</div>
+                            <div class="text-[11px] font-mono text-rose-400">Event Automation</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-zinc-400 leading-relaxed" data-i18n="eco.c6.desc">Оркестрация очередей вебхуков, баз данных и мессенджеров на Linux.</div>
+                    <div class="text-[10px] font-mono text-zinc-500 flex items-center gap-1"><i class="ph ph-check-circle text-emerald-400"></i> Event Router</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         ARCHITECTURE INSPECTOR (Replacing Fake Bots & Terminals with Real Engineering)
+         ========================================================================== -->
+    <section id="architecture" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        
+        <div class="reveal-init mb-10 text-left">
+            <div class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider mb-2" data-i18n="arch.eyebrow">
+                Systems Architecture & Real Engineering
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight" data-i18n="arch.title">
+                Инспектор системной архитектуры
+            </h2>
+            <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mt-2" data-i18n="arch.sub">
+                Настоящие инженерные решения: от политик изоляции данных в СУБД до автоматизированных очередей и CI/CD деплоя.
+            </p>
+        </div>
+
+        <!-- Interactive Architecture Tabs -->
+        <div class="reveal-init bento-card">
+            <div class="bento-core">
+                
+                <!-- Tab Controls -->
+                <div class="flex flex-wrap gap-2 pb-4 border-b border-white/[0.08]">
+                    <button class="arch-tab-btn active" onclick="switchArchTab('rls')" id="tab-btn-rls">
+                        <i class="ph ph-database text-indigo-400 text-base"></i>
+                        <span data-i18n="arch.tab1">1. Supabase RLS & Auth</span>
+                    </button>
+                    
+                    <button class="arch-tab-btn" onclick="switchArchTab('n8n')" id="tab-btn-n8n">
+                        <i class="ph ph-git-merge text-emerald-400 text-base"></i>
+                        <span data-i18n="arch.tab2">2. n8n & Telepilot Pipeline</span>
+                    </button>
+                    
+                    <button class="arch-tab-btn" onclick="switchArchTab('cicd')" id="tab-btn-cicd">
+                        <i class="ph ph-terminal text-amber-400 text-base"></i>
+                        <span data-i18n="arch.tab3">3. GitHub Actions CI/CD</span>
+                    </button>
+                </div>
+
+                <!-- TAB PANE 1: Supabase RLS -->
+                <div id="tab-pane-rls" class="pt-6 space-y-4">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-white" data-i18n="arch.rls.h">Многоарендная безопасность на уровне строк (PostgreSQL RLS)</h4>
+                            <p class="text-zinc-400 text-sm mt-1" data-i18n="arch.rls.p">
+                                Клиент не может получить чужие данные даже при прямой компрометации фронтенда: доступ фильтруется СУБД по auth.uid().
+                            </p>
+                        </div>
+                        <span class="status-badge shrink-0">
+                            <i class="ph ph-lock-key text-emerald-400"></i> Zero-Trust Database
+                        </span>
+                    </div>
+
+                    <div class="code-panel">
+                        <div class="code-header">
+                            <span class="font-mono">supabase/migrations/20260215_tenant_rls_security.sql</span>
+                            <span class="text-zinc-500 font-mono text-xs">PostgreSQL</span>
+                        </div>
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-sql"><span class="text-indigo-400">ALTER TABLE</span> clients <span class="text-indigo-400">ENABLE ROW LEVEL SECURITY</span>;
+
+<span class="text-zinc-500">-- Политика: Пользователь видит только записи своей организации (Tenant Isolation)</span>
+<span class="text-indigo-400">CREATE POLICY</span> <span class="text-emerald-400">"tenant_isolated_access"</span>
+<span class="text-indigo-400">ON</span> clients
+<span class="text-indigo-400">FOR ALL</span>
+<span class="text-indigo-400">USING</span> (
+  tenant_id = (
+    <span class="text-indigo-400">SELECT</span> tenant_id <span class="text-indigo-400">FROM</span> user_profiles
+    <span class="text-indigo-400">WHERE</span> user_id = <span class="text-indigo-400">auth.uid()</span>
+  )
+);</code></pre>
+                    </div>
+                </div>
+
+                <!-- TAB PANE 2: n8n AI Pipeline -->
+                <div id="tab-pane-n8n" class="pt-6 space-y-4 hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-white" data-i18n="arch.n8n.h">Автономный пайплайн обработки лидов через n8n Webhook</h4>
+                            <p class="text-zinc-400 text-sm mt-1" data-i18n="arch.n8n.p">
+                                Входящее сообщение от Telepilot API валидируется, обогащается RAG-контекстом из базы и направляется в календарь.
+                            </p>
+                        </div>
+                        <span class="status-badge shrink-0">
+                            <i class="ph ph-lightning text-amber-400"></i> Sub-second Processing
+                        </span>
+                    </div>
+
+                    <div class="code-panel">
+                        <div class="code-header">
+                            <span class="font-mono">workflows/telegram-booking-orchestrator.json</span>
+                            <span class="text-zinc-500 font-mono text-xs">Pipeline Flow</span>
+                        </div>
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-json">{
+  <span class="text-indigo-400">"nodes"</span>: [
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Telepilot Webhook"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.webhook"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"PostgreSQL RAG Slots Query"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.postgres"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Google Gemini 1.5 Context Eval"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"langchain.agent"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Google Calendar Event Creator"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"googleCalendar"</span> },
+    { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Dispatch Confirmation SMS/TG"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"telegram"</span> }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- TAB PANE 3: CI/CD -->
+                <div id="tab-pane-cicd" class="pt-6 space-y-4 hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-white" data-i18n="arch.cicd.h">Автоматизированный CI/CD пайплайн с блокировкой деплоя</h4>
+                            <p class="text-zinc-400 text-sm mt-1" data-i18n="arch.cicd.p">
+                                Сборка деплоится на Linux Ubuntu только после успешного прохождения 100% Vitest и Playwright тестов.
+                            </p>
+                        </div>
+                        <span class="status-badge shrink-0">
+                            <i class="ph ph-check-circle text-emerald-400"></i> Zero-Downtime Deploy
+                        </span>
+                    </div>
+
+                    <div class="code-panel">
+                        <div class="code-header">
+                            <span class="font-mono">.github/workflows/production-deploy.yml</span>
+                            <span class="text-zinc-500 font-mono text-xs">YAML</span>
+                        </div>
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-yaml"><span class="text-indigo-400">name</span>: <span class="text-zinc-200">Production Build & Linux Deploy</span>
+<span class="text-indigo-400">jobs</span>:
+  <span class="text-emerald-400">test-and-deploy</span>:
+    <span class="text-indigo-400">runs-on</span>: <span class="text-zinc-200">ubuntu-latest</span>
+    <span class="text-indigo-400">steps</span>:
+      - <span class="text-indigo-400">uses</span>: <span class="text-zinc-200">actions/checkout@v4</span>
+      - <span class="text-indigo-400">run</span>: <span class="text-zinc-200">npm ci && npm run test:unit</span>     <span class="text-zinc-500"># Vitest gate</span>
+      - <span class="text-indigo-400">run</span>: <span class="text-zinc-200">npx playwright test</span>              <span class="text-zinc-500"># E2E test gate</span>
+      - <span class="text-indigo-400">name</span>: <span class="text-zinc-200">Deploy to Linux Ubuntu via SSH</span>
+        <span class="text-indigo-400">run</span>: |
+          rsync -az dist/ root@server:/var/www/crm/
+          ssh root@server "systemctl reload nginx"</code></pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================================================
+         TECHNICAL STACK & CORE COMPETENCIES
+         ========================================================================== -->
+    <section id="stack" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        
+        <div class="reveal-init mb-12 text-left">
+            <div class="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider mb-2" data-i18n="stack.eyebrow">
+                Technologies & Architecture Stack
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight" data-i18n="stack.title">
+                Технологический стек и квалификация
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             
-            <!-- Telegram Card (Motiq Border Beam Panel) -->
-            <a href="https://t.me/Easyvaleriy" target="_blank" aria-label="Telegram - Написать в Telegram @Easyvaleriy" class="scroll-reveal border-beam-panel p-6 rounded-2xl bg-[#0b061d]/90 border border-brandPurple/30 hover:scale-105 transition-all duration-300 text-left flex flex-col justify-between group/card shadow-2xl backdrop-blur-xl relative overflow-hidden" style="transition-delay: 100ms; --beam-color-1: #a855f7; --beam-color-2: #34d399; --beam-color-3: #ff6b5e;">
-                <div aria-hidden="true" class="border-beam-glow"></div>
-                <div aria-hidden="true" class="border-beam-ring"></div>
-
-                <div class="flex items-center justify-between pb-4 relative z-10">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brandPurple to-brandPrimary flex items-center justify-center text-white shadow-md">
-                        <svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M41.4193 7.30899C41.4193 7.30899 45.3046 5.79399 44.9808 9.47328C44.8729 10.9883 43.9016 16.2908 43.1461 22.0262L40.5559 39.0159C40.5559 39.0159 40.3401 41.5048 38.3974 41.9377C36.4547 42.3705 33.5408 40.4227 33.0011 39.9898C32.5694 39.6652 24.9068 34.7955 22.2086 32.4148C21.4531 31.7655 20.5897 30.4669 22.3165 28.9519L33.6487 18.1305C34.9438 16.8319 36.2389 13.8019 30.8426 17.4812L15.7331 27.7616C15.7331 27.7616 14.0063 28.8437 10.7686 27.8698L3.75342 25.7055C3.75342 25.7055 1.16321 24.0823 5.58815 22.459C16.3807 17.3729 29.6555 12.1786 41.4193 7.30899Z" fill="white"/>
-                        </svg>
+            <!-- Category 1: Frontend -->
+            <div class="reveal-init bento-card">
+                <div class="bento-core">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4">
+                            <i class="ph-bold ph-browsers text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="stack.c1.title">Frontend Engineering</h3>
+                        <p class="text-xs text-zinc-400 mb-4" data-i18n="stack.c1.desc">Современные SPA и конверсионные интерфейсы.</p>
+                        
+                        <div class="space-y-2">
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> React 19 & Vite
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> TypeScript
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Tailwind CSS
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Responsive & Accessible UX
+                            </div>
+                        </div>
                     </div>
-                    <i class="ph ph-arrow-up-right text-slate-400 group-hover/card:text-white transition-colors text-xl"></i>
                 </div>
-                <div class="relative z-10">
-                    <div class="text-white font-bold text-lg">Telegram</div>
-                    <div class="text-purple-300 font-mono text-xs mt-0.5">@Easyvaleriy</div>
-                    <div class="text-slate-400 text-xs mt-2" data-i18n="contact.tgdesc">Быстрый ответ в течение 15 минут.</div>
-                </div>
-            </a>
+            </div>
 
-            <!-- Email Card (Motiq Border Beam Panel) -->
-            <a href="mailto:valeador555@gmail.com" aria-label="Email - Написать на почту valeador555@gmail.com" class="scroll-reveal border-beam-panel p-6 rounded-2xl bg-[#0b101d]/90 border border-emerald-500/30 hover:scale-105 transition-all duration-300 text-left flex flex-col justify-between group/card shadow-2xl backdrop-blur-xl relative overflow-hidden" style="transition-delay: 200ms; --beam-color-1: #10b981; --beam-color-2: #38bdf8; --beam-color-3: #a855f7;">
-                <div aria-hidden="true" class="border-beam-glow"></div>
-                <div aria-hidden="true" class="border-beam-ring"></div>
-
-                <div class="flex items-center justify-between pb-4 relative z-10">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md">
-                        <i class="ph-bold ph-envelope-simple text-2xl text-white"></i>
+            <!-- Category 2: Backend & Database -->
+            <div class="reveal-init bento-card">
+                <div class="bento-core">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
+                            <i class="ph-bold ph-database text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="stack.c2.title">Backend & Database</h3>
+                        <p class="text-xs text-zinc-400 mb-4" data-i18n="stack.c2.desc">Защита данных и СУБД-логика.</p>
+                        
+                        <div class="space-y-2">
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Supabase Platform
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> PostgreSQL & RLS
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Triggers & Migrations
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Node.js & Fastify
+                            </div>
+                        </div>
                     </div>
-                    <i class="ph ph-arrow-up-right text-slate-400 group-hover/card:text-white transition-colors text-xl"></i>
                 </div>
-                <div class="relative z-10">
-                    <div class="text-white font-bold text-lg">Email</div>
-                    <div class="text-emerald-300 font-mono text-xs mt-0.5 truncate">valeador555@gmail.com</div>
-                    <div class="text-slate-400 text-xs mt-2" data-i18n="contact.emaildesc">Прямая связь для офферов и контрактов.</div>
-                </div>
-            </a>
+            </div>
 
-            <!-- GitHub Card (Motiq Border Beam Panel) -->
-            <a href="https://github.com/Valerador" target="_blank" class="scroll-reveal border-beam-panel p-6 rounded-2xl bg-[#090b16]/90 border border-indigo-500/30 hover:scale-105 transition-all duration-300 text-left flex flex-col justify-between group/card shadow-2xl backdrop-blur-xl relative overflow-hidden" style="transition-delay: 300ms; --beam-color-1: #818cf8; --beam-color-2: #38bdf8; --beam-color-3: #ff6b5e;">
-                <div aria-hidden="true" class="border-beam-glow"></div>
-                <div aria-hidden="true" class="border-beam-ring"></div>
-
-                <div class="flex items-center justify-between pb-4 relative z-10">
-                    <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-white shadow-md">
-                        <i class="ph-bold ph-github-logo text-2xl text-white"></i>
+            <!-- Category 3: AI & Automation -->
+            <div class="reveal-init bento-card">
+                <div class="bento-core">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4">
+                            <i class="ph-bold ph-robot text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="stack.c3.title">AI & Automation</h3>
+                        <p class="text-xs text-zinc-400 mb-4" data-i18n="stack.c3.desc">Автономные агенты и сценарии.</p>
+                        
+                        <div class="space-y-2">
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> n8n Self-Hosted Workflows
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Telepilot User-Bots
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Google Gemini 1.5 API
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> RAG & Webhook Architecture
+                            </div>
+                        </div>
                     </div>
-                    <i class="ph ph-arrow-up-right text-slate-400 group-hover/card:text-white transition-colors text-xl"></i>
                 </div>
-                <div class="relative z-10">
-                    <div class="text-white font-bold text-lg">GitHub Profile</div>
-                    <div class="text-slate-300 font-mono text-xs mt-0.5">github.com/Valerador</div>
-                    <div class="text-slate-400 text-xs mt-2" data-i18n="contact.ghdesc">Исходный код, коммиты и коммерческие MVP.</div>
+            </div>
+
+            <!-- Category 4: DevOps & QA -->
+            <div class="reveal-init bento-card">
+                <div class="bento-core">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-4">
+                            <i class="ph-bold ph-shield text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="stack.c4.title">DevOps & Testing</h3>
+                        <p class="text-xs text-zinc-400 mb-4" data-i18n="stack.c4.desc">Инфраструктура и надежность.</p>
+                        
+                        <div class="space-y-2">
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Linux Ubuntu & Nginx
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Docker & PM2
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Playwright & Vitest
+                            </div>
+                            <div class="text-xs text-zinc-300 flex items-center gap-2">
+                                <i class="ph ph-check text-emerald-400"></i> Cloudflare WAF & DNS
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </a>
+            </div>
 
         </div>
 
     </section>
 
+
+    <!-- ==========================================================================
+         CONTACT & INQUIRIES SECTION (With Magic Border Beam Glow)
+         ========================================================================== -->
+    <section id="contact" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto mb-24 text-center">
+        
+        <div class="reveal-init max-w-2xl mx-auto mb-10">
+            <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3" data-i18n="contact.title">
+                Связаться и обсудить проект
+            </h2>
+            <p class="text-zinc-400 text-sm sm:text-base leading-relaxed" data-i18n="contact.sub">
+                Открыт к предложениям по полной занятости, архитектурным контрактам и разработке ИИ-систем. Ответ в Telegram в течение 15 минут.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <!-- Telegram Card with Border Beam -->
+            <a href="https://t.me/Easyvaleriy" target="_blank" class="reveal-init border-beam-panel bento-card text-left group overflow-hidden" style="--beam-color-1: #818cf8; --beam-color-2: #34d399; --beam-color-3: #c084fc;">
+                <div aria-hidden="true" class="border-beam-glow"></div>
+                <div aria-hidden="true" class="border-beam-ring"></div>
+                <div class="bento-core relative z-10">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                <i class="ph-bold ph-telegram-logo text-xl"></i>
+                            </div>
+                            <i class="ph ph-arrow-up-right text-zinc-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div class="text-white font-bold text-base">Telegram</div>
+                        <div class="text-indigo-400 font-mono text-xs mt-0.5">@Easyvaleriy</div>
+                        <div class="text-zinc-400 text-xs mt-2" data-i18n="contact.tgdesc">Быстрая связь для вопросов и офферов.</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Email Card with Border Beam -->
+            <a href="mailto:valeador555@gmail.com" class="reveal-init border-beam-panel bento-card text-left group overflow-hidden" style="--beam-color-1: #10b981; --beam-color-2: #38bdf8; --beam-color-3: #a855f7;">
+                <div aria-hidden="true" class="border-beam-glow"></div>
+                <div aria-hidden="true" class="border-beam-ring"></div>
+                <div class="bento-core relative z-10">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <i class="ph-bold ph-envelope-simple text-xl"></i>
+                            </div>
+                            <i class="ph ph-arrow-up-right text-zinc-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div class="text-white font-bold text-base">Email</div>
+                        <div class="text-emerald-400 font-mono text-xs mt-0.5 truncate">valeador555@gmail.com</div>
+                        <div class="text-zinc-400 text-xs mt-2" data-i18n="contact.emaildesc">Прямая почта для документации и ТЗ.</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- GitHub Card with Border Beam -->
+            <a href="https://github.com/Valerador" target="_blank" class="reveal-init border-beam-panel bento-card text-left group overflow-hidden" style="--beam-color-1: #818cf8; --beam-color-2: #38bdf8; --beam-color-3: #ff6b5e;">
+                <div aria-hidden="true" class="border-beam-glow"></div>
+                <div aria-hidden="true" class="border-beam-ring"></div>
+                <div class="bento-core relative z-10">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-zinc-300 group-hover:bg-white group-hover:text-black transition-all">
+                                <i class="ph-bold ph-github-logo text-xl"></i>
+                            </div>
+                            <i class="ph ph-arrow-up-right text-zinc-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <div class="text-white font-bold text-base">GitHub</div>
+                        <div class="text-zinc-400 font-mono text-xs mt-0.5">github.com/Valerador</div>
+                        <div class="text-zinc-400 text-xs mt-2" data-i18n="contact.ghdesc">Исходный код, коммиты и архитектура.</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Printable Resume CTA Footer -->
+        <div class="reveal-init mt-12 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+            <div>
+                © 2026 Valerii. Systems Architect & Fullstack AI Developer.
+            </div>
+            <a href="resume_printable.html" target="_blank" class="text-zinc-400 hover:text-white font-mono flex items-center gap-1.5 transition-colors">
+                <i class="ph ph-printer text-amber-400"></i>
+                <span data-i18n="footer.cv">Печатная версия резюме (PDF)</span> ↗
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Lenis Smooth Momentum Scroll Engine -->
+    <script src="lenis.min.js"></script>
+    <!-- App Logic -->
     <script src="app.js"></script>
 </body>
 </html>
