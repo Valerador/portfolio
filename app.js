@@ -15,12 +15,15 @@ const translations = {
         'nav.contact': 'Контакты',
         'nav.cv': 'Открыть CV',
 
+        'hero.name': 'Валерий',
+        'hero.role': 'AI Solutions & Full-Stack Engineer',
         'hero.status': 'Открыт к предложениям & Вакансиям',
         'hero.line1': 'Разработка полносистемных ИИ-сервисов',
         'hero.line2': 'и защищенной серверной инфраструктуры',
         'hero.sub': 'Архитектура коммерческих React + Supabase RLS платформ, автономных n8n-пайплайнов, E2E автотестов и защищенного Linux DevOps.',
         'hero.cta.tg': 'Написать в Telegram',
         'hero.cta.cv': 'Открыть Резюме (PDF)',
+        'hero.stackline.label': 'Ключевой стек:',
 
         'metrics.m1': 'Проектов и ИИ-ботов',
         'metrics.m2': 'СУБД-изоляция доступа',
@@ -109,12 +112,15 @@ const translations = {
         'nav.contact': 'Contact',
         'nav.cv': 'Open CV',
 
-        'hero.status': 'Available for Fullstack AI & Architecture Roles',
+        'hero.name': 'Valerii',
+        'hero.role': 'AI Solutions & Full-Stack Engineer',
+        'hero.status': 'Available for Offers & Roles',
         'hero.line1': 'Engineering Autonomous AI Platforms',
         'hero.line2': 'and Resilient Cloud Infrastructure',
         'hero.sub': 'Architecting commercial React + Supabase RLS platforms, autonomous n8n workflows, E2E test suites, and hardened Linux DevOps.',
         'hero.cta.tg': 'Message on Telegram',
         'hero.cta.cv': 'Open Resume (PDF)',
+        'hero.stackline.label': 'Core Stack:',
 
         'metrics.m1': 'Production MVPs & Bots',
         'metrics.m2': 'Database RLS Isolation',
@@ -199,14 +205,21 @@ const translations = {
 function applyLanguage(lang) {
     currentLang = lang;
 
-    // Update language toggle button label
+    // Update language toggle button label to show only the current active language
     const langBtnText = document.getElementById('lang-btn-text');
     if (langBtnText) {
-        if (currentLang === 'RU') {
-            langBtnText.innerHTML = `RU / <span class="text-zinc-500">EN</span>`;
-        } else {
-            langBtnText.innerHTML = `<span class="text-zinc-500">RU</span> / EN`;
-        }
+        langBtnText.textContent = currentLang;
+    }
+
+    const langBtnTooltip = document.getElementById('lang-btn-tooltip');
+    if (langBtnTooltip) {
+        langBtnTooltip.textContent = currentLang === 'RU' ? 'English' : 'Русский';
+    }
+
+    const langBtn = document.getElementById('lang-toggle-btn');
+    if (langBtn) {
+        langBtn.setAttribute('aria-label', currentLang === 'RU' ? 'Переключить на English' : 'Switch to Russian');
+        langBtn.setAttribute('title', currentLang === 'RU' ? 'Переключить на English' : 'Switch to Russian');
     }
 
     // Update all i18n text nodes
@@ -1015,7 +1028,7 @@ function initScrollObserver() {
                 observer.unobserve(entry.target);
 
                 // If element is in a horizontal snap container, reveal all sibling cards
-                const carouselParent = entry.target.closest('[data-lenis-prevent]');
+                const carouselParent = entry.target.closest('.snap-carousel');
                 if (carouselParent) {
                     carouselParent.querySelectorAll('.reveal-init').forEach(card => {
                         card.classList.add('reveal-visible');

@@ -128,9 +128,10 @@
             <span class="dock-tooltip" data-i18n="nav.cv">Открыть CV</span>
         </a>
 
-        <!-- RU / EN Language Toggle -->
-        <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono font-medium text-zinc-300 transition-colors ml-0.5">
-            <span id="lang-btn-text">RU / <span class="text-zinc-500">EN</span></span>
+        <!-- Current Language Toggle Button -->
+        <button id="lang-toggle-btn" onclick="toggleLanguage()" aria-label="Переключить язык (RU/EN)" title="Переключить на English" class="ml-0.5">
+            <span id="lang-btn-text">RU</span>
+            <span class="dock-tooltip" id="lang-btn-tooltip">English</span>
         </button>
     </nav>
 
@@ -138,19 +139,11 @@
     <!-- ==========================================================================
          HERO SECTION (High-Status Linear Aesthetic with 3D Ambient Particle Cube)
          ========================================================================== -->
-    <header id="hero" class="relative z-10 pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center text-center overflow-x-clip sm:overflow-visible">
+    <header id="hero" class="relative z-10 min-h-screen min-h-[100dvh] pt-20 pb-28 md:pt-24 md:pb-36 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto flex flex-col items-center justify-center text-center overflow-x-clip sm:overflow-visible">
         
         <!-- Ambient 3D Retina Particle Cube (Framing Headline from Background) -->
-        <div class="absolute top-[33%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] md:w-[720px] lg:w-[960px] h-[320px] sm:h-[440px] md:h-[560px] lg:h-[680px] pointer-events-none z-0 flex items-center justify-center opacity-80">
+        <div class="absolute top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] md:w-[720px] lg:w-[960px] h-[320px] sm:h-[440px] md:h-[560px] lg:h-[680px] pointer-events-none z-0 flex items-center justify-center opacity-80">
             <canvas id="particle-star-canvas" class="w-full h-full"></canvas>
-        </div>
-
-        <!-- Live Status Pill -->
-        <div class="reveal-init relative z-10 mb-6">
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span data-i18n="hero.status">Открыт к предложениям & Вакансиям</span>
-            </div>
         </div>
 
         <!-- Main Headline (Linear Display Discipline: Max 2 lines) -->
@@ -160,7 +153,7 @@
         </h1>
 
         <!-- Value Proposition Subtext (<= 25 words per taste-skill rules) -->
-        <p class="reveal-init relative z-10 text-zinc-300 text-base sm:text-lg max-w-2xl leading-relaxed mb-6" data-i18n="hero.sub">
+        <p class="reveal-init relative z-10 text-zinc-300 text-base sm:text-lg max-w-2xl leading-relaxed mb-8" data-i18n="hero.sub">
             Архитектура коммерческих React + Supabase RLS платформ, автономных n8n-пайплайнов, E2E автотестов и защищенного Linux DevOps.
         </p>
 
@@ -182,23 +175,16 @@
             </a>
         </div>
 
-        <!-- Engineering Reality Metrics Strip (Clean, Honest, No Fake Percentages) -->
-        <div class="reveal-init relative z-10 w-full max-w-3xl grid grid-cols-2 sm:grid-cols-4 gap-3 p-2 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm mt-4">
-            <div class="p-4 text-center">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">15+</div>
-                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m1">Проектов и ИИ-ботов</div>
+        <!-- Live Status Pill & Personal Identity Badges (Moved Below CTAs) -->
+        <div class="reveal-init relative z-10 flex flex-wrap items-center justify-center gap-2.5">
+            <div class="identity-badge">
+                <span class="text-white font-semibold tracking-wide" data-i18n="hero.name">Валерий</span>
+                <span class="text-zinc-600 mx-1">/</span>
+                <span class="text-zinc-300" data-i18n="hero.role">AI Solutions & Full-Stack Engineer</span>
             </div>
-            <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400 tabular-nums">RLS</div>
-                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m2">СУБД-изоляция доступа</div>
-            </div>
-            <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-indigo-400 tabular-nums">CI/CD</div>
-                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m3">Автодеплой на Linux</div>
-            </div>
-            <div class="p-4 text-center border-l border-white/[0.06]">
-                <div class="text-2xl sm:text-3xl font-bold font-mono text-amber-400 tabular-nums">E2E</div>
-                <div class="text-xs text-zinc-400 mt-1" data-i18n="metrics.m4">Playwright & Vitest</div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span data-i18n="hero.status">Открыт к предложениям & Вакансиям</span>
             </div>
         </div>
 
@@ -208,7 +194,7 @@
     <!-- ==========================================================================
          PROJECTS SECTION (Asymmetric Bento Grid with Doppelrand Architecture)
          ========================================================================== -->
-    <section id="projects" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="projects" class="relative z-10 pt-24 pb-20 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         
         <!-- Section Header -->
         <div class="reveal-init mb-12 text-left">
@@ -227,7 +213,7 @@
         </div>
 
         <!-- 12-Column Asymmetric Bento Grid on Desktop / Snap Carousel on Mobile -->
-        <div class="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 no-scrollbar lg:grid lg:grid-cols-12 lg:gap-5 lg:mx-0 lg:px-0 lg:pb-0 lg:overflow-visible" data-lenis-prevent>
+        <div class="snap-carousel flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 no-scrollbar lg:grid lg:grid-cols-12 lg:gap-5 lg:mx-0 lg:px-0 lg:pb-0 lg:overflow-visible">
             
             <!-- TILE 1: Atlas CRM (Primary Flagship - 8 Columns) -->
             <div class="reveal-init bento-card w-[86vw] sm:w-[380px] lg:w-auto shrink-0 snap-center lg:col-span-8 lg:shrink flex flex-col justify-between">
@@ -540,7 +526,7 @@
                             <span class="font-mono truncate">supabase/migrations/20260215_tenant_rls_security.sql</span>
                             <span class="text-zinc-500 font-mono text-xs shrink-0">PostgreSQL</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-sql"><span class="text-indigo-400">ALTER TABLE</span> clients <span class="text-indigo-400">ENABLE ROW LEVEL SECURITY</span>;
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-sql"><span class="text-indigo-400">ALTER TABLE</span> clients <span class="text-indigo-400">ENABLE ROW LEVEL SECURITY</span>;
 
 <span class="text-zinc-500">-- Политика: Пользователь видит только записи своей организации (Tenant Isolation)</span>
 <span class="text-indigo-400">CREATE POLICY</span> <span class="text-emerald-400">"tenant_isolated_access"</span>
@@ -574,7 +560,7 @@
                             <span class="font-mono truncate">workflows/telegram-booking-orchestrator.json</span>
                             <span class="text-zinc-500 font-mono text-xs shrink-0">Pipeline Flow</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-json">{
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-json">{
   <span class="text-indigo-400">"nodes"</span>: [
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"Telegram Webhook"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.webhook"</span> },
     { <span class="text-emerald-400">"name"</span>: <span class="text-zinc-200">"PostgreSQL RAG Slots Query"</span>, <span class="text-emerald-400">"type"</span>: <span class="text-zinc-200">"n8n-nodes-base.postgres"</span> },
@@ -605,7 +591,7 @@
                             <span class="font-mono truncate">.github/workflows/production-deploy.yml</span>
                             <span class="text-zinc-500 font-mono text-xs shrink-0">YAML</span>
                         </div>
-                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto" data-lenis-prevent><code class="language-yaml"><span class="text-indigo-400">name</span>: <span class="text-zinc-200">Production Build & Linux Deploy</span>
+                        <pre class="code-content text-zinc-300 font-mono text-xs overflow-x-auto"><code class="language-yaml"><span class="text-indigo-400">name</span>: <span class="text-zinc-200">Production Build & Linux Deploy</span>
 <span class="text-indigo-400">jobs</span>:
   <span class="text-emerald-400">test-and-deploy</span>:
     <span class="text-indigo-400">runs-on</span>: <span class="text-zinc-200">ubuntu-latest</span>
@@ -646,7 +632,7 @@
             <span data-i18n="stack.swipe">Свайп для просмотра стека →</span>
         </div>
 
-        <div class="flex flex-row overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-4 px-4 pb-4 no-scrollbar md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-5 md:mx-0 md:px-0 md:pb-0 md:overflow-visible" data-lenis-prevent>
+        <div class="snap-carousel flex flex-row overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-4 px-4 pb-4 no-scrollbar md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-5 md:mx-0 md:px-0 md:pb-0 md:overflow-visible">
             
             <!-- Category 1: Frontend -->
             <div class="reveal-init bento-card w-[78vw] sm:w-[320px] md:w-auto shrink-0 snap-center md:shrink flex flex-col justify-between">

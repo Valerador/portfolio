@@ -48,8 +48,8 @@ html.lenis, html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+.snap-carousel {
+  overscroll-behavior-x: contain;
 }
 
 .lenis.lenis-stopped {
@@ -71,8 +71,13 @@ html.lenis, html.lenis body {
 }
 
 /* Ambient Backdrop Text Legibility over 3D Particle Cube */
-#hero h1, #hero p, #hero .status-badge {
+#hero h1, #hero p, #hero .status-badge, #hero .identity-badge {
   text-shadow: 0 2px 24px rgba(9, 9, 11, 0.95), 0 0 40px rgba(9, 9, 11, 0.85);
+}
+
+#hero {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 html {
@@ -297,6 +302,40 @@ code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   50% { opacity: 0.5; transform: scale(0.85); }
 }
 
+/* Personal Identity Eyebrow Badge */
+.identity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  font-weight: 500;
+  color: #e4e4e7;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-medium);
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+/* Core Production Stack Line (Option 3) */
+.hero-stackline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.75rem;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
 /* Floating Linear Dock */
 .linear-dock {
   position: fixed;
@@ -361,9 +400,38 @@ code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-.dock-btn:hover .dock-tooltip {
+.dock-btn:hover .dock-tooltip,
+#lang-toggle-btn:hover .dock-tooltip {
   opacity: 1;
   transform: translateX(-50%) scale(1);
+}
+
+#lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+#lang-toggle-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Mobile Responsive Optimization for Linear Dock */
@@ -390,8 +458,18 @@ code, pre, kbd, .font-mono, .tech-tag, .metric-val, .tabular-nums {
   }
 
   #lang-toggle-btn {
-    padding: 0.25rem 0.45rem;
-    font-size: 0.65rem;
+    width: 2.125rem;
+    height: 2.125rem;
+    padding: 0;
+    font-size: 0.7rem;
+  }
+
+  .hero-stackline {
+    border-radius: 14px;
+    padding: 0.5rem 0.75rem;
+    gap: 0.35rem 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
   }
 }
 
@@ -597,7 +675,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 #lang-toggle-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92) translateY(0);
 }
 
 /* Accessible Focus Rings for Keyboard Navigation */
