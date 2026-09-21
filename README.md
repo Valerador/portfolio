@@ -19,15 +19,15 @@
 
 While commercial project codebases remain in private repositories due to NDA and IP protection, below is an overview of key systems I've architected and shipped:
 
-### 1. 🏢 Atlas CRM — Multi-Tenant Business Automation Platform ([crm.atlasauto.space](https://crm.atlasauto.space))
+### 1. 🏢 Atlas CRM — Multi-Tenant Business Automation Platform ([app.atlascrm.me](https://app.atlascrm.me))
 * **Role:** Lead Architect & Full-Stack Developer
-* **Live App:** [crm.atlasauto.space](https://crm.atlasauto.space)
+* **Live App:** [app.atlascrm.me](https://app.atlascrm.me)
 * **Tech Stack:** React, Vite, Tailwind CSS, Supabase (PostgreSQL), Playwright, GitHub Actions, Nginx, Linux Ubuntu
 * **Highlights:** Commercial MVP designed for niche service businesses. Features multi-tenant row-level data privacy (**Supabase RLS**), automated E2E regression test suites with Playwright & Vitest, and zero-downtime CI/CD deployments to dedicated Linux servers.
 
-### 2. 🌐 Atlas Studio — Web Development & Automations ([atlasauto.space](https://atlasauto.space))
+### 2. 🌐 Atlas Studio — Web Development & Automations ([atlascrm.me](https://atlascrm.me))
 * **Role:** Founder & Lead Web Developer
-* **Live Website:** [atlasauto.space](https://atlasauto.space)
+* **Live Website:** [atlascrm.me](https://atlascrm.me)
 * **Tech Stack:** React, Tailwind CSS, n8n, Supabase, Webhooks, Figma
 * **Highlights:** Custom web development and business automation agency. Engineering high-converting commercial websites, custom SPAs, lead-capture systems, and automated messaging pipelines for clients.
 
