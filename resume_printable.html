@@ -205,7 +205,7 @@
         <!-- HEADER -->
         <header class="header">
             <h1 class="name" id="cv-name">VALERII</h1>
-            <div class="role" id="cv-role">AI Solutions Engineer & Full-Stack Developer</div>
+            <div class="role" id="cv-role">Lead Full-Stack & Applied AI Engineer</div>
             <div class="contact-bar">
                 <span class="contact-item" id="cv-location">📍 Remote (UTC+3)</span>
                 <span class="contact-item">✉️ <a href="mailto:valeador555@gmail.com">valeador555@gmail.com</a></span>
@@ -220,7 +220,7 @@
         <section class="section">
             <h2 class="section-title" id="cv-stitle-summary">Professional Summary</h2>
             <p class="summary-text" id="cv-summary-text">
-                AI-Native Full-Stack & Automation Engineer with a B.S. in Software Engineering (MIREA University). Specialized in rapid MVP development (React + Vite + Supabase), architecting autonomous AI agents, n8n workflow automations, Telegram user-bots, and cloud server infrastructure (Linux, Docker, Nginx, GitHub Actions CI/CD). Leverages modern AI-assisted workflows (Claude, Antigravity IDE, Supabase MCP) to build scalable, secure, and fully tested business applications 3-5x faster than traditional dev cycles.
+                Lead Full-Stack & Applied AI Engineer with 3.5+ years of production experience and a B.S. in Software Engineering (MIREA). Proven track record of architecting end-to-end B2B platforms, enterprise telecommunications AI, Computer Vision pipelines, and autonomous agent ecosystems. Specializes in building high-concurrency web systems (React, TypeScript, Node.js/Fastify, Python/FastAPI), complex database architectures (PostgreSQL, Supabase, RLS, Drizzle), and applied multimodal intelligence: real-time call speech analytics & recommendation engines, OCR/license plate recognition, and stealth MTProto Telegram user-bots. Hands-on DevOps experience with Docker Compose, Linux, Nginx, and GitHub Actions CI/CD.
             </p>
         </section>
 
@@ -228,10 +228,10 @@
         <section class="section">
             <h2 class="section-title" id="cv-stitle-comp">Core Competencies</h2>
             <ul class="skills-list" id="cv-skills-list">
-                <li><strong>AI & Workflow Automation:</strong> LLM APIs (OpenAI / Claude), RAG Systems, Model Context Protocol (MCP), n8n Workflows, Telegram User-Bots, Webhooks, Advanced Prompt Engineering.</li>
-                <li><strong>Full-Stack & Databases:</strong> React, Vite, SPA Architecture, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.</li>
-                <li><strong>DevOps & Infrastructure:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Custom VPN Server Management.</li>
-                <li><strong>Testing & CI/CD:</strong> Git, GitHub Actions (Automated Deployment), Playwright E2E Testing, Vitest.</li>
+                <li><strong>Full-Stack & APIs:</strong> TypeScript, JavaScript, React, Next.js, Node.js (Fastify, Express), Python (FastAPI), Tailwind CSS, TanStack Query, RESTful APIs, WebSockets, FSM State Machines.</li>
+                <li><strong>Applied AI & Multimodal Intelligence:</strong> Telephony Voice Analytics (STT, Real-time Call Summarization & Coaching), Computer Vision (ALPR/OCR, document & plate scanning), Stealth Telegram User-Bots (MTProto), RAG Pipelines, LLM APIs (Claude / OpenAI), n8n Workflow Orchestration.</li>
+                <li><strong>Databases & Data Architecture:</strong> PostgreSQL, Supabase (Row Level Security / RLS), Drizzle ORM, Prisma, Database Transactions, Optimistic Concurrency Control, Redis.</li>
+                <li><strong>DevOps, Infrastructure & QA:</strong> Docker, Docker Compose, Linux (Ubuntu), Nginx Reverse Proxy, Git, GitHub Actions CI/CD, Vitest, Playwright E2E Testing, Cloudflare DNS/WAF.</li>
             </ul>
         </section>
 
@@ -243,35 +243,47 @@
                 <div class="project-header">
                     <div class="project-title" id="cv-p1-title">Atlas CRM (app.atlascrm.me) — Lead Architect & Full-Stack Developer</div>
                 </div>
-                <div class="project-tech" id="cv-p1-tech">Tech Stack: React, Vite, Supabase (PostgreSQL, RLS Security), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest</div>
+                <div class="project-tech" id="cv-p1-tech">Tech Stack: React, TypeScript, Vite, Supabase (PostgreSQL, RLS), Node.js, Nginx, Docker, GitHub Actions, Playwright E2E, Vitest</div>
                 <ul class="project-bullets" id="cv-p1-bullets">
-                    <li>Architected and developed a commercial CRM platform designed to automate operations for niche service providers.</li>
-                    <li>Enforced multi-tenant data privacy and granular access controls using Supabase Row Level Security (RLS) policies at the database layer.</li>
-                    <li>Implemented automated E2E regression testing with Playwright and unit testing with Vitest to verify slot booking logic.</li>
-                    <li>Configured automated CI/CD deployment pipelines using GitHub Actions, shipping code to an Nginx Linux server behind Cloudflare DNS/SSL.</li>
+                    <li>Architected and launched a commercial multi-tenant SaaS platform automating core operations, booking schedules, and financial workflows for service businesses.</li>
+                    <li>Engineered a reactive frontend on React + TypeScript + Tailwind with deep client-side state management, responsive scheduling matrices, and live updates.</li>
+                    <li>Enforced strict multi-tenant data isolation and role-based access using Supabase Row Level Security (RLS) policies at the PostgreSQL database layer.</li>
+                    <li>Automated E2E regression pipelines using Playwright and Vitest, deploying via GitHub Actions to a hardened Linux Nginx environment behind Cloudflare.</li>
                 </ul>
             </div>
 
             <div class="project-item">
                 <div class="project-header">
-                    <div class="project-title" id="cv-p2-title">AI Booking & Customer Support Assistant (Telegram + n8n + LLM)</div>
+                    <div class="project-title" id="cv-p2-title">Telephony Speech Analytics & Computer Vision OCR Pipeline</div>
                 </div>
-                <div class="project-tech" id="cv-p2-tech">Tech Stack: Telegram API (User-Bot), n8n Engine, LLM API, Webhooks, Google Calendar API</div>
+                <div class="project-tech" id="cv-p2-tech">Tech Stack: Speech-to-Text (STT), LLM Analytics, Computer Vision (OCR/Detection), Python, FastAPI, Webhooks, PostgreSQL</div>
                 <ul class="project-bullets" id="cv-p2-bullets">
-                    <li>Engineered a human-like AI agent operating directly via Telegram user account (Telegram API).</li>
-                    <li>Implemented RAG-based context retrieval: fetches company rules, services, and live slot availability from DB in real-time.</li>
-                    <li>Enables autonomous appointment scheduling, slot negotiation, and instantly dispatches lead notifications to business managers.</li>
+                    <li>Engineered an automated telephony intelligence system: transcribes incoming customer calls (STT), analyzes client sentiment/objections, and generates actionable sales recommendations for operators in real-time.</li>
+                    <li>Built a Computer Vision OCR pipeline that scans vehicle photos and automatically detects license plates / documents, instantly populating customer profile cards without manual typing.</li>
+                    <li>Integrated call and vision analytics directly into the central CRM backend via event-driven webhooks and async background workers.</li>
                 </ul>
             </div>
 
             <div class="project-item">
                 <div class="project-header">
-                    <div class="project-title" id="cv-p3-title">DevOps & Server Infrastructure Automation</div>
+                    <div class="project-title" id="cv-p3-title">Stealth MTProto Telegram Userbot & Autonomous Booking Engine</div>
                 </div>
-                <div class="project-tech" id="cv-p3-tech">Tech Stack: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN</div>
+                <div class="project-tech" id="cv-p3-tech">Tech Stack: Telegram MTProto API, Python, LLM API, RAG Architecture, n8n Orchestration, Webhooks</div>
                 <ul class="project-bullets" id="cv-p3-bullets">
-                    <li>Deployment, hardening, and administration of production Linux Ubuntu servers.</li>
-                    <li>Configured Nginx Reverse Proxy, SSL encryption, Cloudflare WAF protection, and private VPN network setups.</li>
+                    <li>Developed a human-indistinguishable autonomous agent operating directly via Telegram MTProto client protocol (user accounts).</li>
+                    <li>Implemented real-time RAG context retrieval: fetches company rules, live calendar slot availability, and price tiers directly from PostgreSQL.</li>
+                    <li>Handles customer negotiation, autonomously books client appointments, and notifies dispatchers, increasing lead-to-booking conversion.</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-title" id="cv-p4-title">DevOps & Cloud Infrastructure Hardening</div>
+                </div>
+                <div class="project-tech" id="cv-p4-tech">Tech Stack: Linux Ubuntu, Docker Compose, Nginx, Certbot SSL, Cloudflare WAF, WireGuard/VPN</div>
+                <ul class="project-bullets" id="cv-p4-bullets">
+                    <li>Configured and orchestrated containerized microservices using Docker and Docker Compose on production Linux Ubuntu instances.</li>
+                    <li>Set up Nginx Reverse Proxy with automated SSL (Let's Encrypt), Cloudflare WAF DDoS mitigation, and custom private VPN routing.</li>
                 </ul>
             </div>
         </section>
@@ -295,43 +307,50 @@
     <script>
         const cvData = {
             EN: {
-                title: "Valerii - AI Solutions & Full-Stack Engineer CV",
+                title: "Valerii - Lead Full-Stack & Applied AI Engineer CV",
                 printInst: '💡 <strong>Instruction:</strong> Press <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (or <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> on Mac) → Choose <strong>"Save as PDF"</strong> → Turn off headers/footers in print settings.',
                 btnText: '🌐 Switch to RU (Русская версия)',
                 name: 'VALERII',
-                role: 'AI Solutions Engineer & Full-Stack Developer',
+                role: 'Lead Full-Stack & Applied AI Engineer',
                 location: '📍 Remote (UTC+3)',
                 langProf: '🗣️ English: B1-B2 Working Proficiency',
                 stitleSummary: 'Professional Summary',
-                summaryText: 'AI-Native Full-Stack & Automation Engineer with a B.S. in Software Engineering (MIREA University). Specialized in rapid MVP development (React + Vite + Supabase), architecting autonomous AI agents, n8n workflow automations, Telegram user-bots, and cloud server infrastructure (Linux, Docker, Nginx, GitHub Actions CI/CD). Leverages modern AI-assisted workflows (Claude, Antigravity IDE, Supabase MCP) to build scalable, secure, and fully tested business applications 3-5x faster than traditional dev cycles.',
+                summaryText: 'Lead Full-Stack & Applied AI Engineer with 3.5+ years of production experience and a B.S. in Software Engineering (MIREA). Proven track record of architecting end-to-end B2B platforms, enterprise telecommunications AI, Computer Vision pipelines, and autonomous agent ecosystems. Specializes in building high-concurrency web systems (React, TypeScript, Node.js/Fastify, Python/FastAPI), complex database architectures (PostgreSQL, Supabase, RLS, Drizzle), and applied multimodal intelligence: real-time call speech analytics & recommendation engines, OCR/license plate recognition, and stealth MTProto Telegram user-bots. Hands-on DevOps experience with Docker Compose, Linux, Nginx, and GitHub Actions CI/CD.',
                 stitleComp: 'Core Competencies',
                 skills: [
-                    '<strong>AI & Workflow Automation:</strong> LLM APIs (OpenAI / Claude), RAG Systems, Model Context Protocol (MCP), n8n Workflows, Telegram User-Bots, Webhooks, Advanced Prompt Engineering.',
-                    '<strong>Full-Stack & Databases:</strong> React, Vite, SPA Architecture, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.',
-                    '<strong>DevOps & Infrastructure:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Custom VPN Server Management.',
-                    '<strong>Testing & CI/CD:</strong> Git, GitHub Actions (Automated Deployment), Playwright E2E Testing, Vitest.'
+                    '<strong>Full-Stack & APIs:</strong> TypeScript, JavaScript, React, Next.js, Node.js (Fastify, Express), Python (FastAPI), Tailwind CSS, TanStack Query, RESTful APIs, WebSockets, FSM State Machines.',
+                    '<strong>Applied AI & Multimodal Intelligence:</strong> Telephony Voice Analytics (STT, Real-time Call Summarization & Coaching), Computer Vision (ALPR/OCR, document & plate scanning), Stealth Telegram User-Bots (MTProto), RAG Pipelines, LLM APIs (Claude / OpenAI), n8n Workflow Orchestration.',
+                    '<strong>Databases & Data Architecture:</strong> PostgreSQL, Supabase (Row Level Security / RLS), Drizzle ORM, Prisma, Database Transactions, Optimistic Concurrency Control, Redis.',
+                    '<strong>DevOps, Infrastructure & QA:</strong> Docker, Docker Compose, Linux (Ubuntu), Nginx Reverse Proxy, Git, GitHub Actions CI/CD, Vitest, Playwright E2E Testing, Cloudflare DNS/WAF.'
                 ],
                 stitleProjects: 'Featured Projects & Engineering Experience',
                 p1Title: 'Atlas CRM (app.atlascrm.me) — Lead Architect & Full-Stack Developer',
-                p1Tech: 'Tech Stack: React, Vite, Supabase (PostgreSQL, RLS Security), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest',
+                p1Tech: 'Tech Stack: React, TypeScript, Vite, Supabase (PostgreSQL, RLS), Node.js, Nginx, Docker, GitHub Actions, Playwright E2E, Vitest',
                 p1Bullets: [
-                    'Architected and developed a commercial CRM platform designed to automate operations for niche service providers.',
-                    'Enforced multi-tenant data privacy and granular access controls using Supabase Row Level Security (RLS) policies at the database layer.',
-                    'Implemented automated E2E regression testing with Playwright and unit testing with Vitest to verify slot booking logic.',
-                    'Configured automated CI/CD deployment pipelines using GitHub Actions, shipping code to an Nginx Linux server behind Cloudflare DNS/SSL.'
+                    'Architected and launched a commercial multi-tenant SaaS platform automating core operations, booking schedules, and financial workflows for service businesses.',
+                    'Engineered a reactive frontend on React + TypeScript + Tailwind with deep client-side state management, responsive scheduling matrices, and live updates.',
+                    'Enforced strict multi-tenant data isolation and role-based access using Supabase Row Level Security (RLS) policies at the PostgreSQL database layer.',
+                    'Automated E2E regression pipelines using Playwright and Vitest, deploying via GitHub Actions to a hardened Linux Nginx environment behind Cloudflare.'
                 ],
-                p2Title: 'AI Booking & Customer Support Assistant (Telegram + n8n + LLM)',
-                p2Tech: 'Tech Stack: Telegram API (User-Bot), n8n Engine, LLM API, Webhooks, Google Calendar API',
+                p2Title: 'Telephony Speech Analytics & Computer Vision OCR Pipeline',
+                p2Tech: 'Tech Stack: Speech-to-Text (STT), LLM Analytics, Computer Vision (OCR/Detection), Python, FastAPI, Webhooks, PostgreSQL',
                 p2Bullets: [
-                    'Engineered a human-like AI agent operating directly via Telegram user account (Telegram API).',
-                    'Implemented RAG-based context retrieval: fetches company rules, services, and live slot availability from DB in real-time.',
-                    'Enables autonomous appointment scheduling, slot negotiation, and instantly dispatches lead notifications to business managers.'
+                    'Engineered an automated telephony intelligence system: transcribes incoming customer calls (STT), analyzes client sentiment/objections, and generates actionable sales recommendations for operators in real-time.',
+                    'Built a Computer Vision OCR pipeline that scans vehicle photos and automatically detects license plates / documents, instantly populating customer profile cards without manual typing.',
+                    'Integrated call and vision analytics directly into the central CRM backend via event-driven webhooks and async background workers.'
                 ],
-                p3Title: 'DevOps & Server Infrastructure Automation',
-                p3Tech: 'Tech Stack: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN',
+                p3Title: 'Stealth MTProto Telegram Userbot & Autonomous Booking Engine',
+                p3Tech: 'Tech Stack: Telegram MTProto API, Python, LLM API, RAG Architecture, n8n Orchestration, Webhooks',
                 p3Bullets: [
-                    'Deployment, hardening, and administration of production Linux Ubuntu servers.',
-                    'Configured Nginx Reverse Proxy, SSL encryption, Cloudflare WAF protection, and private VPN network setups.'
+                    'Developed a human-indistinguishable autonomous agent operating directly via Telegram MTProto client protocol (user accounts).',
+                    'Implemented real-time RAG context retrieval: fetches company rules, live calendar slot availability, and price tiers directly from PostgreSQL.',
+                    'Handles customer negotiation, autonomously books client appointments, and notifies dispatchers, increasing lead-to-booking conversion.'
+                ],
+                p4Title: 'DevOps & Cloud Infrastructure Hardening',
+                p4Tech: 'Tech Stack: Linux Ubuntu, Docker Compose, Nginx, Certbot SSL, Cloudflare WAF, WireGuard/VPN',
+                p4Bullets: [
+                    'Configured and orchestrated containerized microservices using Docker and Docker Compose on production Linux Ubuntu instances.',
+                    'Set up Nginx Reverse Proxy with automated SSL (Let\'s Encrypt), Cloudflare WAF DDoS mitigation, and custom private VPN routing.'
                 ],
                 stitleEdu: 'Education',
                 edu: [
@@ -340,43 +359,50 @@
                 ]
             },
             RU: {
-                title: "Валерий - AI & Full-Stack Разработчик Резюме CV",
+                title: "Валерий - Ведущий Fullstack & Applied AI Разработчик Резюме CV",
                 printInst: '💡 <strong>Инструкция:</strong> Нажмите <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Ctrl + P</kbd> (или <kbd style="background: #334155; padding: 2px 6px; border-radius: 4px;">Cmd + P</kbd> на Mac) → Выберите <strong>"Сохранить как PDF"</strong> → Отключите верхние/нижние колонтитулы.',
                 btnText: '🌐 Switch to EN (English version)',
                 name: 'ВАЛЕРИЙ',
-                role: 'AI Solutions Engineer & Full-Stack Разработчик',
+                role: 'Ведущий Fullstack & Applied AI Разработчик',
                 location: '📍 Удаленно (UTC+3)',
                 langProf: '🗣️ Английский язык: B1-B2 Working Proficiency',
                 stitleSummary: 'О себе и квалификации',
-                summaryText: 'Full-stack & AI-разработчик с высшим профильным образованием (МИРЭА, Программная инженерия). Специализируется на быстрой разработке MVP-систем (React + Vite + Supabase), проектировании автономных ИИ-агентов, n8n-пайплайнов автоматизации, Telegram-юзерботов и серверной инфраструктуры (Linux, Docker, Nginx, GitHub Actions CI/CD). Активно использует современные ИИ-ассистенты (Claude, Antigravity IDE, Supabase MCP) для создания масштабируемых, защищенных и покрытых тестами бизнес-приложений в 3-5 раз быстрее традиционной разработки.',
+                summaryText: 'Ведущий Fullstack-разработчик и архитектор прикладных AI-решений с профильным высшим образованием (МИРЭА, «Программная инженерия») и 3.5+ годами коммерческого опыта. Специализируется на разработке сложных веб-систем (React, Next.js, TypeScript, Node.js/Fastify, Python/FastAPI), проектировании отказоустойчивых баз данных (PostgreSQL, Supabase, транзакции, RLS) и создании мультимодальных систем: речевая аналитика звонков с выдачей рекомендаций менеджерам в реальном времени, компьютерное зрение (распознавание автономеров/документов по фото), а также автономные Telegram MTProto юзер-боты для бесшовной конверсии лидов. Полный цикл DevOps: Docker Compose, Linux Ubuntu, Nginx, GitHub Actions CI/CD.',
                 stitleComp: 'Ключевые компетенции',
                 skills: [
-                    '<strong>ИИ и Автоматизация:</strong> LLM APIs (OpenAI / Claude), RAG-системы, Model Context Protocol (MCP), n8n Workflows, Telegram User-Bots, Webhooks, Промпт-инжиниринг.',
-                    '<strong>Full-Stack и СУБД:</strong> React, Vite, SPA Архитектура, Supabase (PostgreSQL, Row Level Security / RLS, Realtime APIs), REST APIs.',
-                    '<strong>DevOps и Инфраструктура:</strong> Linux (Ubuntu), Docker, Nginx Reverse Proxy, PM2, SSH, SSL (Certbot), Cloudflare WAF/DNS, Настройка VPN-серверов.',
-                    '<strong>Тестирование и CI/CD:</strong> Git, GitHub Actions (Автоматический деплой), Playwright E2E Тестирование, Vitest.'
+                    '<strong>Full-Stack и Backend:</strong> TypeScript, JavaScript, React, Next.js, Node.js (Fastify, Express), Python (FastAPI), Tailwind CSS, TanStack Query, REST APIs, WebSockets, FSM стейт-машины.',
+                    '<strong>Прикладной ИИ и Мультимодальные Системы:</strong> Речевая аналитика звонков (STT, суммаризация, подсказки операторам), Компьютерное зрение (OCR, автораспознавание номеров и документов), Telegram MTProto юзер-боты, RAG-архитектуры, LLM APIs (Claude / OpenAI), n8n-оркестрация.',
+                    '<strong>Базы данных и Архитектура:</strong> PostgreSQL, Supabase (Row Level Security / RLS), Drizzle ORM, Prisma, Транзакции БД, Оптимистичные блокировки, Redis.',
+                    '<strong>DevOps, Инфраструктура и QA:</strong> Docker, Docker Compose, Linux (Ubuntu), Nginx Reverse Proxy, Git, GitHub Actions CI/CD, Vitest, Playwright E2E Тестирование, Cloudflare.'
                 ],
                 stitleProjects: 'Коммерческие проекты и опыт разработки',
                 p1Title: 'Atlas CRM (app.atlascrm.me) — Ведущий архитектор & Full-Stack разработчик',
-                p1Tech: 'Стек: React, Vite, Supabase (PostgreSQL, RLS), Nginx, Linux, GitHub Actions, Playwright E2E, Vitest',
+                p1Tech: 'Стек: React, TypeScript, Vite, Supabase (PostgreSQL, RLS), Node.js, Nginx, Docker, GitHub Actions, Playwright E2E, Vitest',
                 p1Bullets: [
-                    'Спроектировал и разработал коммерческую CRM-платформу для автоматизации процессов в нишевых сервисных компаниях.',
-                    'Реализовал строгое разграничение прав доступа к данным с помощью полисов Supabase Row Level Security (RLS) на уровне СУБД.',
-                    'Настроил автоматические сквозные тесты (E2E) с Playwright и юнит-тесты Vitest для проверки логики онлайн-записи.',
-                    'Автоматизировал CI/CD деплой через GitHub Actions на Linux-сервер Nginx под защитой Cloudflare DNS/SSL.'
+                    'Спроектировал и вывел в production коммерческую multi-tenant SaaS-платформу для автоматизации бронирования, клиентской базы и финансов сервисного бизнеса.',
+                    'Разработал реактивный фронтенд на React + TypeScript + Tailwind с интерактивными матрицами расписания, фильтрами и real-time обновлениями.',
+                    'Реализовал изоляцию данных и ролевую модель доступа на уровне СУБД с помощью политик Supabase Row Level Security (RLS) в PostgreSQL.',
+                    'Настроил сквозное E2E тестирование на Playwright и юнит-тесты Vitest, автоматизировав CI/CD деплой через GitHub Actions на защищенный Linux/Nginx сервер.'
                 ],
-                p2Title: 'ИИ-Бот Онлайн-Записи и Консультации (Telegram + n8n + LLM)',
-                p2Tech: 'Стек: Telegram API (User-Bot), n8n Engine, LLM API, Webhooks, Google Calendar API',
+                p2Title: 'Речевая Аналитика Звонков & Компьютерное Зрение (OCR автономеров)',
+                p2Tech: 'Стек: Speech-to-Text (STT), LLM Аналитика, Computer Vision (OCR/Детекция), Python, FastAPI, Вебхуки, PostgreSQL',
                 p2Bullets: [
-                    'Создал умного ИИ-агента, ведущего диалоги от лица Telegram-аккаунта (Telegram API).',
-                    'Внедрил извлечение контекста RAG: бот извлекает правила компании, прайс-лист и свободные слоты из СУБД в режиме реального времени.',
-                    'Реализовал автономное согласование времени записи и автоматическую отправку уведомлений менеджерам.'
+                    'Спроектировал систему речевой аналитики звонков: транскрибация речи (STT), выделение потребностей/возражений клиента с помощью LLM и выдача рекомендаций операторам в реальном времени.',
+                    'Разработал модуль компьютерного зрения (Computer Vision / OCR) для распознавания автомобильных номеров и документов по фото с автозаполнением карточек в CRM.',
+                    'Связал речевой анализ и машинное зрение с бэкендом CRM через событийно-ориентированные вебхуки и асинхронные воркеры.'
                 ],
-                p3Title: 'DevOps & Автоматизация Серверной Инфраструктуры',
-                p3Tech: 'Стек: Linux Ubuntu, Docker, Nginx, PM2, Certbot SSL, Cloudflare, WireGuard/VPN',
+                p3Title: 'Автономный Telegram MTProto Юзер-бот & Движок Онлайн-Записи',
+                p3Tech: 'Стек: Telegram MTProto API, Python, LLM API, RAG Архитектура, n8n Оркестрация, Вебхуки',
                 p3Bullets: [
-                    'Развертывание, защита и администрирование Linux Ubuntu серверов.',
-                    'Конфигурация Nginx Reverse Proxy, SSL-шифрования, проксирования Cloudflare WAF и защищенных VPN-сетей.'
+                    'Разработал автономного агента, ведущего естественный диалог от лица живого оператора через протокол MTProto (Telegram Userbot).',
+                    'Внедрил RAG-систему реального времени: бот на лету сверяется с базой знаний, проверяет свободные слоты в CRM и согласует запись.',
+                    'Автоматизировал дожим лидов и запись клиентов без участия человека, повысив конверсию из первого обращения в сделку.'
+                ],
+                p4Title: 'DevOps & Защита Серверной Инфраструктуры',
+                p4Tech: 'Стек: Linux Ubuntu, Docker Compose, Nginx, Certbot SSL, Cloudflare WAF, WireGuard/VPN',
+                p4Bullets: [
+                    'Развертывание и оркестрация контейнеров через Docker и Docker Compose на серверах Linux Ubuntu.',
+                    'Настройка обратного прокси Nginx с автообновлением SSL (Let\'s Encrypt), защита от DDoS через Cloudflare WAF и защищенные VPN-шлюзы.'
                 ],
                 stitleEdu: 'Образование',
                 edu: [
@@ -418,6 +444,10 @@
             document.getElementById('cv-p3-title').textContent = data.p3Title;
             document.getElementById('cv-p3-tech').textContent = data.p3Tech;
             document.getElementById('cv-p3-bullets').innerHTML = data.p3Bullets.map(b => `<li>${b}</li>`).join('');
+
+            document.getElementById('cv-p4-title').textContent = data.p4Title;
+            document.getElementById('cv-p4-tech').textContent = data.p4Tech;
+            document.getElementById('cv-p4-bullets').innerHTML = data.p4Bullets.map(b => `<li>${b}</li>`).join('');
 
             document.getElementById('cv-stitle-edu').textContent = data.stitleEdu;
             document.getElementById('cv-edu-content').innerHTML = data.edu.map(e => `
